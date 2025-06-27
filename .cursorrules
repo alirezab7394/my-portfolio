@@ -1,0 +1,154 @@
+# Project: Personal Portfolio - Modern Developer Portfolio
+
+## Project Structure
+This is a personal portfolio website with 4 main sections:
+1. **Landing/Home Page** - Hero section with introduction and key highlights
+2. **About Page** - Personal background, skills, and experience
+3. **Projects Page** - Showcase of development projects and case studies
+4. **Contact Page** - Contact information and inquiry form
+
+## Technology Stack
+- **Framework**: Next.js with React
+- **Language**: TypeScript (strict mode)
+- **UI Library**: shadcn/ui components
+- **Styling**: Tailwind CSS
+- **Architecture**: Component-based design
+
+## Design System
+- **Primary Color**: #FF6B00 (Orange)
+- **Secondary Color**: #1F2937 (Dark Gray)
+- **Component Library**: shadcn/ui
+- **Styling**: Tailwind CSS utility classes
+
+## Development Guidelines
+
+### React & Next.js Best Practices
+- Follow React hooks rules and patterns
+- Use Next.js App Router for routing
+- Implement proper server/client component separation
+- Use TypeScript for all components and functions
+- Follow Next.js performance optimization patterns
+
+### Component Architecture
+- Create reusable, modular components
+- Use composition over inheritance
+- Implement proper prop typing with TypeScript
+- Follow single responsibility principle
+- Use consistent naming conventions (PascalCase for components)
+
+### SEO Requirements
+- Portfolio pages MUST be SEO optimized
+- Implement proper meta tags, structured data
+- Use semantic HTML elements
+- Optimize images with Next.js Image component
+- Ensure proper heading hierarchy (h1, h2, h3...)
+- Add Open Graph and Twitter Card meta tags for social sharing
+
+### Internationalization
+- This is a multilingual portfolio
+- Implement proper i18n structure
+- Use Next.js internationalization features
+- Consider RTL language support
+- Separate language files for maintainability
+
+### Translation Files Update Rule
+**CRITICAL**: Whenever a new component is created that uses `useTranslations()` or any i18n functionality:
+1. **IMMEDIATELY** update both `messages/en.json` and `messages/fa.json`
+2. Add the new translation keys with appropriate English and Persian translations
+3. Maintain the same JSON structure in both files
+4. Ensure all translation keys have default values in the component
+5. Use descriptive and organized key names (e.g., "ComponentName.sectionName.keyName")
+6. Always test that both language versions work correctly
+7. This is MANDATORY - do not skip translation updates when creating i18n components
+
+### File Structure
+```
+src/
+├── app/
+│   ├── [locale]/           # Localized pages
+│   │   ├── about/          # About page
+│   │   ├── projects/       # Projects showcase
+│   │   ├── contact/        # Contact page
+│   │   └── page.tsx        # Home/Landing page
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── layout/             # Layout components (Header, Footer, Navigation)
+│   ├── sections/           # Page sections (Hero, About, Projects, etc.)
+│   ├── project/            # Project-specific components
+│   └── forms/              # Contact forms
+├── lib/
+├── hooks/
+├── utils/
+└── types/
+messages/
+├── en.json                 # English translations - UPDATE WHEN ADDING i18n COMPONENTS
+└── fa.json                 # Persian translations - UPDATE WHEN ADDING i18n COMPONENTS
+```
+
+### Code Quality
+- Use TypeScript strict mode
+- Implement proper error handling
+- Use ESLint and Prettier
+- Follow component-based architecture
+- Write descriptive commit messages (under 20 words)
+
+### Commit Message Format
+- **feat**: New feature
+- **fix**: Bug fixes  
+- **chore**: Minor tasks
+- **docs**: Documentation changes
+- **style**: Style changes that don't affect functionality
+- **refactor**: Code rewrite without changing functionality
+- **test**: Adding tests
+- **perf**: Performance improvements
+- **build**: Changes to the build system
+- **ci**: CI/CD configurations
+
+### Styling Guidelines
+- Use Tailwind CSS utility classes
+- Implement responsive design (mobile-first)
+- Use primary color (#FF6B00) for CTAs and highlights
+- Use secondary color (#1F2937) for text and backgrounds
+- Follow shadcn/ui design patterns
+- Maintain consistent spacing and typography
+- Implement smooth animations and transitions
+- Use modern design principles (clean, minimal, professional)
+
+### Portfolio Specific Requirements
+- **Hero Section**: Compelling introduction with clear value proposition
+- **About Section**: Professional background, skills, experience timeline
+- **Projects Section**: Case studies with descriptions, technologies used, live demos, and source code links
+- **Contact Section**: Multiple contact methods and inquiry form
+- **Resume/CV**: Downloadable resume and detailed experience
+- **Skills Showcase**: Visual representation of technical skills and proficiencies
+
+### Performance & Accessibility
+- Optimize Core Web Vitals
+- Implement proper loading states
+- Use Next.js Image optimization
+- Follow WCAG accessibility guidelines
+- Implement proper keyboard navigation
+- Optimize for fast loading and smooth scrolling
+- Implement lazy loading for images and components
+
+### Content Management
+- Structure content for easy updates
+- Use TypeScript interfaces for project data
+- Implement proper image optimization
+- Consider headless CMS integration for dynamic content
+- Maintain consistent content formatting
+
+### Security
+- Implement proper form validation
+- Use environment variables for sensitive data
+- Follow Next.js security best practices
+- Implement proper data validation
+- Secure contact form submissions
+
+## Notes
+- Never commit changes automatically in chat
+- Always prioritize user experience and performance
+- Maintain consistency across all portfolio sections
+- Consider mobile-first design approach
+- Focus on showcasing technical skills and project outcomes
+- **REMEMBER**: Always update translation files when creating components with i18n! 
