@@ -1,12 +1,10 @@
-import { useTranslations } from "next-intl";
+import HeroSection from "@/components/landing/HeroSection/HeroSection";
 
 export default function Home() {
-  const t = useTranslations("Index");
-  const title = t("title");
-
   return (
     <div className="min-h-screen">
-      <h1 className="text-2xl font-bold text-red-500">{title}</h1>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
+      <HeroSection />
     </div>
   );
 }

@@ -1,5 +1,25 @@
 {
     "Index": {
         "title": "Hello, world!"
+    },
+    "HeroSection": {
+        "status": "Available for new opportunities",
+        "name": "Alireza Bagheri",
+        "title": "Senior Front-End Developer",
+        "experience": {
+            "years": "7+",
+            "text": "Years of Experience"
+        },
+        "description": "Expert in React and Next.js ecosystems with proven success in leading development teams, driving 40% performance improvements, and delivering scalable applications across international companies.",
+        "cta": {
+            "contact": "Get In Touch",
+            "resume": "Download Resume"
+        },
+        "contact": {
+            "email": "Email",
+            "phone": "Phone",
+            "linkedin": "LinkedIn",
+            "github": "GitHub"
+        }
     }
 }
