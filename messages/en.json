@@ -27,5 +27,130 @@
             "location": "Available Worldwide"
         },
         "availability": "Available for new opportunities"
+    },
+    "ProfileSummarySection": {
+        "title": "Profile Summary",
+        "summary": "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Demonstrated success in leading development teams at Skedpal and Cowsel, driving significant performance improvements including 40% faster load times through modernization initiatives.",
+        "details": "Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance. Strong track record in architectural decisions, team leadership, and delivering complex projects across international companies in the US, UAE, Finland, and Azerbaijan.",
+        "highlights": {
+            "title": "Key Highlights",
+            "leadership": "Led development teams driving 40% performance improvements",
+            "performance": "Delivered significant performance optimizations across multiple projects",
+            "international": "Successfully collaborated with teams across 5 countries"
+        },
+        "stats": {
+            "experience": "Years Experience",
+            "countries": "Countries",
+            "improvement": "Performance Gain",
+            "projects": "Projects"
+        },
+        "specializations": {
+            "title": "Core Specializations"
+        }
+    },
+    "SkillsSection": {
+        "title": "Skills & Expertise",
+        "subtitle": "Comprehensive technical skills and soft skills refined through years of professional development",
+        "technical": {
+            "title": "Technical Skills",
+            "categories": {
+                "frontend": "Frontend Technologies",
+                "state": "State Management",
+                "ui": "UI Frameworks",
+                "backend": "Backend & Database",
+                "tools": "Tools & Testing"
+            }
+        },
+        "soft": {
+            "title": "Soft Skills",
+            "skills": {
+                "problemSolving": {
+                    "title": "Problem Solving",
+                    "description": "Critical thinking and analytical approach to complex challenges"
+                },
+                "communication": {
+                    "title": "Communication",
+                    "description": "Clear communication and effective collaboration across teams"
+                },
+                "adaptability": {
+                    "title": "Adaptability",
+                    "description": "Quick learning and adaptation to new technologies and environments"
+                },
+                "leadership": {
+                    "title": "Leadership",
+                    "description": "Strategic planning and team management for successful project delivery"
+                }
+            }
+        },
+        "summary": {
+            "text": "Continuous learning and innovation in modern web development",
+            "years": "Years",
+            "technologies": "Technologies",
+            "countries": "Countries"
+        }
+    },
+    "ExperienceSection": {
+        "title": "Professional Experience",
+        "subtitle": "A journey of growth, leadership, and technical excellence across diverse projects and teams",
+        "achievements": "Key Achievements",
+        "technologies": "Technologies",
+        "types": {
+            "current": "Current",
+            "leadership": "Leadership",
+            "contract": "Contract",
+            "fulltime": "Full-time",
+            "junior": "Junior",
+            "fullstack": "Full-stack"
+        },
+        "stats": {
+            "years": "Years Experience",
+            "companies": "Companies",
+            "countries": "Countries",
+            "improvement": "Performance Boost"
+        }
+    },
+    "EducationSection": {
+        "title": "Education",
+        "subtitle": "Strong academic foundation in computer science and artificial intelligence",
+        "types": {
+            "masters": "Master's Degree",
+            "bachelors": "Bachelor's Degree"
+        },
+        "achievements": {
+            "title": "Academic Excellence",
+            "specialization": "AI Specialization",
+            "experience": "Years Experience",
+            "degrees": "Degrees Earned"
+        },
+        "skills": {
+            "title": "Academic Foundation"
+        }
+    },
+    "ProjectsSection": {
+        "title": "Notable Projects",
+        "subtitle": "Showcasing innovative solutions and technical achievements across enterprise and personal projects",
+        "achievements": "Key Achievements",
+        "technologies": "Technologies Used",
+        "types": {
+            "enterprise": "Enterprise",
+            "platform": "Platform",
+            "tool": "Tool",
+            "portfolio": "Portfolio"
+        },
+        "actions": {
+            "visit": "Visit Site",
+            "code": "View Code"
+        },
+        "stats": {
+            "projects": "Projects",
+            "efficiency": "Efficiency Gain",
+            "performance": "Performance",
+            "satisfaction": "Satisfaction"
+        },
+        "cta": {
+            "title": "Ready to Start Your Project?",
+            "description": "Let's collaborate on your next innovative solution",
+            "button": "Get In Touch"
+        }
     }
 }

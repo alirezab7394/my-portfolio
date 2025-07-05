@@ -20,6 +20,8 @@ const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export function generateStaticParams() {

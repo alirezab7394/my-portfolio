@@ -1,0 +1,107 @@
+/* Floating Animations */
+@keyframes float-gentle-small {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-gentle-medium {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes float-gentle-large {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes float-gentle-xlarge {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-gentle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes rotate-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes drift-horizontal {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+/* Animation Classes */
+.float-gentle-small {
+  animation: float-gentle-small 6s ease-in-out infinite;
+}
+
+.float-gentle-medium {
+  animation: float-gentle-medium 8s ease-in-out infinite;
+}
+
+.float-gentle-large {
+  animation: float-gentle-large 10s ease-in-out infinite;
+}
+
+.float-gentle-xlarge {
+  animation: float-gentle-xlarge 12s ease-in-out infinite;
+}
+
+.pulse-gentle {
+  animation: pulse-gentle 4s ease-in-out infinite;
+}
+
+.rotate-slow {
+  animation: rotate-slow 30s linear infinite;
+}
+
+.drift-horizontal {
+  animation: drift-horizontal 15s ease-in-out infinite;
+}
+
+/* Combination animations */
+.float-and-pulse {
+  animation: float-gentle-medium 8s ease-in-out infinite, pulse-gentle 4s ease-in-out infinite;
+}
+
+.float-and-drift {
+  animation: float-gentle-large 10s ease-in-out infinite, drift-horizontal 15s ease-in-out infinite;
+}
