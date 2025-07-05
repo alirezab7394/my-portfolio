@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { GraduationCap, BookOpen, Award, MapPin } from "lucide-react";
 import { SectionHeader, InfoCard, IconHeader, TypeBadge, TechTags, StatsGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
+import { SECTION_IDS } from "@/lib/constants";
 
 const education = [
   {
@@ -49,7 +50,10 @@ export default function EducationSection() {
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-white via-slate-50 to-stone-50 relative overflow-hidden">
+    <section
+      id={SECTION_IDS.EDUCATION}
+      className="py-32 bg-gradient-to-br from-white via-slate-50 to-stone-50 relative overflow-hidden"
+    >
       {/* Sophisticated Background */}
       <SectionBackground variant="education" />
 

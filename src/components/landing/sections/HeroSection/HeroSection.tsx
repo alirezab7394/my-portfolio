@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import { StatsGrid, ContactInfo } from "@/components/common";
 import HeroBackground from "./components/background/HeroBackground";
+import { SECTION_IDS } from "@/lib/constants";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
@@ -20,7 +21,10 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden">
+    <section
+      id={SECTION_IDS.HERO}
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden"
+    >
       {/* Sophisticated Background */}
       <HeroBackground />
 

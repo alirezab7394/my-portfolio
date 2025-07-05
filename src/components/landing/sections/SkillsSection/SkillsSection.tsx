@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Code, Layers, Palette, Database, TestTube, Users, MessageSquare, TrendingUp, Target } from "lucide-react";
 import { SectionHeader, InfoCard, IconHeader, StatsGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
+import { SECTION_IDS } from "@/lib/constants";
 
 const skillCategories = [
   {
@@ -48,7 +49,10 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden">
+    <section
+      id={SECTION_IDS.SKILLS}
+      className="py-32 bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden"
+    >
       {/* Sophisticated Background */}
       <SectionBackground variant="skills" />
 

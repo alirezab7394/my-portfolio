@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Calendar, MapPin, ExternalLink, TrendingUp, Users, Code2 } from "lucide-react";
 import { SectionHeader, InfoCard, TypeBadge, AchievementList, TechTags, StatsGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
+import { SECTION_IDS } from "@/lib/constants";
 
 const experiences = [
   {
@@ -111,7 +112,7 @@ export default function ExperienceSection() {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id={SECTION_IDS.EXPERIENCE} className="py-32 relative overflow-hidden">
       {/* Sophisticated Background */}
       <SectionBackground variant="experience" />
 

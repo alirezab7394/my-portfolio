@@ -11,6 +11,7 @@ import {
   StatsGrid,
 } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
+import { SECTION_IDS } from "@/lib/constants";
 
 const projects = [
   {
@@ -94,7 +95,7 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id={SECTION_IDS.PROJECTS} className="py-32 relative overflow-hidden">
       {/* Sophisticated Background */}
       <SectionBackground variant="projects" />
 

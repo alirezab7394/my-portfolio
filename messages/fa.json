@@ -152,5 +152,16 @@
             "description": "بیایید روی راه‌حل نوآورانه بعدی‌تان همکاری کنیم",
             "button": "تماس بگیرید"
         }
+    },
+    "SectionNavigator": {
+        "scrollTo": "اسکرول به {section}",
+        "sections": {
+            "hero": "خانه",
+            "profile": "پروفایل",
+            "skills": "مهارت‌ها",
+            "experience": "تجربه",
+            "education": "تحصیلات",
+            "projects": "پروژه‌ها"
+        }
     }
 }

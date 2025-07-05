@@ -152,5 +152,16 @@
             "description": "Let's collaborate on your next innovative solution",
             "button": "Get In Touch"
         }
+    },
+    "SectionNavigator": {
+        "scrollTo": "Scroll to {section}",
+        "sections": {
+            "hero": "Home",
+            "profile": "Profile",
+            "skills": "Skills",
+            "experience": "Experience",
+            "education": "Education",
+            "projects": "Projects"
+        }
     }
 }

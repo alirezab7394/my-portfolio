@@ -6,5 +6,6 @@ export { default as TechTags } from "./TechTags/TechTags";
 export { default as IconHeader } from "./IconHeader/IconHeader";
 export { default as TypeBadge } from "./TypeBadge/TypeBadge";
 export { default as ContactInfo } from "./ContactInfo/ContactInfo";
+export { default as SectionNavigator } from "./SectionNavigator/SectionNavigator";
 
 // Type exports would need to be defined and exported separately in each component file 
