@@ -3,23 +3,29 @@
         "title": "Hello, world!"
     },
     "HeroSection": {
-        "status": "Available for new opportunities",
+        "greeting": "Hello, I'm",
         "name": "Alireza Bagheri",
         "title": "Senior Front-End Developer",
-        "experience": {
-            "years": "7+",
-            "text": "Years of Experience"
+        "subtitle": "Specialized in React & Next.js Ecosystems",
+        "summary": "Transforming ideas into exceptional digital experiences through clean code and innovative solutions.",
+        "metrics": {
+            "experience": "7+",
+            "experienceLabel": "Years Experience",
+            "projects": "50+",
+            "projectsLabel": "Projects Delivered",
+            "performance": "40%",
+            "performanceLabel": "Performance Improvement"
         },
-        "description": "Expert in React and Next.js ecosystems with proven success in leading development teams, driving 40% performance improvements, and delivering scalable applications across international companies.",
         "cta": {
-            "contact": "Get In Touch",
-            "resume": "Download Resume"
+            "contact": "Let's Connect",
+            "resume": "View Resume",
+            "projects": "View Projects"
         },
         "contact": {
-            "email": "Email",
-            "phone": "Phone",
-            "linkedin": "LinkedIn",
-            "github": "GitHub"
-        }
+            "email": "alireza7394@gmail.com",
+            "phone": "+98 936 655 4441",
+            "location": "Available Worldwide"
+        },
+        "availability": "Available for new opportunities"
     }
 }

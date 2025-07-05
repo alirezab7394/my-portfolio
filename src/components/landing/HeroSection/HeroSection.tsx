@@ -1,114 +1,146 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Github, Linkedin, Mail, Phone, Download, ArrowRight } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import HeroBackground from "./components/background/HeroBackground";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background */}
+    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden">
+      {/* Sophisticated Background */}
       <HeroBackground />
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Status Badge */}
-          <Badge variant="outline" className="mb-6 px-4 py-2 border-primary/20 text-primary bg-primary/5">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-            {t("status")}
-          </Badge>
-
-          {/* Name & Title */}
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-4 tracking-tight">{t("name")}</h1>
-
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent flex-1 max-w-20" />
-            <h2 className="text-xl md:text-2xl text-gray-600 font-medium">{t("title")}</h2>
-            <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent flex-1 max-w-20" />
-          </div>
-
-          {/* Experience Badge */}
-          <div className="inline-flex items-center gap-2 bg-gray-100 rounded-full px-6 py-3 mb-8">
-            <span className="text-3xl font-bold text-primary">{t("experience.years")}</span>
-            <span className="text-gray-700">{t("experience.text")}</span>
-          </div>
-
-          {/* Description */}
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">{t("description")}</p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
-            >
-              {t("cta.contact")}
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-gray-300 hover:border-primary px-8 py-6 text-lg rounded-full transition-all duration-300 group"
-            >
-              <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-              {t("cta.resume")}
-            </Button>
-          </div>
-
-          {/* Contact Links */}
-          <div className="flex justify-center gap-6">
-            <a
-              href="mailto:alireza7394@gmail.com"
-              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
-            >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
-                <Mail className="h-5 w-5" />
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="min-h-screen flex flex-col justify-center">
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-12 gap-16 items-center">
+            {/* Left Column - Main Content */}
+            <div className="lg:col-span-8 space-y-8">
+              {/* Greeting & Name */}
+              <div className="space-y-2">
+                <p className="text-slate-600 text-lg font-light tracking-wide">{t("greeting")}</p>
+                <h1 className="text-5xl lg:text-7xl font-light text-slate-900 tracking-tight leading-none">
+                  {t("name")}
+                </h1>
+                <div className="w-24 h-px bg-gradient-to-r from-primary to-transparent mt-4" />
               </div>
-              <span className="hidden sm:inline font-medium">{t("contact.email")}</span>
-            </a>
 
-            <a
-              href="tel:+989366554441"
-              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
-            >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
-                <Phone className="h-5 w-5" />
+              {/* Title & Subtitle */}
+              <div className="space-y-4">
+                <h2 className="text-2xl lg:text-3xl font-medium text-slate-800 leading-relaxed">{t("title")}</h2>
+                <p className="text-lg text-slate-600 font-light">{t("subtitle")}</p>
               </div>
-              <span className="hidden sm:inline font-medium">{t("contact.phone")}</span>
-            </a>
 
-            <a
-              href="https://www.linkedin.com/in/alireza-bagheri-a6aaa681/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
-            >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
-                <Linkedin className="h-5 w-5" />
-              </div>
-              <span className="hidden sm:inline font-medium">{t("contact.linkedin")}</span>
-            </a>
+              {/* Summary */}
+              <p className="text-xl text-slate-700 font-light leading-relaxed max-w-2xl">{t("summary")}</p>
 
-            <a
-              href="https://github.com/alirezab7394"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
-            >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
-                <Github className="h-5 w-5" />
+              {/* Metrics */}
+              <div className="grid grid-cols-3 gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.experience")}</div>
+                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
+                    {t("metrics.experienceLabel")}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.projects")}</div>
+                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
+                    {t("metrics.projectsLabel")}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.performance")}</div>
+                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
+                    {t("metrics.performanceLabel")}
+                  </div>
+                </div>
               </div>
-              <span className="hidden sm:inline font-medium">{t("contact.github")}</span>
-            </a>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-8">
+                <Button
+                  size="lg"
+                  className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 rounded-none font-medium tracking-wide transition-all duration-300 group"
+                >
+                  {t("cta.contact")}
+                  <ArrowUpRight className="ml-2 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-slate-300 hover:border-slate-900 hover:bg-slate-50 px-8 py-6 rounded-none font-medium tracking-wide transition-all duration-300"
+                >
+                  {t("cta.resume")}
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Column - Contact Info */}
+            <div className="lg:col-span-4 space-y-8">
+              {/* Availability Status */}
+              <div className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-sm p-6 shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-sm text-slate-600 font-medium">{t("availability")}</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <Mail className="h-4 w-4 text-slate-500" />
+                    <span className="font-mono">{t("contact.email")}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <Phone className="h-4 w-4 text-slate-500" />
+                    <span className="font-mono">{t("contact.phone")}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <MapPin className="h-4 w-4 text-slate-500" />
+                    <span>{t("contact.location")}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="space-y-4">
+                <h3 className="text-sm text-slate-600 font-medium tracking-wide uppercase">Connect</h3>
+                <div className="flex gap-4">
+                  <a
+                    href="https://github.com/alirezab7394"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-12 h-12 bg-white border border-slate-200 hover:border-slate-400 transition-colors duration-300 group"
+                  >
+                    <Github className="h-5 w-5 text-slate-600 group-hover:text-slate-900" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/alireza-bagheri-a6aaa681/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-12 h-12 bg-white border border-slate-200 hover:border-slate-400 transition-colors duration-300 group"
+                  >
+                    <Linkedin className="h-5 w-5 text-slate-600 group-hover:text-slate-900" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Technology Stack */}
+              <div className="space-y-4">
+                <h3 className="text-sm text-slate-600 font-medium tracking-wide uppercase">Expertise</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["React", "Next.js", "TypeScript", "Node.js", "Tailwind"].map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium tracking-wide rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Floating Elements */}
     </section>
   );
 }
