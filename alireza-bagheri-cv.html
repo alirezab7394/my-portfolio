@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alireza Bagheri - Senior Front-End Developer</title>
+    <style>
+        :root {
+            --primary-color: #0073b1;
+            --text-color: #333;
+            --border-color: #ccc;
+            --spacing-unit: 10px;
+        }
+
+        body {
+            font-size: 12px;
+            line-height: 1.5;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-unit);
+        }
+
+        h3,
+        p {
+            margin: 0;
+        }
+
+
+        /* Layout Components */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-unit);
+        }
+
+        .left-column {
+            width: 40%;
+        }
+
+        .right-column {
+            width: 60%;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.25em;
+            margin-bottom: .5rem;
+        }
+
+        /* Grid Layouts */
+        .skills-grid,
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-unit);
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: var(--spacing-unit);
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 1.2em;
+            margin: 0.5em 0;
+        }
+
+        /* Utility Classes */
+        .job-title {
+            font-weight: bold;
+            margin: 0.5em 0;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+
+            .skills-grid,
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .left-column,
+            .right-column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container" style="justify-content: flex-start; align-items: center;">
+        <div class="left-column">
+            <h1>Alireza Bagheri</h1>
+            <p class="job-title">Senior Front-End Developer</p>
+        </div>
+        <address>
+            <p>Email: <a href="mailto:alireza7394@gmail.com">alireza7394@gmail.com</a></p>
+            <p>Phone: <a href="tel:+989366554441">+98 936 655 4441</a></p>
+
+        </address>
+        <div style="margin-left: 4rem">
+            <a href="https://www.linkedin.com/in/alireza-bagheri-a6aaa681/">LinkedIn</a> |
+            <a href="https://github.com/alirezab7394">GitHub</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="profile-summary">
+            <h2>Profile Summary</h2>
+            <p>Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems.
+                Demonstrated success in leading development teams at Skedpal and Cowsel, driving significant performance
+                improvements
+                including 40% faster load times through modernization initiatives. Expert in building scalable
+                applications,
+                implementing SSR solutions, and optimizing SEO performance. Strong track record in architectural
+                decisions,
+                team leadership, and delivering complex projects across international companies in the US, UAE, Finland,
+                and Azerbaijan.</p>
+        </section>
+
+        <section class="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <article class="column">
+                    <ul>
+                        <li><strong>Frontend Technologies:</strong> React, Next.js, TypeScript, JavaScript, HTML, CSS,
+                            SCSS
+                        </li>
+                        <li><strong>State Management:</strong> Context, Recoil, Redux</li>
+                        <li><strong>UI Frameworks:</strong> Material UI (MUI), Tailwind, Shadcn</li>
+                        <li><strong>Backend Tools:</strong> Prisma, Firebase, Firestore, MongoDB</li>
+                        <li><strong>Tools & Testing:</strong> Git, Jest, Enzyme, Vitest, Storybook</li>
+                    </ul>
+                </article>
+                <article class="column">
+                    <ul>
+                        <li><strong>Soft Skills:</strong>
+                            <ul>
+                                <li>Problem Solving & Critical Thinking</li>
+                                <li>Communication & Collaboration </li>
+                                <li>Adaptability & Quick Learning</li>
+                                <li>Strategic Planning & Execution</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="professional-experience">
+            <h2>Professional Experience</h2>
+            <div class="experience-grid">
+                <article class="column">
+                    <div class="row">
+                        <h3>Frontend Lead | <a href="https://app.skedpal.com">Skedpal</a></h3>
+                        <p><em>Sep 2021 - Present</em></p>
+                    </div>
+                    <ul>
+                        <li>Directed a team to build and enhance Skedpal's competitive calendar tool.</li>
+                        <li>
+                            Change the landing page from wordpress to next.js and improve the SEO and load time by 30%.
+                        </li>
+                        <li>Led the migration of legacy code from jQuery to modern React, improving code maintainability
+                            and
+                            reducing load times by more than 40%.</li>
+                        <li>Introduced dark mode and built an NLP package, contributing to a more accessible and
+                            inclusive user
+                            experience.</li>
+                    </ul>
+                    <div class="row">
+                        <h3>Developer | <a href="https://techclass.com">TechClass (Finland)</a></h3>
+                        <p><em>Apr 2021 - Jul 2021</em></p>
+                    </div>
+                    <ul>
+                        <li>Converted the landing page from client-side rendering (CSR) to server-side rendering (SSR),
+                            enhancing performance and SEO.</li>
+                    </ul>
+                    <div class="row">
+                        <h3>Mid-level Developer | <a href="https://colors.dopely.top/">Dopely</a></h3>
+                        <p><em>Sep 2020 - May 2021</em></p>
+                    </div>
+                    <ul>
+                        <li>Refactored SSR code and optimized application performance, reducing load times by 30%.</li>
+                        <li>Developed complex, visually engaging components using React, integrating color and
+                            mathematical algorithms to enhance user experience.</li>
+                    </ul>
+                </article>
+                <article class="column">
+                    <div class="row">
+                        <h3>Frontend Team Lead | <a href="https://www.markabu.com/">Cowsel (Azar Amin Azerbaijan)</a>
+                        </h3>
+                        <p><em>Oct 2019 - Apr 2021</em></p>
+                    </div>
+                    <ul>
+                        <li>Managed the development of an ERP system and an online store, leading a team of 5
+                            developers.</li>
+                        <li>Built dynamic form builders and custom reservation calendars, adding value for client
+                            operations.</li>
+                        <li>Developed an international online store using <b>Next.js</b>, enhancing global reach and
+                            user experience for <a href="https://www.markabu.com/">Markabu</a>.</li>
+                    </ul>
+                    <div class="row">
+                        <h3>Junior React Developer | Opeqe (USA)</h3>
+                        <p><em>2019</em></p>
+                    </div>
+                    <ul>
+                        <li>Created reusable components and email templates.</li>
+                        <li>Enhanced problem-solving and independent working skills through proactive self-learning.
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <h3>Developer (React, Java) | <a href="https://setorgandishe.ir/">Setorg Andishe Iranian</a>
+                        </h3>
+                        <p><em>Nov 2018 - May 2019</em></p>
+                    </div>
+                    <ul>
+                        <li>Contributed to government projects with React and Java development, enhancing security and
+                            usability
+                            features.</li>
+                        <li>Gained comprehensive full-stack experience, improving project delivery timelines.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="education">
+            <h2>Education</h2>
+            <div class="skills-grid">
+                <article>
+                    <p><strong>M.Sc. in Artificial Intelligence</strong> | Tabriz University</p>
+                </article>
+                <article>
+                    <p><strong>B.Sc. in Computer Software Engineering</strong> | Bonab University</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="projects">
+            <h2>Notable Projects</h2>
+            <div class="skills-grid">
+                <article>
+                    <h3>Enterprise Solutions</h3>
+                    <ul>
+                        <li>Led development of Cowsel's ERP system, improving operational efficiency by 35%</li>
+                        <li>Architected Skedpal's smart calendar tool with AI-driven scheduling capabilities</li>
+                        <li>Developed color algorithm system for Dopely's visual design platform</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>Client Portfolio</h3>
+                    <ul>
+                        <li>Built and deployed full-stack Next.js applications with MongoDB/Prisma integration</li>
+                        <li>Delivered high-impact websites:
+                            <div class="row" style="flex-wrap: wrap; gap: 0.5rem;">
+                                <a href="http://atashsetizan.com">atashsetizan.com</a>
+                                <a href="https://inelux.ir">inelux.ir</a>
+                                <a href="http://baamtabriz.ir">baamtabriz.ir</a>
+                                <a href="http://najmnews.ir">najmnews.ir</a>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <footer class="references">
+            <p><strong>References available upon request.</strong></p>
+        </footer>
+    </main>
+</body>
+
+</html>

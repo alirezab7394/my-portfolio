@@ -1,15 +1,15 @@
 /**
  * Brand color definitions for My Coach platform
- * Primary: #FF6B00 (Orange)
+ * Primary: #1E40AF (Navy Blue)
  * Secondary: #1F2937 (Dark Gray)
  */
 
 export const brandColors = {
     primary: {
-        hex: '#FF6B00',
-        hsl: 'hsl(29, 100%, 50%)',
-        oklch: 'oklch(0.7 0.194 45.71)',
-        rgb: 'rgb(255, 107, 0)',
+        hex: '#1E40AF',
+        hsl: 'hsl(228, 71%, 40%)',
+        oklch: 'oklch(0.4 0.153 263.5)',
+        rgb: 'rgb(30, 64, 175)',
     },
     secondary: {
         hex: '#1F2937',
@@ -64,10 +64,10 @@ export const getColorClasses = () => ({
     },
     // Brand color classes
     brand: {
-        orange: {
-            bg: 'bg-brand-orange',
-            text: 'text-brand-orange',
-            border: 'border-brand-orange',
+        navy: {
+            bg: 'bg-brand-navy',
+            text: 'text-brand-navy',
+            border: 'border-brand-navy',
         },
         darkGray: {
             bg: 'bg-brand-dark-gray',

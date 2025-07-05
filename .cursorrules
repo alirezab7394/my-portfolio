@@ -15,7 +15,7 @@ This is a personal portfolio website with 4 main sections:
 - **Architecture**: Component-based design
 
 ## Design System
-- **Primary Color**: #FF6B00 (Orange)
+- **Primary Color**: #1E40AF (Navy Blue)
 - **Secondary Color**: #1F2937 (Dark Gray)
 - **Component Library**: shadcn/ui
 - **Styling**: Tailwind CSS utility classes
@@ -107,7 +107,7 @@ messages/
 ### Styling Guidelines
 - Use Tailwind CSS utility classes
 - Implement responsive design (mobile-first)
-- Use primary color (#FF6B00) for CTAs and highlights
+- Use primary color (#1E40AF) for CTAs and highlights
 - Use secondary color (#1F2937) for text and backgrounds
 - Follow shadcn/ui design patterns
 - Maintain consistent spacing and typography

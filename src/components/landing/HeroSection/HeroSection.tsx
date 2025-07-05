@@ -16,7 +16,7 @@ export default function HeroSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Status Badge */}
-          <Badge variant="outline" className="mb-6 px-4 py-2 border-orange-200 text-orange-600 bg-orange-50">
+          <Badge variant="outline" className="mb-6 px-4 py-2 border-primary/20 text-primary bg-primary/5">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
             {t("status")}
           </Badge>
@@ -25,14 +25,14 @@ export default function HeroSection() {
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-4 tracking-tight">{t("name")}</h1>
 
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent flex-1 max-w-20" />
+            <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent flex-1 max-w-20" />
             <h2 className="text-xl md:text-2xl text-gray-600 font-medium">{t("title")}</h2>
-            <div className="h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent flex-1 max-w-20" />
+            <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent flex-1 max-w-20" />
           </div>
 
           {/* Experience Badge */}
           <div className="inline-flex items-center gap-2 bg-gray-100 rounded-full px-6 py-3 mb-8">
-            <span className="text-3xl font-bold text-orange-500">{t("experience.years")}</span>
+            <span className="text-3xl font-bold text-primary">{t("experience.years")}</span>
             <span className="text-gray-700">{t("experience.text")}</span>
           </div>
 
@@ -43,7 +43,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button
               size="lg"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               {t("cta.contact")}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -52,7 +52,7 @@ export default function HeroSection() {
             <Button
               variant="outline"
               size="lg"
-              className="border-2 border-gray-300 hover:border-orange-500 px-8 py-6 text-lg rounded-full transition-all duration-300 group"
+              className="border-2 border-gray-300 hover:border-primary px-8 py-6 text-lg rounded-full transition-all duration-300 group"
             >
               <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               {t("cta.resume")}
@@ -63,9 +63,9 @@ export default function HeroSection() {
           <div className="flex justify-center gap-6">
             <a
               href="mailto:alireza7394@gmail.com"
-              className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors duration-300 group"
+              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
             >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-orange-50 transition-colors duration-300">
+              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
                 <Mail className="h-5 w-5" />
               </div>
               <span className="hidden sm:inline font-medium">{t("contact.email")}</span>
@@ -73,9 +73,9 @@ export default function HeroSection() {
 
             <a
               href="tel:+989366554441"
-              className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors duration-300 group"
+              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
             >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-orange-50 transition-colors duration-300">
+              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
                 <Phone className="h-5 w-5" />
               </div>
               <span className="hidden sm:inline font-medium">{t("contact.phone")}</span>
@@ -85,9 +85,9 @@ export default function HeroSection() {
               href="https://www.linkedin.com/in/alireza-bagheri-a6aaa681/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors duration-300 group"
+              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
             >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-orange-50 transition-colors duration-300">
+              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
                 <Linkedin className="h-5 w-5" />
               </div>
               <span className="hidden sm:inline font-medium">{t("contact.linkedin")}</span>
@@ -97,9 +97,9 @@ export default function HeroSection() {
               href="https://github.com/alirezab7394"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors duration-300 group"
+              className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors duration-300 group"
             >
-              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-orange-50 transition-colors duration-300">
+              <div className="p-3 rounded-full bg-gray-100 group-hover:bg-primary/10 transition-colors duration-300">
                 <Github className="h-5 w-5" />
               </div>
               <span className="hidden sm:inline font-medium">{t("contact.github")}</span>

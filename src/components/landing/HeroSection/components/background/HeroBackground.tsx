@@ -48,7 +48,7 @@ export default function HeroBackground() {
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
       {/* Base Background with Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-orange-50/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30" />
 
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] opacity-60" />
@@ -58,7 +58,7 @@ export default function HeroBackground() {
         className="absolute inset-0 transition-all duration-300"
         style={{
           opacity: isVisible ? 0.8 : 0.2,
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(255,107,0,0.3) 0%, rgba(255,107,0,0.15) 30%, transparent 70%)`,
+          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(30,64,175,0.3) 0%, rgba(30,64,175,0.15) 30%, transparent 70%)`,
           transform: `translate(${(mousePosition.x - 50) * 0.4}px, ${(mousePosition.y - 50) * 0.4}px) scale(${
             isVisible ? 1.15 : 1
           })`,
@@ -73,7 +73,7 @@ export default function HeroBackground() {
           opacity: isVisible ? 0.6 : 0.1,
           background: `radial-gradient(circle at ${100 - mousePosition.x}% ${
             100 - mousePosition.y
-          }%, rgba(107,114,128,0.25) 0%, rgba(107,114,128,0.1) 40%, transparent 80%)`,
+          }%, rgba(31,41,55,0.25) 0%, rgba(31,41,55,0.1) 40%, transparent 80%)`,
           transform: `translate(${(mousePosition.x - 50) * -0.3}px, ${(mousePosition.y - 50) * -0.3}px) scale(${
             isVisible ? 1.08 : 1
           })`,
@@ -86,7 +86,7 @@ export default function HeroBackground() {
         className="absolute inset-0 transition-all duration-500"
         style={{
           opacity: isVisible ? 0.5 : 0.05,
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(255,107,0,0.08) 0%, transparent 90%)`,
+          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(30,64,175,0.08) 0%, transparent 90%)`,
           transform: `translate(${(mousePosition.x - 50) * 0.6}px, ${(mousePosition.y - 50) * 0.6}px) scale(${
             isVisible ? 1.3 : 1
           })`,
@@ -99,7 +99,7 @@ export default function HeroBackground() {
         <div
           key={i}
           className={`absolute rounded-full transition-all duration-300 shadow-lg ${
-            i % 3 === 0 ? "border border-orange-400/30 bg-transparent" : "bg-orange-400/50"
+            i % 3 === 0 ? "border border-blue-400/30 bg-transparent" : "bg-blue-400/50"
           } ${i >= 4 ? "hidden md:block" : ""}`}
           style={{
             width: `${8 + i * 2}px`,
@@ -114,8 +114,8 @@ export default function HeroBackground() {
             background:
               i % 3 === 0
                 ? "transparent"
-                : `radial-gradient(circle, rgba(255,107,0,${0.6 + i * 0.1}) 0%, rgba(255,107,0,0.2) 100%)`,
-            boxShadow: isVisible ? "0 0 20px rgba(255,107,0,0.4)" : "0 0 5px rgba(255,107,0,0.2)",
+                : `radial-gradient(circle, rgba(30,64,175,${0.6 + i * 0.1}) 0%, rgba(30,64,175,0.2) 100%)`,
+            boxShadow: isVisible ? "0 0 20px rgba(30,64,175,0.4)" : "0 0 5px rgba(30,64,175,0.2)",
           }}
         />
       ))}
@@ -125,7 +125,7 @@ export default function HeroBackground() {
         <div
           key={`extra-${i}`}
           className={`absolute rounded-full transition-all duration-400 ${
-            i % 2 === 0 ? "border border-gray-400/30 bg-transparent" : "bg-gray-400/40"
+            i % 2 === 0 ? "border border-slate-400/30 bg-transparent" : "bg-slate-400/40"
           } ${i >= 2 ? "hidden lg:block" : ""}`}
           style={{
             width: `${6 + i * 3}px`,
@@ -139,31 +139,31 @@ export default function HeroBackground() {
             background:
               i % 2 === 0
                 ? "transparent"
-                : `radial-gradient(circle, rgba(107,114,128,${0.5 + i * 0.1}) 0%, rgba(107,114,128,0.1) 100%)`,
-            boxShadow: isVisible ? "0 0 15px rgba(107,114,128,0.3)" : "none",
+                : `radial-gradient(circle, rgba(31,41,55,${0.5 + i * 0.1}) 0%, rgba(31,41,55,0.1) 100%)`,
+            boxShadow: isVisible ? "0 0 15px rgba(31,41,55,0.3)" : "none",
           }}
         />
       ))}
 
       {/* Floating Geometric Shapes */}
-      <div className="hidden md:block absolute top-20 left-10 w-24 h-24 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full opacity-40 animate-pulse blur-sm" />
+      <div className="hidden md:block absolute top-20 left-10 w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full opacity-40 animate-pulse blur-sm" />
       <div
-        className="absolute top-32 left-20 w-6 h-6 md:w-8 md:h-8 bg-orange-500/20 rounded-full animate-bounce"
+        className="absolute top-32 left-20 w-6 h-6 md:w-8 md:h-8 bg-blue-500/20 rounded-full animate-bounce"
         style={{ animationDelay: "2s", animationDuration: "3s" }}
       />
 
       <div
-        className="hidden lg:block absolute bottom-32 right-16 w-40 h-40 bg-gradient-to-tl from-gray-100 to-gray-200 rounded-full opacity-20 animate-pulse blur-md"
+        className="hidden lg:block absolute bottom-32 right-16 w-40 h-40 bg-gradient-to-tl from-slate-100 to-slate-200 rounded-full opacity-20 animate-pulse blur-md"
         style={{ animationDelay: "1s" }}
       />
       <div
-        className="absolute bottom-20 right-32 w-4 h-4 md:w-6 md:h-6 bg-gray-400/30 rounded-full animate-ping"
+        className="absolute bottom-20 right-32 w-4 h-4 md:w-6 md:h-6 bg-slate-400/30 rounded-full animate-ping"
         style={{ animationDelay: "1.5s" }}
       />
 
       {/* Interactive Floating Rectangles - Enhanced */}
       <div
-        className="hidden md:block absolute top-1/3 left-8 w-16 h-20 bg-gradient-to-b from-orange-200/60 to-orange-300/40 rounded-lg animate-pulse transition-all duration-200 shadow-xl"
+        className="hidden md:block absolute top-1/3 left-8 w-16 h-20 bg-gradient-to-b from-blue-200/60 to-blue-300/40 rounded-lg animate-pulse transition-all duration-200 shadow-xl"
         style={{
           animationDelay: "0.5s",
           animationDuration: "4s",
@@ -171,11 +171,11 @@ export default function HeroBackground() {
             (mousePosition.y - 50) * 0.1
           }px) scale(${isVisible ? 1.2 : 1})`,
           opacity: isVisible ? 0.8 : 0.4,
-          boxShadow: isVisible ? "0 10px 30px rgba(255,107,0,0.3)" : "0 5px 15px rgba(255,107,0,0.1)",
+          boxShadow: isVisible ? "0 10px 30px rgba(30,64,175,0.3)" : "0 5px 15px rgba(30,64,175,0.1)",
         }}
       />
       <div
-        className="hidden md:block absolute top-1/2 right-12 w-14 h-18 bg-gradient-to-t from-gray-200/50 to-gray-300/30 rounded-md animate-pulse transition-all duration-200 shadow-xl"
+        className="hidden md:block absolute top-1/2 right-12 w-14 h-18 bg-gradient-to-t from-slate-200/50 to-slate-300/30 rounded-md animate-pulse transition-all duration-200 shadow-xl"
         style={{
           animationDelay: "2.5s",
           animationDuration: "5s",
@@ -183,27 +183,27 @@ export default function HeroBackground() {
             (mousePosition.x - 50) * -0.12
           }px, ${(mousePosition.y - 50) * 0.15}px) scale(${isVisible ? 1.15 : 1})`,
           opacity: isVisible ? 0.7 : 0.3,
-          boxShadow: isVisible ? "0 8px 25px rgba(107,114,128,0.3)" : "0 4px 12px rgba(107,114,128,0.1)",
+          boxShadow: isVisible ? "0 8px 25px rgba(31,41,55,0.3)" : "0 4px 12px rgba(31,41,55,0.1)",
         }}
       />
 
       {/* Floating Dots */}
       <div
-        className="absolute top-1/4 right-1/4 w-2 h-2 md:w-3 md:h-3 border border-orange-400/20 bg-transparent rounded-full animate-bounce"
+        className="absolute top-1/4 right-1/4 w-2 h-2 md:w-3 md:h-3 border border-blue-400/20 bg-transparent rounded-full animate-bounce"
         style={{ animationDelay: "1s", animationDuration: "2s" }}
       />
       <div
-        className="hidden md:block absolute bottom-1/3 left-1/3 w-2 h-2 bg-gray-400/50 rounded-full animate-ping"
+        className="hidden md:block absolute bottom-1/3 left-1/3 w-2 h-2 bg-slate-400/50 rounded-full animate-ping"
         style={{ animationDelay: "3s" }}
       />
       <div
-        className="absolute top-3/4 left-1/4 w-3 h-3 md:w-4 md:h-4 border border-orange-300/20 bg-transparent rounded-full animate-pulse"
+        className="absolute top-3/4 left-1/4 w-3 h-3 md:w-4 md:h-4 border border-blue-300/20 bg-transparent rounded-full animate-pulse"
         style={{ animationDelay: "4s" }}
       />
 
       {/* Larger Floating Elements with Mouse Interaction */}
       <div
-        className="hidden lg:block absolute top-16 right-20 w-32 h-32 bg-gradient-to-br from-orange-50/50 to-orange-100/30 rounded-2xl opacity-60 animate-pulse blur-sm transition-transform duration-500"
+        className="hidden lg:block absolute top-16 right-20 w-32 h-32 bg-gradient-to-br from-blue-50/50 to-blue-100/30 rounded-2xl opacity-60 animate-pulse blur-sm transition-transform duration-500"
         style={{
           animationDelay: "0.8s",
           animationDuration: "6s",
@@ -215,15 +215,15 @@ export default function HeroBackground() {
 
       {/* Subtle Particle Effects */}
       <div
-        className="hidden md:block absolute top-1/2 left-1/2 w-1 h-1 border border-orange-500/40 bg-transparent rounded-full animate-ping"
+        className="hidden md:block absolute top-1/2 left-1/2 w-1 h-1 border border-blue-500/40 bg-transparent rounded-full animate-ping"
         style={{ animationDelay: "2s" }}
       />
       <div
-        className="hidden md:block absolute top-3/5 left-3/5 w-1 h-1 bg-gray-500/40 rounded-full animate-ping"
+        className="hidden md:block absolute top-3/5 left-3/5 w-1 h-1 bg-slate-500/40 rounded-full animate-ping"
         style={{ animationDelay: "4s" }}
       />
       <div
-        className="hidden md:block absolute bottom-1/4 right-1/3 w-1 h-1 border border-orange-400/30 bg-transparent rounded-full animate-ping"
+        className="hidden md:block absolute bottom-1/4 right-1/3 w-1 h-1 border border-blue-400/30 bg-transparent rounded-full animate-ping"
         style={{ animationDelay: "6s" }}
       />
 
@@ -231,7 +231,7 @@ export default function HeroBackground() {
       <div
         className="absolute bottom-40 left-24 w-72 h-72 rounded-full animate-pulse blur-2xl transition-all duration-300"
         style={{
-          background: `radial-gradient(circle, rgba(255,237,213,${isVisible ? 0.4 : 0.2}) 0%, rgba(255,251,235,${
+          background: `radial-gradient(circle, rgba(219,234,254,${isVisible ? 0.4 : 0.2}) 0%, rgba(239,246,255,${
             isVisible ? 0.25 : 0.1
           }) 50%, transparent 100%)`,
           opacity: isVisible ? 0.9 : 0.6,
@@ -245,7 +245,7 @@ export default function HeroBackground() {
       <div
         className="absolute top-24 right-32 w-64 h-64 rounded-full animate-pulse blur-2xl transition-all duration-400"
         style={{
-          background: `radial-gradient(circle, rgba(243,244,246,${isVisible ? 0.35 : 0.2}) 0%, rgba(249,250,251,${
+          background: `radial-gradient(circle, rgba(241,245,249,${isVisible ? 0.35 : 0.2}) 0%, rgba(248,250,252,${
             isVisible ? 0.2 : 0.1
           }) 50%, transparent 100%)`,
           opacity: isVisible ? 0.8 : 0.5,
@@ -259,11 +259,11 @@ export default function HeroBackground() {
 
       {/* Subtle Line Elements */}
       <div
-        className="hidden lg:block absolute top-1/3 left-1/2 w-px h-16 bg-gradient-to-b from-transparent via-orange-200/40 to-transparent opacity-60 animate-pulse"
+        className="hidden lg:block absolute top-1/3 left-1/2 w-px h-16 bg-gradient-to-b from-transparent via-blue-200/40 to-transparent opacity-60 animate-pulse"
         style={{ animationDelay: "3.5s" }}
       />
       <div
-        className="hidden lg:block absolute bottom-1/3 right-1/3 w-12 h-px bg-gradient-to-r from-transparent via-gray-200/40 to-transparent opacity-50 animate-pulse"
+        className="hidden lg:block absolute bottom-1/3 right-1/3 w-12 h-px bg-gradient-to-r from-transparent via-slate-200/40 to-transparent opacity-50 animate-pulse"
         style={{ animationDelay: "5s" }}
       />
     </div>

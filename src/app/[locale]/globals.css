@@ -45,21 +45,21 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Custom Brand Colors for Tailwind v4 */
-  --color-brand-orange: #ff6b00;
+  --color-brand-navy: #1e40af;
   --color-brand-dark-gray: #1f2937;
 
-  /* Primary Color Palette */
-  --color-primary-50: #fff7ed;
-  --color-primary-100: #ffedd5;
-  --color-primary-200: #fed7aa;
-  --color-primary-300: #fdba74;
-  --color-primary-400: #fb923c;
-  --color-primary-500: #ff6b00;
-  --color-primary-600: #ea580c;
-  --color-primary-700: #c2410c;
-  --color-primary-800: #9a3412;
-  --color-primary-900: #7c2d12;
-  --color-primary-950: #431407;
+  /* Primary Color Palette - Navy Blue */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #1e40af;
+  --color-primary-600: #1d4ed8;
+  --color-primary-700: #1e3a8a;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e293b;
+  --color-primary-950: #172554;
 
   /* Secondary Color Palette */
   --color-secondary-50: #f8fafc;
@@ -83,8 +83,8 @@
   --card-foreground: oklch(0.17 0.029 228.42);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.17 0.029 228.42);
-  /* Primary color: #FF6B00 (Orange) */
-  --primary: oklch(0.7 0.194 45.71);
+  /* Primary color: #1E40AF (Navy Blue) */
+  --primary: oklch(0.4 0.153 263.5);
   --primary-foreground: oklch(1 0 0);
   /* Secondary color: #1F2937 (Dark Gray) */
   --secondary: oklch(0.17 0.029 228.42);
@@ -96,20 +96,20 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.928 0.006 264.531);
   --input: oklch(0.928 0.006 264.531);
-  --ring: oklch(0.7 0.194 45.71);
-  --chart-1: oklch(0.7 0.194 45.71);
+  --ring: oklch(0.4 0.153 263.5);
+  --chart-1: oklch(0.4 0.153 263.5);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0.002 247.839);
   --sidebar-foreground: oklch(0.17 0.029 228.42);
-  --sidebar-primary: oklch(0.7 0.194 45.71);
+  --sidebar-primary: oklch(0.4 0.153 263.5);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.95 0.01 228.42);
   --sidebar-accent-foreground: oklch(0.17 0.029 228.42);
   --sidebar-border: oklch(0.928 0.006 264.531);
-  --sidebar-ring: oklch(0.7 0.194 45.71);
+  --sidebar-ring: oklch(0.4 0.153 263.5);
 }
 
 .dark {
@@ -119,8 +119,8 @@
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover: oklch(0.17 0.029 228.42);
   --popover-foreground: oklch(0.985 0.002 247.839);
-  /* Primary color: #FF6B00 (Orange) - brighter in dark mode */
-  --primary: oklch(0.75 0.194 45.71);
+  /* Primary color: #1E40AF (Navy Blue) - brighter in dark mode */
+  --primary: oklch(0.45 0.153 263.5);
   --primary-foreground: oklch(0.12 0.025 228.42);
   /* Secondary color: #1F2937 (Dark Gray) - lighter in dark mode */
   --secondary: oklch(0.25 0.029 228.42);
@@ -133,14 +133,14 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.65 0.022 228.42);
-  --chart-1: oklch(0.75 0.194 45.71);
+  --chart-1: oklch(0.45 0.153 263.5);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.17 0.029 228.42);
   --sidebar-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-primary: oklch(0.75 0.194 45.71);
+  --sidebar-primary: oklch(0.45 0.153 263.5);
   --sidebar-primary-foreground: oklch(0.12 0.025 228.42);
   --sidebar-accent: oklch(0.25 0.029 228.42);
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
