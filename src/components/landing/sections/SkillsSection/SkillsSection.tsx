@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Code, Layers, Palette, Database, TestTube, Users, MessageSquare, TrendingUp, Target } from "lucide-react";
+import { SectionHeader, InfoCard, IconHeader, StatsGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 
 const skillCategories = [
@@ -40,6 +41,12 @@ const softSkills = [
 export default function SkillsSection() {
   const t = useTranslations("SkillsSection");
 
+  const summaryStats = [
+    { value: "7+", label: t("summary.years") },
+    { value: "15+", label: t("summary.technologies") },
+    { value: "5", label: t("summary.countries") },
+  ];
+
   return (
     <section className="py-32 bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden">
       {/* Sophisticated Background */}
@@ -48,11 +55,7 @@ export default function SkillsSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-light text-slate-900 mb-6 tracking-tight">{t("title")}</h2>
-            <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-6" />
-            <p className="text-lg text-slate-600 font-light max-w-2xl mx-auto">{t("subtitle")}</p>
-          </div>
+          <SectionHeader title={t("title")} subtitle={t("subtitle")} className="mb-16" />
 
           {/* Skills Grid */}
           <div className="space-y-12">
@@ -63,16 +66,14 @@ export default function SkillsSection() {
               </h3>
               <div className="grid md:grid-cols-2 gap-6">
                 {skillCategories.map((category) => (
-                  <div
-                    key={category.key}
-                    className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-sm p-6 shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <category.icon className="w-5 h-5 text-slate-600" />
-                      <h4 className="text-lg font-medium text-slate-800">
-                        {t(`technical.categories.${category.key}`)}
-                      </h4>
-                    </div>
+                  <InfoCard key={category.key} variant="glass" className="hover:shadow-md transition-all duration-300">
+                    <IconHeader
+                      icon={category.icon}
+                      title={t(`technical.categories.${category.key}`)}
+                      iconClassName="w-5 h-5 text-slate-600"
+                      iconContainerClassName="p-0 bg-transparent"
+                      titleClassName="text-lg font-medium text-slate-800"
+                    />
                     <div className="space-y-2">
                       {category.skills.map((skill) => (
                         <div key={skill} className="text-slate-700 font-light text-sm">
@@ -80,7 +81,7 @@ export default function SkillsSection() {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </InfoCard>
                 ))}
               </div>
             </div>
@@ -90,18 +91,19 @@ export default function SkillsSection() {
               <h3 className="text-sm text-slate-600 font-medium tracking-wide uppercase mb-6">{t("soft.title")}</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 {softSkills.map((skill) => (
-                  <div
-                    key={skill.key}
-                    className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-sm p-6 shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <skill.icon className="w-5 h-5 text-slate-600" />
-                      <h4 className="text-lg font-medium text-slate-800">{t(`soft.skills.${skill.key}.title`)}</h4>
-                    </div>
+                  <InfoCard key={skill.key} variant="glass" className="hover:shadow-md transition-all duration-300">
+                    <IconHeader
+                      icon={skill.icon}
+                      title={t(`soft.skills.${skill.key}.title`)}
+                      iconClassName="w-5 h-5 text-slate-600"
+                      iconContainerClassName="p-0 bg-transparent"
+                      titleClassName="text-lg font-medium text-slate-800"
+                      className="mb-3"
+                    />
                     <p className="text-slate-600 font-light text-sm leading-relaxed">
                       {t(`soft.skills.${skill.key}.description`)}
                     </p>
-                  </div>
+                  </InfoCard>
                 ))}
               </div>
             </div>
@@ -109,24 +111,13 @@ export default function SkillsSection() {
             {/* Skills Summary */}
             <div className="bg-slate-900 rounded-sm p-8 text-center">
               <p className="text-white/90 font-light text-lg mb-6">{t("summary.text")}</p>
-              <div className="grid grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="text-3xl font-light text-white mb-2">7+</div>
-                  <div className="text-sm text-white/70 font-medium tracking-wide uppercase">{t("summary.years")}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-light text-white mb-2">15+</div>
-                  <div className="text-sm text-white/70 font-medium tracking-wide uppercase">
-                    {t("summary.technologies")}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-light text-white mb-2">5</div>
-                  <div className="text-sm text-white/70 font-medium tracking-wide uppercase">
-                    {t("summary.countries")}
-                  </div>
-                </div>
-              </div>
+              <StatsGrid
+                stats={summaryStats}
+                columns={3}
+                variant="dark"
+                valueClassName="text-white"
+                labelClassName="text-white/70"
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Calendar, MapPin, ExternalLink, TrendingUp, Users, Code2 } from "lucide-react";
+import { SectionHeader, InfoCard, TypeBadge, AchievementList, TechTags, StatsGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 
 const experiences = [
@@ -102,6 +103,13 @@ const experiences = [
 export default function ExperienceSection() {
   const t = useTranslations("ExperienceSection");
 
+  const summaryStats = [
+    { value: "7+", label: t("stats.years") },
+    { value: "6", label: t("stats.companies") },
+    { value: "5", label: t("stats.countries") },
+    { value: "40%", label: t("stats.improvement") },
+  ];
+
   return (
     <section className="py-32 relative overflow-hidden">
       {/* Sophisticated Background */}
@@ -110,13 +118,7 @@ export default function ExperienceSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-20">
-            <div className="inline-block">
-              <h2 className="text-4xl lg:text-5xl font-light text-slate-900 mb-6 tracking-tight">{t("title")}</h2>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-slate-400/60 to-transparent mx-auto" />
-            </div>
-            <p className="text-xl text-slate-700 font-light mt-8 max-w-2xl mx-auto">{t("subtitle")}</p>
-          </div>
+          <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
           {/* Experience Timeline */}
           <div className="relative">
@@ -132,7 +134,7 @@ export default function ExperienceSection() {
 
                   {/* Content Card */}
                   <div className={`w-5/12 ${index % 2 === 0 ? "pr-8" : "pl-8"}`}>
-                    <div className="bg-slate-900/5 backdrop-blur-sm border border-slate-300/20 rounded-sm p-8 hover:bg-slate-900/10 transition-all duration-300">
+                    <InfoCard className="p-8 hover:bg-slate-900/10 transition-all duration-300">
                       {/* Header */}
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
@@ -156,19 +158,7 @@ export default function ExperienceSection() {
                             </div>
                           </div>
                         </div>
-                        <div
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            exp.type === "current"
-                              ? "bg-green-500/20 text-green-700"
-                              : exp.type === "leadership"
-                              ? "bg-blue-500/20 text-blue-700"
-                              : exp.type === "contract"
-                              ? "bg-purple-500/20 text-purple-700"
-                              : "bg-slate-500/20 text-slate-700"
-                          }`}
-                        >
-                          {t(`types.${exp.type}`)}
-                        </div>
+                        <TypeBadge type={exp.type} label={t(`types.${exp.type}`)} variant="colorful" />
                       </div>
 
                       {/* Duration & Location */}
@@ -184,37 +174,11 @@ export default function ExperienceSection() {
                       </div>
 
                       {/* Achievements */}
-                      <div className="mb-6">
-                        <h4 className="text-sm font-medium text-slate-700 mb-3 uppercase tracking-wider">
-                          {t("achievements")}
-                        </h4>
-                        <ul className="space-y-2">
-                          {exp.achievements.map((achievement, i) => (
-                            <li key={i} className="flex items-start gap-2 text-slate-700 text-sm">
-                              <div className="w-1 h-1 bg-slate-600 rounded-full mt-2 flex-shrink-0" />
-                              <span className="font-light">{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <AchievementList title={t("achievements")} items={exp.achievements} />
 
                       {/* Technologies */}
-                      <div>
-                        <h4 className="text-sm font-medium text-slate-700 mb-3 uppercase tracking-wider">
-                          {t("technologies")}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2 py-1 bg-slate-900/10 text-slate-700 text-xs font-medium rounded-full"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                      <TechTags title={t("technologies")} tags={exp.technologies} variant="default" className="mb-0" />
+                    </InfoCard>
                   </div>
 
                   {/* Spacer */}
@@ -225,23 +189,8 @@ export default function ExperienceSection() {
           </div>
 
           {/* Summary Stats */}
-          <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-slate-900/5 backdrop-blur-sm border border-slate-300/20 rounded-sm">
-              <div className="text-3xl font-light text-slate-900 mb-2">7+</div>
-              <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">{t("stats.years")}</div>
-            </div>
-            <div className="text-center p-6 bg-slate-900/5 backdrop-blur-sm border border-slate-300/20 rounded-sm">
-              <div className="text-3xl font-light text-slate-900 mb-2">6</div>
-              <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">{t("stats.companies")}</div>
-            </div>
-            <div className="text-center p-6 bg-slate-900/5 backdrop-blur-sm border border-slate-300/20 rounded-sm">
-              <div className="text-3xl font-light text-slate-900 mb-2">5</div>
-              <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">{t("stats.countries")}</div>
-            </div>
-            <div className="text-center p-6 bg-slate-900/5 backdrop-blur-sm border border-slate-300/20 rounded-sm">
-              <div className="text-3xl font-light text-slate-900 mb-2">40%</div>
-              <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">{t("stats.improvement")}</div>
-            </div>
+          <div className="mt-20">
+            <StatsGrid stats={summaryStats} columns={4} />
           </div>
         </div>
       </div>

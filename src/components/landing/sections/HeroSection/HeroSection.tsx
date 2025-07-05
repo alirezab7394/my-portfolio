@@ -1,10 +1,23 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { StatsGrid, ContactInfo } from "@/components/common";
 import HeroBackground from "./components/background/HeroBackground";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
+
+  const stats = [
+    { value: t("metrics.experience"), label: t("metrics.experienceLabel") },
+    { value: t("metrics.projects"), label: t("metrics.projectsLabel") },
+    { value: t("metrics.performance"), label: t("metrics.performanceLabel") },
+  ];
+
+  const contactItems = [
+    { icon: Mail, label: "Email", value: t("contact.email") },
+    { icon: Phone, label: "Phone", value: t("contact.phone") },
+    { icon: MapPin, label: "Location", value: t("contact.location") },
+  ];
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden">
@@ -36,25 +49,8 @@ export default function HeroSection() {
               <p className="text-xl text-slate-700 font-light leading-relaxed max-w-2xl">{t("summary")}</p>
 
               {/* Metrics */}
-              <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.experience")}</div>
-                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
-                    {t("metrics.experienceLabel")}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.projects")}</div>
-                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
-                    {t("metrics.projectsLabel")}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-light text-primary mb-2">{t("metrics.performance")}</div>
-                  <div className="text-sm text-slate-600 font-medium tracking-wide uppercase">
-                    {t("metrics.performanceLabel")}
-                  </div>
-                </div>
+              <div className="pt-8">
+                <StatsGrid stats={stats} columns={3} className="gap-8" />
               </div>
 
               {/* CTA Buttons */}
@@ -84,20 +80,7 @@ export default function HeroSection() {
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   <span className="text-sm text-slate-600 font-medium">{t("availability")}</span>
                 </div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <Mail className="h-4 w-4 text-slate-500" />
-                    <span className="font-mono">{t("contact.email")}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <Phone className="h-4 w-4 text-slate-500" />
-                    <span className="font-mono">{t("contact.phone")}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <MapPin className="h-4 w-4 text-slate-500" />
-                    <span>{t("contact.location")}</span>
-                  </div>
-                </div>
+                <ContactInfo items={contactItems} />
               </div>
 
               {/* Social Links */}
