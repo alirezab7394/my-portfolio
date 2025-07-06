@@ -4,6 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import { StatsGrid, ContactInfo } from "@/components/common";
 import HeroBackground from "./components/background/HeroBackground";
+import ParticleField from "@/components/three/ParticleField";
 import { SECTION_IDS } from "@/lib/constants";
 
 export default function HeroSection() {
@@ -28,6 +29,9 @@ export default function HeroSection() {
     >
       {/* Sophisticated Background */}
       <HeroBackground />
+
+      {/* 3D Particle Field */}
+      <ParticleField particleCount={40} colors={["#1E40AF", "#8B5CF6", "#06B6D4"]} className="opacity-20" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="min-h-screen flex flex-col justify-center">

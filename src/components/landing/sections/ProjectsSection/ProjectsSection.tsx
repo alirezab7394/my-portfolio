@@ -14,6 +14,7 @@ import {
 } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 import { SECTION_IDS } from "@/lib/constants";
+import ParticleField from "@/components/three/ParticleField";
 
 const projects = [
   {
@@ -100,6 +101,9 @@ export default function ProjectsSection() {
     <section id={SECTION_IDS.PROJECTS} className="py-32 relative overflow-hidden">
       {/* Sophisticated Background */}
       <SectionBackground variant="projects" />
+
+      {/* Ambient 3D Particle Field */}
+      <ParticleField particleCount={80} colors={["#3B82F6", "#8B5CF6"]} className="opacity-30" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
