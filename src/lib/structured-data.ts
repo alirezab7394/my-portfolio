@@ -7,63 +7,32 @@ export const personStructuredData = {
     image: "https://alireza-bagheri.top/avatar.jpg",
     url: "https://alireza-bagheri.top",
     email: "alireza7394@gmail.com",
-    telephone: "+989366554441",
+    telephone: "+98 936 655 4441",
     address: {
         "@type": "PostalAddress",
-        addressCountry: "IR",
-        addressLocality: "Iran"
+        addressCountry: "Iran"
     },
     alumniOf: [
         {
             "@type": "EducationalOrganization",
             name: "Tabriz University",
-            department: "Artificial Intelligence",
-            degreeType: "Master of Science"
+            description: "M.Sc. in Artificial Intelligence"
         },
         {
             "@type": "EducationalOrganization",
             name: "Bonab University",
-            department: "Computer Software Engineering",
-            degreeType: "Bachelor of Science"
+            description: "B.Sc. in Computer Software Engineering"
         }
     ],
-    worksFor: [
-        {
-            "@type": "Organization",
-            name: "Skedpal",
-            url: "https://skedpal.com",
-            position: "Frontend Lead",
-            startDate: "2021-09",
-            description: "Led development team to build and enhance Skedpal's competitive calendar tool"
-        }
-    ],
+    worksFor: {
+        "@type": "Organization",
+        name: "Skedpal",
+        url: "https://app.skedpal.com"
+    },
     knowsAbout: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "SCSS",
-        "Material UI",
-        "Tailwind CSS",
-        "Shadcn",
-        "Prisma",
-        "Firebase",
-        "MongoDB",
-        "Redux",
-        "Context API",
-        "Recoil",
-        "Git",
-        "Jest",
-        "Vitest",
-        "Storybook",
-        "SSR",
-        "SEO Optimization",
-        "Performance Optimization",
-        "Team Leadership",
-        "ERP Systems",
-        "Calendar Applications"
+        "React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "SCSS",
+        "Context", "Recoil", "Redux", "Material UI", "Tailwind", "Shadcn",
+        "Prisma", "Firebase", "Firestore", "MongoDB", "Git", "Jest", "Enzyme", "Vitest", "Storybook"
     ],
     sameAs: [
         "https://www.linkedin.com/in/alireza-bagheri-a6aaa681/",
@@ -74,21 +43,32 @@ export const personStructuredData = {
             "@type": "EducationalOccupationalCredential",
             name: "Master of Science in Artificial Intelligence",
             credentialCategory: "degree",
-            educationalLevel: "Master's",
-            recognizedBy: {
-                "@type": "EducationalOrganization",
-                name: "Tabriz University"
-            }
+            educationalLevel: "Master's"
         },
         {
             "@type": "EducationalOccupationalCredential",
             name: "Bachelor of Science in Computer Software Engineering",
             credentialCategory: "degree",
-            educationalLevel: "Bachelor's",
-            recognizedBy: {
-                "@type": "EducationalOrganization",
-                name: "Bonab University"
-            }
+            educationalLevel: "Bachelor's"
+        }
+    ],
+    workExample: [
+        {
+            "@type": "CreativeWork",
+            name: "Skedpal Calendar Application",
+            description: "Led development team to build and enhance competitive calendar tool with AI-driven scheduling",
+            url: "https://app.skedpal.com"
+        },
+        {
+            "@type": "CreativeWork",
+            name: "Cowsel ERP System",
+            description: "Managed development of ERP system and online store, leading team of 5 developers"
+        },
+        {
+            "@type": "CreativeWork",
+            name: "Dopely Color Tools",
+            description: "Developed complex color algorithm system for visual design platform",
+            url: "https://colors.dopely.top/"
         }
     ],
     award: [
@@ -102,14 +82,14 @@ export const personStructuredData = {
 export const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Alireza Bagheri Portfolio",
+    name: "Alireza Bagheri - Senior Front-End Developer",
+    description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     url: "https://alireza-bagheri.top",
-    description: "Personal portfolio website of Alireza Bagheri, Senior Front-End Developer with 7+ years of experience in React and Next.js",
     author: {
         "@type": "Person",
         name: "Alireza Bagheri"
     },
-    inLanguage: ["en-US", "fa-IR"],
+    inLanguage: ["en", "fa"],
     potentialAction: {
         "@type": "SearchAction",
         target: "https://alireza-bagheri.top/search?q={search_term_string}",
@@ -120,15 +100,30 @@ export const websiteStructuredData = {
 export const portfolioStructuredData = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: "Alireza Bagheri - Portfolio",
-    description: "Professional portfolio showcasing projects and experience of Senior Front-End Developer Alireza Bagheri",
+    "@id": "https://alireza-bagheri.top#portfolio",
+    name: "Alireza Bagheri - Senior Front-End Developer - Portfolio",
+    description: "Professional portfolio showcasing 7+ years of front-end development experience",
+    url: "https://alireza-bagheri.top",
     author: {
         "@type": "Person",
         name: "Alireza Bagheri",
         jobTitle: "Senior Front-End Developer"
     },
     dateCreated: "2024",
-    dateModified: "2024",
-    url: "https://alireza-bagheri.top",
-    keywords: "React, Next.js, TypeScript, Frontend Development, Portfolio, Web Development"
+    dateModified: "2024-12-19T00:00:00.000Z",
+    keywords: "Alireza Bagheri, Senior Front-End Developer, React Developer, Next.js Developer, TypeScript Developer, JavaScript Developer, Frontend Lead, Skedpal, Cowsel, Dopely, TechClass, Full Stack Developer, Web Developer, UI/UX Developer, SSR, SEO Optimization, Performance Optimization, Team Leadership, React Migration, Modern Web Development",
+    about: [
+        {
+            "@type": "Thing",
+            name: "Frontend Development"
+        },
+        {
+            "@type": "Thing",
+            name: "React Development"
+        },
+        {
+            "@type": "Thing",
+            name: "Next.js Development"
+        }
+    ]
 }; 
