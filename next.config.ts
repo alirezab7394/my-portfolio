@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     domains: ['alireza-bagheri.top'],
     formats: ['image/webp', 'image/avif'],
   },
+  redirects: async () => {
+    return [
+      {
+        source: '/',
+        destination: '/en',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
