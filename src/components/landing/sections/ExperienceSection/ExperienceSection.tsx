@@ -1,17 +1,9 @@
 import { useTranslations } from "next-intl";
-import { Calendar, MapPin, ExternalLink, TrendingUp, Users, Code2 } from "lucide-react";
-import {
-  SectionHeader,
-  InfoCard,
-  TypeBadge,
-  AchievementList,
-  TechTags,
-  StatsGrid,
-  AnimatedSection,
-  AnimatedGrid,
-} from "@/components/common";
+import { TrendingUp, Users, Code2 } from "lucide-react";
+import { SectionHeader, StatsGrid, AnimatedSection, AnimatedGrid } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 import { SECTION_IDS } from "@/lib/constants";
+import { ExperienceCard } from "./components";
 
 const experiences = [
   {
@@ -121,11 +113,11 @@ export default function ExperienceSection() {
   ];
 
   return (
-    <section id={SECTION_IDS.EXPERIENCE} className="py-32 relative overflow-hidden">
+    <section id={SECTION_IDS.EXPERIENCE} className="py-16 sm:py-20 lg:py-32 relative overflow-hidden">
       {/* Sophisticated Background */}
       <SectionBackground variant="experience" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <AnimatedSection animationType="fade" delay={0}>
@@ -136,68 +128,13 @@ export default function ExperienceSection() {
           <div className="relative">
             {/* Central Timeline Line */}
             <AnimatedSection animationType="fade" delay={200}>
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-slate-400/60 to-transparent h-full" />
+              <div className="absolute left-6 lg:left-1/2 transform lg:-translate-x-1/2 w-px bg-gradient-to-b from-transparent via-slate-400/60 to-transparent h-full" />
             </AnimatedSection>
 
             {/* Experience Items */}
-            <AnimatedGrid animationType="slide-up" staggerDelay={150} className="space-y-16">
+            <AnimatedGrid animationType="slide-up" staggerDelay={150} className="space-y-8 lg:space-y-16">
               {experiences.map((exp, index) => (
-                <div key={exp.id} className={`relative flex ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}>
-                  {/* Timeline Dot */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-slate-900 rounded-full border-4 border-white z-10" />
-
-                  {/* Content Card */}
-                  <div className={`w-5/12 ${index % 2 === 0 ? "pr-8" : "pl-8"}`}>
-                    <InfoCard className="p-8 hover:bg-slate-900/10 transition-all duration-300">
-                      {/* Header */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-slate-900/10 rounded-sm">
-                            <exp.icon className="w-5 h-5 text-slate-700" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-medium text-slate-900">{exp.position}</h3>
-                            <div className="flex items-center gap-2 text-slate-700">
-                              <span className="font-light">{exp.company}</span>
-                              {exp.website && (
-                                <a
-                                  href={exp.website}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-slate-600 hover:text-slate-900 transition-colors"
-                                >
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                        <TypeBadge type={exp.type} label={t(`types.${exp.type}`)} variant="colorful" />
-                      </div>
-
-                      {/* Duration & Location */}
-                      <div className="flex items-center gap-4 mb-6 text-sm text-slate-600">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{exp.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          <span>{exp.location}</span>
-                        </div>
-                      </div>
-
-                      {/* Achievements */}
-                      <AchievementList title={t("achievements")} items={exp.achievements} />
-
-                      {/* Technologies */}
-                      <TechTags title={t("technologies")} tags={exp.technologies} variant="default" className="mb-0" />
-                    </InfoCard>
-                  </div>
-
-                  {/* Spacer */}
-                  <div className="w-2/12" />
-                </div>
+                <ExperienceCard key={exp.id} experience={exp} index={index} />
               ))}
             </AnimatedGrid>
           </div>
