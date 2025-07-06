@@ -9,6 +9,8 @@ import {
   AchievementList,
   TechTags,
   StatsGrid,
+  AnimatedSection,
+  AnimatedGrid,
 } from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 import { SECTION_IDS } from "@/lib/constants";
@@ -102,10 +104,12 @@ export default function ProjectsSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          <AnimatedSection animationType="fade" delay={0}>
+            <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          </AnimatedSection>
 
           {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-20">
+          <AnimatedGrid animationType="slide-up" className="grid md:grid-cols-2 gap-8 mb-20">
             {projects.map((project) => (
               <InfoCard key={project.id} className="p-8 group">
                 {/* Header */}
@@ -158,21 +162,25 @@ export default function ProjectsSection() {
                 </div>
               </InfoCard>
             ))}
-          </div>
+          </AnimatedGrid>
 
           {/* Project Statistics */}
-          <StatsGrid stats={projectStats} columns={4} className="mb-12" />
+          <AnimatedSection animationType="slide-up" delay={400}>
+            <StatsGrid stats={projectStats} columns={4} className="mb-12" />
+          </AnimatedSection>
 
           {/* Call to Action */}
-          <div className="text-center">
-            <div className="inline-block p-8 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-sm">
-              <h3 className="text-2xl font-light text-slate-900 mb-4">{t("cta.title")}</h3>
-              <p className="text-slate-700 font-light mb-6">{t("cta.description")}</p>
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-sm font-medium tracking-wide">
-                {t("cta.button")}
-              </Button>
+          <AnimatedSection animationType="scale" delay={600}>
+            <div className="text-center">
+              <div className="inline-block p-8 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-sm">
+                <h3 className="text-2xl font-light text-slate-900 mb-4">{t("cta.title")}</h3>
+                <p className="text-slate-700 font-light mb-6">{t("cta.description")}</p>
+                <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-sm font-medium tracking-wide">
+                  {t("cta.button")}
+                </Button>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

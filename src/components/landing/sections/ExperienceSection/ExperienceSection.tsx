@@ -1,6 +1,15 @@
 import { useTranslations } from "next-intl";
 import { Calendar, MapPin, ExternalLink, TrendingUp, Users, Code2 } from "lucide-react";
-import { SectionHeader, InfoCard, TypeBadge, AchievementList, TechTags, StatsGrid } from "@/components/common";
+import {
+  SectionHeader,
+  InfoCard,
+  TypeBadge,
+  AchievementList,
+  TechTags,
+  StatsGrid,
+  AnimatedSection,
+  AnimatedGrid,
+} from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 import { SECTION_IDS } from "@/lib/constants";
 
@@ -119,15 +128,19 @@ export default function ExperienceSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          <AnimatedSection animationType="fade" delay={0}>
+            <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          </AnimatedSection>
 
           {/* Experience Timeline */}
           <div className="relative">
             {/* Central Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-slate-400/60 to-transparent h-full" />
+            <AnimatedSection animationType="fade" delay={200}>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-slate-400/60 to-transparent h-full" />
+            </AnimatedSection>
 
             {/* Experience Items */}
-            <div className="space-y-16">
+            <AnimatedGrid animationType="slide-up" staggerDelay={150} className="space-y-16">
               {experiences.map((exp, index) => (
                 <div key={exp.id} className={`relative flex ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}>
                   {/* Timeline Dot */}
@@ -186,13 +199,15 @@ export default function ExperienceSection() {
                   <div className="w-2/12" />
                 </div>
               ))}
-            </div>
+            </AnimatedGrid>
           </div>
 
           {/* Summary Stats */}
-          <div className="mt-20">
-            <StatsGrid stats={summaryStats} columns={4} />
-          </div>
+          <AnimatedSection animationType="slide-up" delay={400}>
+            <div className="mt-20">
+              <StatsGrid stats={summaryStats} columns={4} />
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

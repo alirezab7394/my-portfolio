@@ -1,6 +1,15 @@
 import { useTranslations } from "next-intl";
 import { GraduationCap, BookOpen, Award, MapPin } from "lucide-react";
-import { SectionHeader, InfoCard, IconHeader, TypeBadge, TechTags, StatsGrid } from "@/components/common";
+import {
+  SectionHeader,
+  InfoCard,
+  IconHeader,
+  TypeBadge,
+  TechTags,
+  StatsGrid,
+  AnimatedSection,
+  AnimatedGrid,
+} from "@/components/common";
 import SectionBackground from "@/components/ui/section-background";
 import { SECTION_IDS } from "@/lib/constants";
 
@@ -60,10 +69,12 @@ export default function EducationSection() {
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
-          <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          <AnimatedSection animationType="fade" delay={0}>
+            <SectionHeader title={t("title")} subtitle={t("subtitle")} />
+          </AnimatedSection>
 
           {/* Education Cards */}
-          <div className="grid md:grid-cols-2 gap-8 mb-20">
+          <AnimatedGrid animationType="slide-up" className="grid md:grid-cols-2 gap-8 mb-20">
             {education.map((edu) => (
               <InfoCard key={edu.id} variant="glass" className="p-8 hover:shadow-md transition-all duration-300 group">
                 {/* Header */}
@@ -98,30 +109,34 @@ export default function EducationSection() {
                 </div>
               </InfoCard>
             ))}
-          </div>
+          </AnimatedGrid>
 
           {/* Academic Achievements */}
-          <div className="bg-slate-900 rounded-sm p-8 text-center mb-20">
-            <h3 className="text-2xl font-light text-white mb-8">{t("achievements.title")}</h3>
-            <StatsGrid
-              stats={achievementStats}
-              columns={3}
-              variant="dark"
-              valueClassName="text-white"
-              labelClassName="text-slate-400"
-            />
-          </div>
+          <AnimatedSection animationType="slide-up" delay={400}>
+            <div className="bg-slate-900 rounded-sm p-8 text-center mb-20">
+              <h3 className="text-2xl font-light text-white mb-8">{t("achievements.title")}</h3>
+              <StatsGrid
+                stats={achievementStats}
+                columns={3}
+                variant="dark"
+                valueClassName="text-white"
+                labelClassName="text-slate-400"
+              />
+            </div>
+          </AnimatedSection>
 
           {/* Skills from Education */}
-          <div>
-            <h3 className="text-2xl font-light text-slate-800 mb-8 text-center">{t("skills.title")}</h3>
-            <TechTags
-              tags={educationSkills}
-              variant="outlined"
-              className="flex justify-center"
-              tagClassName="hover:bg-slate-50 transition-colors"
-            />
-          </div>
+          <AnimatedSection animationType="slide-up" delay={600}>
+            <div>
+              <h3 className="text-2xl font-light text-slate-800 mb-8 text-center">{t("skills.title")}</h3>
+              <TechTags
+                tags={educationSkills}
+                variant="outlined"
+                className="flex justify-center"
+                tagClassName="hover:bg-slate-50 transition-colors"
+              />
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
