@@ -32,6 +32,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
 
+  const baseUrl = "https://alireza-bagheri.top";
+  const ogImageUrl = `${baseUrl}/${locale}/opengraph-image`;
+  const twitterImageUrl = `${baseUrl}/${locale}/twitter-image`;
+
   return {
     title: "Alireza Bagheri - Senior Front-End Developer | React & Next.js Expert",
     description:
@@ -97,6 +101,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: locale === "fa" ? "fa_IR" : "en_US",
       type: "profile",
       emails: ["alireza7394@gmail.com"],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Alireza Bagheri - Senior Front-End Developer",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -105,6 +117,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         "Senior Front-End Developer with 7+ years of experience in React and Next.js. Led development teams at Skedpal and Cowsel, achieved 40% performance improvements.",
       creator: "@alirezab7394",
       site: "@alirezab7394",
+      images: [
+        {
+          url: twitterImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Alireza Bagheri - Senior Front-End Developer",
+        },
+      ],
     },
     robots: {
       index: true,
