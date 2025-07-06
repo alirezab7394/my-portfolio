@@ -18,6 +18,23 @@ import ParticleField from "@/components/three/ParticleField";
 
 const projects = [
   {
+    id: "skedpal-calendar",
+    title: "Skedpal Smart Calendar",
+    category: "SaaS Platform",
+    description: "Architected AI-driven scheduling platform with intelligent calendar management",
+    technologies: ["React", "Next.js", "TypeScript", "AI/ML", "SEO"],
+    achievements: [
+      "30% load time reduction through optimization",
+      "40% SEO improvement with Next.js migration",
+      "Introduced dark mode and accessibility features",
+      "Built NLP package for smart scheduling",
+    ],
+    type: "platform",
+    icon: TrendingUp,
+    website: "https://skedpal.com",
+    github: null,
+  },
+  {
     id: "cowsel-erp",
     title: "Cowsel ERP System",
     category: "Enterprise",
@@ -34,23 +51,7 @@ const projects = [
     website: "https://www.markabu.com/",
     github: null,
   },
-  {
-    id: "skedpal-calendar",
-    title: "Skedpal Smart Calendar",
-    category: "SaaS Platform",
-    description: "Architected AI-driven scheduling platform with intelligent calendar management",
-    technologies: ["React", "Next.js", "TypeScript", "AI/ML", "SEO"],
-    achievements: [
-      "40% load time reduction through optimization",
-      "30% SEO improvement with Next.js migration",
-      "Introduced dark mode and accessibility features",
-      "Built NLP package for smart scheduling",
-    ],
-    type: "platform",
-    icon: TrendingUp,
-    website: "https://app.skedpal.com",
-    github: null,
-  },
+
   {
     id: "dopely-colors",
     title: "Dopely Color Platform",

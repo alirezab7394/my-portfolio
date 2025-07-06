@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Main Pages - English -->
+  <url>
+    <loc>https://alireza-bagheri.top/en</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://alireza-bagheri.top/fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alireza-bagheri.top/en"/>
+  </url>
+  
+  <!-- Main Pages - Persian -->
+  <url>
+    <loc>https://alireza-bagheri.top/fa</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://alireza-bagheri.top/fa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alireza-bagheri.top/en"/>
+  </url>
+  
+  <!-- Default redirect -->
+  <url>
+    <loc>https://alireza-bagheri.top/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+</urlset> 
