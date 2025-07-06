@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import { StatsGrid, ContactInfo } from "@/components/common";
 import HeroBackground from "./components/background/HeroBackground";
@@ -36,10 +37,18 @@ export default function HeroSection() {
             <div className="lg:col-span-8 space-y-8">
               {/* Greeting & Name */}
               <div className="space-y-2">
-                <p className="text-slate-600 text-lg font-light tracking-wide">{t("greeting")}</p>
-                <h1 className="text-5xl lg:text-7xl font-light text-slate-900 tracking-tight leading-none">
-                  {t("name")}
-                </h1>
+                <div className="flex items-center gap-6">
+                  <Avatar className="w-16 h-16 lg:w-24 lg:h-24 border-2 border-white shadow-lg">
+                    <AvatarImage src="/avatar.jpg" alt="Alireza Bagheri" className="object-cover" />
+                    <AvatarFallback className="text-lg font-light text-slate-600 bg-slate-100">AB</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-slate-600 text-lg font-light tracking-wide">{t("greeting")}</p>
+                    <h1 className="text-5xl lg:text-7xl font-light text-slate-900 tracking-tight leading-none">
+                      {t("name")}
+                    </h1>
+                  </div>
+                </div>
                 <div className="w-24 h-px bg-gradient-to-r from-primary to-transparent mt-4" />
               </div>
 
