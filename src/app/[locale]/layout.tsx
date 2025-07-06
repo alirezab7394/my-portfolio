@@ -33,8 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
 
   const baseUrl = "https://alireza-bagheri.top";
-  const ogImageUrl = `${baseUrl}/${locale}/opengraph-image`;
-  const twitterImageUrl = `${baseUrl}/${locale}/twitter-image`;
+  const ogImageUrl = `${baseUrl}/opengraph-image.png`;
 
   return {
     title: "Alireza Bagheri - Senior Front-End Developer | React & Next.js Expert",
@@ -119,7 +118,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       site: "@alirezab7394",
       images: [
         {
-          url: twitterImageUrl,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: "Alireza Bagheri - Senior Front-End Developer",
