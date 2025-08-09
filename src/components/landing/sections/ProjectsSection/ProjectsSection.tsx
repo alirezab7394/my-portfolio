@@ -92,7 +92,7 @@ export default function ProjectsSection() {
   const t = useTranslations("ProjectsSection");
 
   const projectStats = [
-    { value: "50+", label: t("stats.projects") },
+    { value: "10+", label: t("stats.projects") },
     { value: "35%", label: t("stats.efficiency") },
     { value: "40%", label: t("stats.performance") },
     { value: "100%", label: t("stats.satisfaction") },

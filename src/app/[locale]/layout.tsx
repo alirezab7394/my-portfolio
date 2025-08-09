@@ -70,6 +70,7 @@ export default async function RootLayout({
             __html: JSON.stringify(portfolioStructuredData),
           }}
         />
+        <meta name="google-site-verification" content="wKB8jP0vdQLw8os7GBLy88_JpHldmC-9zrAD9s91rVI" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${notoSansArabic.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>

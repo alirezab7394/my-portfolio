@@ -10,7 +10,7 @@ export default function ProfileSummarySection() {
     { value: "7+", label: t("stats.experience") },
     { value: "5", label: t("stats.countries") },
     { value: "40%", label: t("stats.improvement") },
-    { value: "50+", label: t("stats.projects") },
+    { value: "10+", label: t("stats.projects") },
   ];
 
   const specializations = ["React & Next.js", "TypeScript", "Team Leadership"];
