@@ -4,6 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import { SECTION_IDS } from "@/lib/constants";
 import AnimatedBackground from "./components/AnimatedBackground";
+import { Link } from "@/navigation";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
@@ -72,9 +73,12 @@ export default function HeroSection() {
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-6 font-medium tracking-wide transition-all duration-300 group shadow-lg shadow-primary/20"
+                  asChild
                 >
-                  {t("cta.contact")}
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <Link href="/contact">
+                    {t("cta.contact")}
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"

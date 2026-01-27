@@ -3,6 +3,7 @@ import { ExternalLink, Github, TrendingUp, Users, Code, Zap, Brain, ArrowRight }
 import { Button } from "@/components/ui/button";
 import { AnimatedSection, AnimatedGrid } from "@/components/common";
 import { SECTION_IDS } from "@/lib/constants";
+import { Link } from "@/navigation";
 
 const featuredProject = {
   id: "javi-english",
@@ -263,9 +264,11 @@ export default function ProjectsSection() {
               <div className="inline-block p-8 bg-primary rounded-xl text-center">
                 <h3 className="text-2xl font-semibold text-white mb-4">{t("cta.title")}</h3>
                 <p className="text-white/80 mb-6 max-w-md mx-auto">{t("cta.description")}</p>
-                <Button className="bg-white text-primary hover:bg-white/90 px-8 py-6 font-medium group">
-                  {t("cta.button")}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <Button className="bg-white text-primary hover:bg-white/90 px-8 py-6 font-medium group" asChild>
+                  <Link href="/contact">
+                    {t("cta.button")}
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
               </div>
             </div>
