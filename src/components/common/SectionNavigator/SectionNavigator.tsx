@@ -18,7 +18,6 @@ export default function SectionNavigator({ sections, className }: SectionNavigat
   const [activeSection, setActiveSection] = useState<SectionId | "">("");
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [showTooltip, setShowTooltip] = useState<SectionId | "">("");
-  const [sectionProgress, setSectionProgress] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,31 +40,11 @@ export default function SectionNavigator({ sections, className }: SectionNavigat
       }
     );
 
-    // Progress observer for section scroll progress
-    const progressObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const sectionId = entry.target.id as SectionId;
-          const progress = Math.min(1, Math.max(0, entry.intersectionRatio));
-          setSectionProgress((prev) => ({
-            ...prev,
-            [sectionId]: progress,
-          }));
-        });
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
     // Observe all sections
     sections.forEach((section) => {
       const element = document.getElementById(section.id);
       if (element) {
         observer.observe(element);
-        progressObserver.observe(element);
       }
     });
 
@@ -74,7 +53,6 @@ export default function SectionNavigator({ sections, className }: SectionNavigat
 
     return () => {
       observer.disconnect();
-      progressObserver.disconnect();
       clearTimeout(timer);
     };
   }, [sections]);
@@ -95,12 +73,13 @@ export default function SectionNavigator({ sections, className }: SectionNavigat
     <TooltipProvider>
       <div
         className={cn(
-          "fixed left-1/2 -translate-x-1/2 bottom-6 md:left-auto md:translate-x-0 md:right-4 md:bottom-4 z-50 transition-all duration-300 opacity-70 hover:opacity-100",
+          "fixed left-1/2 -translate-x-1/2 bottom-6 md:left-auto md:translate-x-0 md:right-6 md:bottom-6 z-50 transition-all duration-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
           className
         )}
       >
-        <div className="bg-white/90 backdrop-blur-sm border border-slate-200/50 rounded-full p-1 shadow-md">
-          <div className="flex flex-row md:flex-col gap-0.5">
+        <div className="bg-white/95 backdrop-blur-md border border-secondary-200 rounded-full p-2 shadow-lg">
+          <div className="flex flex-row md:flex-col gap-1">
             {sections.map((section) => (
               <Tooltip key={section.id} delayDuration={200} open={showTooltip === section.id}>
                 <TooltipTrigger asChild>
@@ -108,42 +87,32 @@ export default function SectionNavigator({ sections, className }: SectionNavigat
                     variant="ghost"
                     size="sm"
                     className={cn(
-                      "w-6 h-6 p-0 rounded-full transition-all duration-300 hover:bg-primary/10 group relative overflow-hidden",
+                      "w-7 h-7 p-0 rounded-full transition-all duration-300 relative",
                       activeSection === section.id
-                        ? "bg-primary text-white hover:bg-primary/90 scale-110 shadow-lg"
-                        : "text-slate-400 hover:text-slate-600"
+                        ? "bg-primary text-white hover:bg-primary shadow-md scale-110"
+                        : "text-secondary-400 hover:text-primary hover:bg-primary/10"
                     )}
                     onClick={() => scrollToSection(section.id)}
                     aria-label={t("scrollTo", { section: section.label })}
                   >
-                    {/* Progress indicator */}
-                    <div
-                      className={cn(
-                        "absolute inset-0 rounded-full transition-all duration-500",
-                        activeSection === section.id ? "bg-primary/20" : "bg-primary/5"
-                      )}
-                      style={{
-                        transform: `scale(${0.8 + (sectionProgress[section.id] || 0) * 0.4})`,
-                      }}
-                    />
-
                     {/* Main dot */}
                     <div
                       className={cn(
-                        "w-1.5 h-1.5 rounded-full transition-all duration-300 relative z-10",
-                        activeSection === section.id
-                          ? "bg-white scale-125 animate-pulse"
-                          : "bg-current scale-100 group-hover:scale-110"
+                        "w-2 h-2 rounded-full transition-all duration-300",
+                        activeSection === section.id ? "bg-white" : "bg-current"
                       )}
                     />
 
-                    {/* Ripple effect for active section */}
+                    {/* Active indicator ring */}
                     {activeSection === section.id && (
-                      <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
+                      <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping" />
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent side={isMobile ? "top" : "left"} className="bg-primary text-white border-primary">
+                <TooltipContent
+                  side={isMobile ? "top" : "left"}
+                  className="font-medium"
+                >
                   {section.label}
                 </TooltipContent>
               </Tooltip>

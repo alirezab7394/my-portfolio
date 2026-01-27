@@ -1,21 +1,27 @@
 /**
- * Brand color definitions for My Coach platform
- * Primary: #1E40AF (Navy Blue)
- * Secondary: #1F2937 (Dark Gray)
+ * Brand color definitions for Portfolio
+ * Primary: #1a5f7a (Sophisticated Teal)
+ * Secondary: #2d2d2d (Warm Dark)
  */
 
 export const brandColors = {
     primary: {
-        hex: '#1E40AF',
-        hsl: 'hsl(228, 71%, 40%)',
-        oklch: 'oklch(0.4 0.153 263.5)',
-        rgb: 'rgb(30, 64, 175)',
+        hex: '#1a5f7a',
+        hsl: 'hsl(195, 65%, 29%)',
+        oklch: 'oklch(0.42 0.08 220)',
+        rgb: 'rgb(26, 95, 122)',
     },
     secondary: {
-        hex: '#1F2937',
-        hsl: 'hsl(217, 32%, 17%)',
-        oklch: 'oklch(0.17 0.029 228.42)',
-        rgb: 'rgb(31, 41, 55)',
+        hex: '#2d2d2d',
+        hsl: 'hsl(0, 0%, 18%)',
+        oklch: 'oklch(0.2 0.01 0)',
+        rgb: 'rgb(45, 45, 45)',
+    },
+    accent: {
+        hex: '#e8f4f8',
+        hsl: 'hsl(195, 47%, 94%)',
+        oklch: 'oklch(0.95 0.02 220)',
+        rgb: 'rgb(232, 244, 248)',
     },
 } as const;
 
@@ -64,17 +70,17 @@ export const getColorClasses = () => ({
     },
     // Brand color classes
     brand: {
-        navy: {
-            bg: 'bg-brand-navy',
-            text: 'text-brand-navy',
-            border: 'border-brand-navy',
+        teal: {
+            bg: 'bg-brand-teal',
+            text: 'text-brand-teal',
+            border: 'border-brand-teal',
         },
-        darkGray: {
-            bg: 'bg-brand-dark-gray',
-            text: 'text-brand-dark-gray',
-            border: 'border-brand-dark-gray',
+        dark: {
+            bg: 'bg-brand-dark',
+            text: 'text-brand-dark',
+            border: 'border-brand-dark',
         },
     },
 });
 
-export type ColorClasses = ReturnType<typeof getColorClasses>; 
+export type ColorClasses = ReturnType<typeof getColorClasses>;

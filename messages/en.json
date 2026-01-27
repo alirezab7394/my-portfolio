@@ -5,16 +5,16 @@
     "HeroSection": {
         "greeting": "Hello, I'm",
         "name": "Alireza Bagheri",
-        "title": "Senior Front-End Developer",
+        "title": "Senior Frontend Developer",
         "subtitle": "Specialized in React & Next.js Ecosystems",
-        "summary": "Transforming ideas into exceptional digital experiences through clean code and innovative solutions.",
+        "summary": "Senior Frontend Developer with 7+ years building scalable web applications using React, Next.js, and TypeScript. Led teams achieving 40% performance gains through code modernization.",
         "metrics": {
             "experience": "7+",
             "experienceLabel": "Years Experience",
             "projects": "10+",
             "projectsLabel": "Projects Delivered",
             "performance": "40%",
-            "performanceLabel": "Performance Improvement"
+            "performanceLabel": "Performance Boost"
         },
         "cta": {
             "contact": "Let's Connect",
@@ -24,18 +24,18 @@
         "contact": {
             "email": "alireza7394@gmail.com",
             "phone": "+98 936 655 4441",
-            "location": "Available Worldwide"
+            "location": "Tabriz, Iran | Open to Remote"
         },
         "availability": "Available for new opportunities"
     },
     "ProfileSummarySection": {
         "title": "Profile Summary",
-        "summary": "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Demonstrated success in leading development teams at Skedpal and Cowsel, driving significant performance improvements including 40% faster load times through modernization initiatives.",
-        "details": "Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance. Strong track record in architectural decisions, team leadership, and delivering complex projects across international companies in the US, UAE, Finland, and Azerbaijan.",
+        "summary": "Senior Frontend Developer with 7+ years building scalable web applications using React, Next.js, and TypeScript. Led teams of 3-5 developers achieving 40% performance gains through code modernization.",
+        "details": "Built and shipped Javi English — a production AI-powered EdTech platform with OpenAI integration. Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG), and Agile delivery.",
         "highlights": {
             "title": "Key Highlights",
             "leadership": "Led development teams driving 40% performance improvements",
-            "performance": "Delivered significant performance optimizations across multiple projects",
+            "performance": "Built Javi English — production AI-powered EdTech platform",
             "international": "Successfully collaborated with teams across 5 countries"
         },
         "stats": {
@@ -49,16 +49,17 @@
         }
     },
     "SkillsSection": {
-        "title": "Skills & Expertise",
-        "subtitle": "Comprehensive technical skills and soft skills refined through years of professional development",
+        "title": "Technical Skills",
+        "subtitle": "Comprehensive technical skills refined through 7+ years of professional development",
         "technical": {
             "title": "Technical Skills",
             "categories": {
-                "frontend": "Frontend Technologies",
+                "frontend": "Frontend",
+                "build": "Build Tools",
                 "state": "State Management",
                 "ui": "UI Frameworks",
                 "backend": "Backend & Database",
-                "tools": "Tools & Testing"
+                "tools": "Testing & DevOps"
             }
         },
         "soft": {
@@ -74,11 +75,11 @@
                 },
                 "adaptability": {
                     "title": "Adaptability",
-                    "description": "Quick learning and adaptation to new technologies and environments"
+                    "description": "Quick learning and adaptation to new technologies"
                 },
                 "leadership": {
                     "title": "Leadership",
-                    "description": "Strategic planning and team management for successful project delivery"
+                    "description": "Strategic planning and team management"
                 }
             }
         },
@@ -135,7 +136,8 @@
             "enterprise": "Enterprise",
             "platform": "Platform",
             "tool": "Tool",
-            "portfolio": "Portfolio"
+            "portfolio": "Portfolio",
+            "featured": "Featured"
         },
         "actions": {
             "visit": "Visit Site",

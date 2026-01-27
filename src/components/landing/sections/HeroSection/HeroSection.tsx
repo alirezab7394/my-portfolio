@@ -1,136 +1,154 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ArrowUpRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
-import { StatsGrid, ContactInfo } from "@/components/common";
-import HeroBackground from "./components/background/HeroBackground";
-import ParticleField from "@/components/three/ParticleField";
+import { ArrowRight, Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
 import { SECTION_IDS } from "@/lib/constants";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
 
-  const stats = [
-    { value: t("metrics.experience"), label: t("metrics.experienceLabel") },
-    { value: t("metrics.projects"), label: t("metrics.projectsLabel") },
-    { value: t("metrics.performance"), label: t("metrics.performanceLabel") },
-  ];
-
-  const contactItems = [
-    { icon: Mail, label: "Email", value: t("contact.email") },
-    { icon: Phone, label: "Phone", value: t("contact.phone") },
-    { icon: MapPin, label: "Location", value: t("contact.location") },
-  ];
-
   return (
     <section
       id={SECTION_IDS.HERO}
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50 relative overflow-hidden"
+      className="min-h-screen bg-white relative overflow-hidden"
     >
-      {/* Sophisticated Background */}
-      <HeroBackground />
+      {/* Animated Background */}
+      <AnimatedBackground />
+      
+      {/* Accent Line */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/60 to-transparent z-10" />
 
-      {/* 3D Particle Field */}
-      <ParticleField particleCount={40} colors={["#1E40AF", "#8B5CF6", "#06B6D4"]} className="opacity-20" />
-
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="min-h-screen flex flex-col justify-center">
-          {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-12 gap-16 items-center">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <div className="min-h-screen flex flex-col justify-center py-20">
+          {/* Main Content */}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             {/* Left Column - Main Content */}
-            <div className="lg:col-span-8 space-y-8">
-              {/* Greeting & Name */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-6">
-                  <Avatar className="w-16 h-16 lg:w-24 lg:h-24 border-2 border-white shadow-lg">
-                    <AvatarImage src="/avatar.jpg" alt="Alireza Bagheri" className="object-cover" />
-                    <AvatarFallback className="text-lg font-light text-slate-600 bg-slate-100">AB</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-slate-600 text-lg font-light tracking-wide">{t("greeting")}</p>
-                    <h1 className="text-5xl lg:text-7xl font-light text-slate-900 tracking-tight leading-none">
-                      {t("name")}
-                    </h1>
-                  </div>
+            <div className="lg:col-span-7 space-y-10">
+              {/* Avatar & Name */}
+              <div className="space-y-6">
+                <Avatar className="w-20 h-20 lg:w-28 lg:h-28 border-4 border-white shadow-xl ring-2 ring-primary/20">
+                  <AvatarImage src="/avatar.jpg" alt="Alireza Bagheri" className="object-cover" />
+                  <AvatarFallback className="text-xl font-medium text-primary bg-primary/10">AB</AvatarFallback>
+                </Avatar>
+                
+                <div className="space-y-2">
+                  <p className="text-primary font-medium tracking-wide text-sm uppercase">{t("greeting")}</p>
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-700 tracking-tight">
+                    {t("name")}
+                  </h1>
                 </div>
-                <div className="w-24 h-px bg-gradient-to-r from-primary to-transparent mt-4" />
               </div>
 
               {/* Title & Subtitle */}
-              <div className="space-y-4">
-                <h2 className="text-2xl lg:text-3xl font-medium text-slate-800 leading-relaxed">{t("title")}</h2>
-                <p className="text-lg text-slate-600 font-light">{t("subtitle")}</p>
+              <div className="space-y-4 border-l-4 border-primary pl-6">
+                <h2 className="text-xl lg:text-2xl font-semibold text-secondary-700">{t("title")}</h2>
+                <p className="text-lg text-secondary-500">{t("subtitle")}</p>
               </div>
 
               {/* Summary */}
-              <p className="text-xl text-slate-700 font-light leading-relaxed max-w-2xl">{t("summary")}</p>
+              <p className="text-lg lg:text-xl text-secondary-600 leading-relaxed max-w-xl">
+                {t("summary")}
+              </p>
 
-              {/* Metrics */}
-              <div className="pt-8">
-                <StatsGrid stats={stats} columns={3} className="gap-8" />
+              {/* Key Metrics - Minimalist Style */}
+              <div className="flex flex-wrap gap-8 py-6 border-y border-secondary-200">
+                <div className="space-y-1">
+                  <p className="text-3xl lg:text-4xl font-bold text-primary">{t("metrics.experience")}</p>
+                  <p className="text-sm text-secondary-500 font-medium">{t("metrics.experienceLabel")}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-3xl lg:text-4xl font-bold text-primary">{t("metrics.projects")}</p>
+                  <p className="text-sm text-secondary-500 font-medium">{t("metrics.projectsLabel")}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-3xl lg:text-4xl font-bold text-primary">{t("metrics.performance")}</p>
+                  <p className="text-sm text-secondary-500 font-medium">{t("metrics.performanceLabel")}</p>
+                </div>
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-8">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 rounded-none font-medium tracking-wide transition-all duration-300 group"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-6 font-medium tracking-wide transition-all duration-300 group shadow-lg shadow-primary/20"
                 >
                   {t("cta.contact")}
-                  <ArrowUpRight className="ml-2 h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-slate-300 hover:border-slate-900 hover:bg-slate-50 px-8 py-6 rounded-none font-medium tracking-wide transition-all duration-300"
+                  className="border-2 border-secondary-300 hover:border-primary hover:bg-primary/5 px-8 py-6 font-medium tracking-wide transition-all duration-300"
                 >
                   {t("cta.resume")}
                 </Button>
               </div>
             </div>
 
-            {/* Right Column - Contact Info */}
-            <div className="lg:col-span-4 space-y-8">
-              {/* Availability Status */}
-              <div className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-sm p-6 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-sm text-slate-600 font-medium">{t("availability")}</span>
+            {/* Right Column - Contact Card */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Availability Card */}
+              <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-lg p-8 shadow-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50" />
+                  <span className="text-sm text-secondary-700 font-semibold">{t("availability")}</span>
                 </div>
-                <ContactInfo items={contactItems} />
+                
+                {/* Contact Info */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-secondary-600">
+                    <div className="p-2 bg-white rounded-lg shadow-sm">
+                      <Mail className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium">{t("contact.email")}</span>
+                  </div>
+                  <div className="flex items-center gap-4 text-secondary-600">
+                    <div className="p-2 bg-white rounded-lg shadow-sm">
+                      <Phone className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium">{t("contact.phone")}</span>
+                  </div>
+                  <div className="flex items-center gap-4 text-secondary-600">
+                    <div className="p-2 bg-white rounded-lg shadow-sm">
+                      <MapPin className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium">{t("contact.location")}</span>
+                  </div>
+                </div>
               </div>
 
               {/* Social Links */}
-              <div className="space-y-4">
-                <h3 className="text-sm text-slate-600 font-medium tracking-wide uppercase">Connect</h3>
-                <div className="flex gap-4">
+              <div className="bg-white border border-secondary-200 rounded-lg p-6 shadow-sm">
+                <h3 className="text-xs text-secondary-500 font-semibold tracking-wider uppercase mb-4">Connect</h3>
+                <div className="flex gap-3">
                   <a
                     href="https://github.com/alirezab7394"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center w-12 h-12 bg-white border border-slate-200 hover:border-slate-400 transition-colors duration-300 group"
+                    className="flex items-center justify-center w-12 h-12 bg-secondary-50 border border-secondary-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
                   >
-                    <Github className="h-5 w-5 text-slate-600 group-hover:text-slate-900" />
+                    <Github className="h-5 w-5 text-secondary-500 group-hover:text-primary" />
                   </a>
                   <a
                     href="https://www.linkedin.com/in/alireza-bagheri-a6aaa681/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center w-12 h-12 bg-white border border-slate-200 hover:border-slate-400 transition-colors duration-300 group"
+                    className="flex items-center justify-center w-12 h-12 bg-secondary-50 border border-secondary-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
                   >
-                    <Linkedin className="h-5 w-5 text-slate-600 group-hover:text-slate-900" />
+                    <Linkedin className="h-5 w-5 text-secondary-500 group-hover:text-primary" />
                   </a>
                 </div>
               </div>
 
-              {/* Technology Stack */}
-              <div className="space-y-4">
-                <h3 className="text-sm text-slate-600 font-medium tracking-wide uppercase">Expertise</h3>
+              {/* Tech Stack */}
+              <div className="bg-white border border-secondary-200 rounded-lg p-6 shadow-sm">
+                <h3 className="text-xs text-secondary-500 font-semibold tracking-wider uppercase mb-4">Core Expertise</h3>
                 <div className="flex flex-wrap gap-2">
-                  {["React", "Next.js", "TypeScript", "Node.js", "Tailwind"].map((tech) => (
+                  {["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"].map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium tracking-wide rounded-full"
+                      className="px-3 py-1.5 bg-primary/10 text-primary text-xs font-semibold rounded-full border border-primary/20"
                     >
                       {tech}
                     </span>

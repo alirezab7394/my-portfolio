@@ -4,6 +4,7 @@ import SkillsSection from "@/components/landing/sections/SkillsSection/SkillsSec
 import ExperienceSection from "@/components/landing/sections/ExperienceSection/ExperienceSection";
 import EducationSection from "@/components/landing/sections/EducationSection/EducationSection";
 import ProjectsSection from "@/components/landing/sections/ProjectsSection/ProjectsSection";
+import FooterSection from "@/components/landing/sections/FooterSection/FooterSection";
 import { SectionNavigator } from "@/components/common";
 import { useTranslations } from "next-intl";
 import { NAVIGATION_SECTIONS } from "@/lib/constants";
@@ -24,6 +25,7 @@ export default function Home() {
       <ExperienceSection />
       <EducationSection />
       <ProjectsSection />
+      <FooterSection />
       <SectionNavigator sections={sections} />
     </div>
   );

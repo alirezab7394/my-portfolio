@@ -15,10 +15,12 @@ This is a personal portfolio website with 4 main sections:
 - **Architecture**: Component-based design
 
 ## Design System
-- **Primary Color**: #1E40AF (Navy Blue)
-- **Secondary Color**: #1F2937 (Dark Gray)
+- **Primary Color**: #1a5f7a (Sophisticated Teal)
+- **Secondary Color**: #2d2d2d (Warm Dark)
+- **Accent Color**: #e8f4f8 (Light Teal)
 - **Component Library**: shadcn/ui
 - **Styling**: Tailwind CSS utility classes
+- **Design Philosophy**: Clean, minimalist, charismatic
 
 ## Development Guidelines
 
@@ -107,12 +109,14 @@ messages/
 ### Styling Guidelines
 - Use Tailwind CSS utility classes
 - Implement responsive design (mobile-first)
-- Use primary color (#1E40AF) for CTAs and highlights
-- Use secondary color (#1F2937) for text and backgrounds
+- Use primary color (#1a5f7a) for CTAs and highlights
+- Use secondary color (#2d2d2d) for text and backgrounds
 - Follow shadcn/ui design patterns
 - Maintain consistent spacing and typography
 - Implement smooth animations and transitions
-- Use modern design principles (clean, minimal, professional)
+- Use minimalist, charismatic design principles
+- Focus on whitespace and clean layouts
+- Use subtle shadows and borders for depth
 
 ### Portfolio Specific Requirements
 - **Hero Section**: Compelling introduction with clear value proposition
