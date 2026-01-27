@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
  
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from:  validatedData.email,
       to: "alireza7394@gmail.com",
       subject: `Portfolio Contact: ${validatedData.subject}`,
       html: `
