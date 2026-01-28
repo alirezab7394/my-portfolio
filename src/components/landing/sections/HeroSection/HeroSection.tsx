@@ -10,13 +10,10 @@ export default function HeroSection() {
   const t = useTranslations("HeroSection");
 
   return (
-    <section
-      id={SECTION_IDS.HERO}
-      className="min-h-screen bg-white relative overflow-hidden"
-    >
+    <section id={SECTION_IDS.HERO} className="min-h-screen bg-white relative overflow-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
-      
+
       {/* Accent Line */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/60 to-transparent z-10" />
 
@@ -32,7 +29,7 @@ export default function HeroSection() {
                   <AvatarImage src="/avatar.jpg" alt="Alireza Bagheri" className="object-cover" />
                   <AvatarFallback className="text-xl font-medium text-primary bg-primary/10">AB</AvatarFallback>
                 </Avatar>
-                
+
                 <div className="space-y-2">
                   <p className="text-primary font-medium tracking-wide text-sm uppercase">{t("greeting")}</p>
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-secondary-700 tracking-tight">
@@ -48,9 +45,7 @@ export default function HeroSection() {
               </div>
 
               {/* Summary */}
-              <p className="text-lg lg:text-xl text-secondary-600 leading-relaxed max-w-xl">
-                {t("summary")}
-              </p>
+              <p className="text-lg lg:text-xl text-secondary-600 leading-relaxed max-w-xl">{t("summary")}</p>
 
               {/* Key Metrics - Minimalist Style */}
               <div className="flex flex-wrap gap-8 py-6 border-y border-secondary-200">
@@ -84,8 +79,11 @@ export default function HeroSection() {
                   variant="outline"
                   size="lg"
                   className="border-2 border-secondary-300 hover:border-primary hover:bg-primary/5 px-8 py-6 font-medium tracking-wide transition-all duration-300"
+                  asChild
                 >
-                  {t("cta.resume")}
+                  <a href="/resume.html" target="_blank" rel="noopener noreferrer">
+                    {t("cta.resume")}
+                  </a>
                 </Button>
               </div>
             </div>
@@ -98,7 +96,7 @@ export default function HeroSection() {
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50" />
                   <span className="text-sm text-secondary-700 font-semibold">{t("availability")}</span>
                 </div>
-                
+
                 {/* Contact Info */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 text-secondary-600">
@@ -147,7 +145,9 @@ export default function HeroSection() {
 
               {/* Tech Stack */}
               <div className="bg-white border border-secondary-200 rounded-lg p-6 shadow-sm">
-                <h3 className="text-xs text-secondary-500 font-semibold tracking-wider uppercase mb-4">Core Expertise</h3>
+                <h3 className="text-xs text-secondary-500 font-semibold tracking-wider uppercase mb-4">
+                  Core Expertise
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"].map((tech) => (
                     <span

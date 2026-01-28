@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alireza Bagheri - Senior Frontend Developer</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --text: #2d2d2d;
+            --muted: #555;
+            --border: #ddd;
+            --accent: #e8f4f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 11pt;
+            line-height: 1.4;
+            font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+            color: var(--text);
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 12mm 15mm;
+            background: white;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 22pt;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .title {
+            font-size: 12pt;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .contact {
+            text-align: right;
+            font-size: 9.5pt;
+            color: var(--text);
+        }
+
+        .contact a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact p {
+            margin: 2px 0;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 11pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Summary */
+        .summary {
+            background: var(--accent);
+            padding: 10px 12px;
+            border-left: 3px solid var(--primary);
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+
+        .summary strong {
+            color: var(--primary);
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .skills-col {
+            flex: 1;
+        }
+
+        .skill-item {
+            margin-bottom: 4px;
+            font-size: 9.5pt;
+        }
+
+        .skill-item strong {
+            color: var(--primary);
+        }
+
+        /* Experience */
+        .job {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .job-title {
+            font-weight: 600;
+            font-size: 10.5pt;
+            color: var(--text);
+        }
+
+        .job-title a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .job-meta {
+            font-size: 9pt;
+            color: var(--muted);
+        }
+
+        .job ul {
+            margin-left: 16px;
+            font-size: 9.5pt;
+        }
+
+        .job li {
+            margin-bottom: 2px;
+        }
+
+        /* Two column layout for experience */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Education */
+        .education-grid {
+            display: flex;
+            gap: 30px;
+        }
+
+        .edu-item {
+            font-size: 10pt;
+        }
+
+        .edu-item strong {
+            color: var(--text);
+        }
+
+        /* Featured Project */
+        .project-box {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            background: #fafafa;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            font-size: 10.5pt;
+        }
+
+        .project-title a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .project-meta {
+            font-size: 9pt;
+            color: var(--muted);
+        }
+
+        .project-desc {
+            font-size: 9.5pt;
+            margin-bottom: 6px;
+        }
+
+        .project-box ul {
+            margin-left: 16px;
+            font-size: 9pt;
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .project-box li {
+            margin-bottom: 2px;
+            break-inside: avoid;
+        }
+
+        .tech-stack {
+            font-size: 8.5pt;
+            color: var(--muted);
+            margin-top: 6px;
+            border-top: 1px dashed var(--border);
+            padding-top: 6px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 8mm 12mm;
+                font-size: 10pt;
+            }
+
+            a {
+                color: var(--primary) !important;
+            }
+
+            .summary {
+                background: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .project-box {
+                background: #f9f9f9 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            header {
+                border-bottom-color: var(--primary) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+
+            .job {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* URL display for print */
+        @media print {
+            a[href^="http"]:after {
+                content: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Alireza Bagheri</h1>
+            <p class="title">Senior Frontend Developer</p>
+        </div>
+        <div class="contact">
+            <p><strong>Email:</strong> alireza7394@gmail.com</p>
+            <p><strong>Phone:</strong> +98 936 655 4441</p>
+            <p><strong>Location:</strong> Tabriz, Iran | Open to Remote</p>
+            <p>
+                <a href="https://linkedin.com/in/alireza-bagheri-a6aaa681">LinkedIn</a> |
+                <a href="https://github.com/alirezab7394">GitHub</a> |
+                <a href="https://alireza-bagheri.top">Portfolio</a>
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>Professional Summary</h2>
+            <div class="summary">
+                <strong>Senior Frontend Developer</strong> with <strong>7+ years</strong> building scalable web
+                applications using <strong>React</strong>, <strong>Next.js</strong>, and <strong>TypeScript</strong>.
+                Led teams of 3-5 developers achieving <strong>40% performance gains</strong> through code modernization.
+                Built and shipped <strong>Javi English</strong> — a production AI-powered EdTech platform with OpenAI
+                integration.
+                Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG),
+                and Agile delivery.
+            </div>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skills-col">
+                    <p class="skill-item"><strong>Frontend:</strong> React, Next.js (App Router, Server Actions),
+                        TypeScript, JavaScript (ES6+), HTML5, CSS3</p>
+                    <p class="skill-item"><strong>Build Tools:</strong> Webpack, Vite, Turbopack</p>
+                    <p class="skill-item"><strong>State:</strong> Redux, Zustand, Jotai, React Query, Context API</p>
+                    <p class="skill-item"><strong>UI:</strong> Tailwind CSS, Shadcn/UI, Material UI, Framer Motion</p>
+                </div>
+                <div class="skills-col">
+                    <p class="skill-item"><strong>Backend:</strong> Node.js, Prisma, PostgreSQL, MongoDB, REST </p>
+                    <p class="skill-item"><strong>Testing:</strong> Jest, Vitest, React Testing Library, Cypress</p>
+                    <p class="skill-item"><strong>DevOps:</strong> Git, GitHub Actions, CI/CD, Vercel, AWS S3
+                    </p>
+                    <p class="skill-item"><strong>Methods:</strong> Agile/Scrum, Code Review, Pair Programming, TDD</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Professional Experience</h2>
+            <div class="experience-grid">
+                <div>
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Frontend Lead — <a href="https://skedpal.com">Skedpal</a>,
+                                UAE</span>
+                            <span class="job-meta">2021 - Present</span>
+                        </div>
+                        <ul>
+                            <li>Lead team of 3 building AI-powered calendar app serving <strong>10,000+ users</strong>
+                                globally</li>
+                            <li>Migrated WordPress to Next.js — <strong>30% faster load</strong>, improved Core Web
+                                Vitals</li>
+                            <li>Spearheaded jQuery → React migration — <strong>40% smaller bundle</strong></li>
+                            <li>Implemented WCAG-compliant dark mode; built custom NLP date parser</li>
+                            <li>Conduct code reviews, mentor juniors, lead Agile sprints</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Frontend Dev — <a href="https://techclass.com">TechClass</a>,
+                                Finland</span>
+                            <span class="job-meta">Apr - Jul 2021</span>
+                        </div>
+                        <ul>
+                            <li>Converted CSR to SSR with Next.js — <strong>50% improvement</strong> in FCP/LCP</li>
+                            <li>Implemented SEO optimizations improving search rankings</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">React Developer — <a href="https://colors.dopely.top">Dopely</a>,
+                                Canada</span>
+                            <span class="job-meta">Sep 2020 - Mar 2021</span>
+                        </div>
+                        <ul>
+                            <li>Optimized SSR + code splitting — <strong>30% faster</strong> page loads</li>
+                            <li>Built Canvas-based color tools serving <strong>50K+ monthly users</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Frontend Lead — <a href="https://markabu.com">Cowsel</a>,
+                                Azerbaijan</span>
+                            <span class="job-meta">Oct 2019 - Aug 2020</span>
+                        </div>
+                        <ul>
+                            <li>Led team of 5 building ERP + e-commerce platform with React</li>
+                            <li>Architected reusable form builder and calendar components</li>
+                            <li>Launched international store with Next.js SSR + i18n support</li>
+                            <li>Improved client operational efficiency by <strong>35%</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">React Developer — Opeqe, USA (Remote)</span>
+                            <span class="job-meta">Jan - Sep 2019</span>
+                        </div>
+                        <ul>
+                            <li>Built 20+ reusable components following atomic design principles</li>
+                            <li>Created responsive email templates with cross-client testing</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Full-Stack Dev — Setorg Andishe (Contract)</span>
+                            <span class="job-meta">Nov - Dec 2018</span>
+                        </div>
+                        <ul>
+                            <li>Delivered government project: React frontend + Java Spring backend</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="education-grid">
+                <p class="edu-item"><strong>M.Sc. Artificial Intelligence</strong> — University of Tabriz (2017-2020)
+                </p>
+                <p class="edu-item"><strong>B.Sc. Software Engineering</strong> — University of Bonab (2013-2017)</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Featured Project — Javi English</h2>
+            <div class="project-box">
+                <div class="project-header">
+                    <span class="project-title"><a href="https://app.javienglish.com">app.javienglish.com</a> —
+                        AI-Powered IELTS Learning Platform</span>
+                    <span class="project-meta">Solo Developer | 2025 | Production</span>
+                </div>
+                <p class="project-desc">Full-stack EdTech platform built from scratch, serving real users for IELTS exam
+                    preparation.</p>
+                <ul>
+                    <li><strong>25+</strong> question types (Listening, Reading, Writing, Speaking)</li>
+                    <li><strong>3</strong> user roles with role-based auth (Admin/Teacher/Student)</li>
+                    <li><strong>OpenAI</strong> integration for automated scoring & feedback</li>
+                    <li>AI-generated personalized study plans & chat assistant</li>
+                    <li>Real-time exam system with timer & progress tracking</li>
+                    <li>Drag-drop question builder with audio/video support</li>
+                    <li>Subscription system with payment gateway integration</li>
+                    <li>Push notifications, analytics dashboard, course builder</li>
+                </ul>
+                <p class="tech-stack"><strong>Stack:</strong> Next.js 16, React 19, TypeScript, Prisma, PostgreSQL,
+                    NextAuth v5, AWS S3, OpenAI API, Tailwind CSS, Shadcn/UI, Jotai, Framer Motion, DnD Kit, Zod, React
+                    Hook Form</p>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
