@@ -27,7 +27,7 @@ const skillCategories = [
   {
     icon: Database,
     key: "backend",
-    skills: ["Node.js", "Prisma", "PostgreSQL", "MongoDB", "REST APIs"],
+    skills: ["NestJS", "Node.js", "Prisma", "PostgreSQL", "Redis", "MongoDB", "REST APIs"],
   },
   {
     icon: TestTube,

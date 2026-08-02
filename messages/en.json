@@ -31,11 +31,11 @@
     "ProfileSummarySection": {
         "title": "Profile Summary",
         "summary": "Senior Frontend Developer with 7+ years building scalable web applications using React, Next.js, and TypeScript. Led teams of 3-5 developers achieving 40% performance gains through code modernization.",
-        "details": "Built and shipped Javi English — a production AI-powered EdTech platform with OpenAI integration. Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG), and Agile delivery.",
+        "details": "Built and shipped Javi English (AI EdTech SaaS) and AzarTime (full-stack e-commerce). Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG), and Agile delivery.",
         "highlights": {
             "title": "Key Highlights",
             "leadership": "Led development teams driving 40% performance improvements",
-            "performance": "Built Javi English — production AI-powered EdTech platform",
+            "performance": "Shipped Javi English and AzarTime — production full-stack products",
             "international": "Successfully collaborated with teams across 5 countries"
         },
         "stats": {
@@ -132,6 +132,49 @@
         "subtitle": "Showcasing innovative solutions and technical achievements across enterprise and personal projects",
         "achievements": "Key Achievements",
         "technologies": "Technologies Used",
+        "featuredBadge": "Featured",
+        "keyFeatures": "Key Features",
+        "techStack": "Tech Stack",
+        "moreTech": "+{count} more",
+        "visitPlatform": "Visit Platform",
+        "featured": {
+            "javi": {
+                "title": "Javi English",
+                "category": "AI-Powered EdTech Platform",
+                "description": "Multi-sided IELTS/English learning SaaS for students, teachers, parents, and language schools — built from scratch and serving real users.",
+                "status": "Production",
+                "role": "Solo Developer",
+                "year": "2025",
+                "achievements": [
+                    "25+ IELTS question types across 4 skills",
+                    "Multi-role RBAC + org/school multi-tenancy",
+                    "OpenAI scoring, tutoring & learning paths",
+                    "Migrated domain API to NestJS monorepo",
+                    "Zarinpal billing, subscriptions & referrals",
+                    "i18n + RTL (en/fa/ar/tr); Socket.IO chat",
+                    "Vocabulary SRS, gamification & parent portal",
+                    "FastAPI/Whisper voice assessment integration"
+                ]
+            },
+            "azartime": {
+                "title": "AzarTime",
+                "category": "Watch E-Commerce Platform",
+                "description": "Full-stack Persian RTL luxury watch store with dual admin and customer portals, local payments, and marketplace integrations.",
+                "status": "Production",
+                "role": "Solo Developer",
+                "year": "2025–26",
+                "achievements": [
+                    "Catalog, cart/checkout & gift/bundle orders",
+                    "ZarinPal payments with verify flow",
+                    "SMS.ir OTP auth + Google OAuth",
+                    "Admin: products, campaigns, coupons, orders, blog",
+                    "Bulk pricing with audit/rollback; packing slips",
+                    "S3 media uploads; Torob product feed",
+                    "Staff/Admin RBAC; Shamsi dates; abandoned-cart cron",
+                    "Customer: favorites, reviews, tickets & addresses"
+                ]
+            }
+        },
         "types": {
             "enterprise": "Enterprise",
             "platform": "Platform",

@@ -223,6 +223,14 @@
             break-inside: avoid;
         }
 
+        .project-box.compact {
+            margin-top: 10px;
+        }
+
+        .project-box.compact ul {
+            columns: 2;
+        }
+
         .tech-stack {
             font-size: 8.5pt;
             color: var(--muted);
@@ -303,10 +311,9 @@
                 <strong>Senior Frontend Developer</strong> with <strong>7+ years</strong> building scalable web
                 applications using <strong>React</strong>, <strong>Next.js</strong>, and <strong>TypeScript</strong>.
                 Led teams of 3-5 developers achieving <strong>40% performance gains</strong> through code modernization.
-                Built and shipped <strong>Javi English</strong> — a production AI-powered EdTech platform with OpenAI
-                integration.
-                Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG),
-                and Agile delivery.
+                Built and shipped <strong>Javi English</strong> (AI EdTech SaaS) and <strong>AzarTime</strong>
+                (full-stack e-commerce). Expertise in component architecture, performance optimization (Core Web Vitals),
+                accessibility (WCAG), and Agile delivery.
             </div>
         </section>
 
@@ -321,7 +328,7 @@
                     <p class="skill-item"><strong>UI:</strong> Tailwind CSS, Shadcn/UI, Material UI, Framer Motion</p>
                 </div>
                 <div class="skills-col">
-                    <p class="skill-item"><strong>Backend:</strong> Node.js, Prisma, PostgreSQL, MongoDB, REST </p>
+                    <p class="skill-item"><strong>Backend:</strong> NestJS, Node.js, Prisma, PostgreSQL, Redis, MongoDB, REST</p>
                     <p class="skill-item"><strong>Testing:</strong> Jest, Vitest, React Testing Library, Cypress</p>
                     <p class="skill-item"><strong>DevOps:</strong> Git, GitHub Actions, CI/CD, Vercel, AWS S3
                     </p>
@@ -428,25 +435,45 @@
             <h2>Featured Project — Javi English</h2>
             <div class="project-box">
                 <div class="project-header">
-                    <span class="project-title"><a href="https://app.javienglish.com">app.javienglish.com</a> —
+                    <span class="project-title"><a href="https://javienglish.com">javienglish.com</a> —
                         AI-Powered IELTS Learning Platform</span>
                     <span class="project-meta">Solo Developer | 2025 | Production</span>
                 </div>
-                <p class="project-desc">Full-stack EdTech platform built from scratch, serving real users for IELTS exam
-                    preparation.</p>
+                <p class="project-desc">Multi-sided IELTS/English learning SaaS for students, teachers, parents &amp;
+                    schools.</p>
                 <ul>
-                    <li><strong>25+</strong> question types (Listening, Reading, Writing, Speaking)</li>
-                    <li><strong>3</strong> user roles with role-based auth (Admin/Teacher/Student)</li>
-                    <li><strong>OpenAI</strong> integration for automated scoring & feedback</li>
-                    <li>AI-generated personalized study plans & chat assistant</li>
-                    <li>Real-time exam system with timer & progress tracking</li>
-                    <li>Drag-drop question builder with audio/video support</li>
-                    <li>Subscription system with payment gateway integration</li>
-                    <li>Push notifications, analytics dashboard, course builder</li>
+                    <li><strong>25+</strong> IELTS question types across 4 skills</li>
+                    <li>Multi-role RBAC + org/school multi-tenancy</li>
+                    <li><strong>OpenAI</strong> scoring, tutoring &amp; learning paths</li>
+                    <li>Migrated domain API to <strong>NestJS</strong> monorepo</li>
+                    <li>Zarinpal billing, subscriptions &amp; referrals</li>
+                    <li>i18n + RTL (<strong>en/fa/ar/tr</strong>); Socket.IO chat</li>
+                    <li>Vocabulary SRS, gamification &amp; parent portal</li>
+                    <li>FastAPI/Whisper voice assessment integration</li>
+                </ul>
+                <p class="tech-stack"><strong>Stack:</strong> Next.js 16, NestJS, React 19, TypeScript, Turborepo,
+                    Prisma, PostgreSQL, Redis, NextAuth v5, OpenAI, AWS S3, Socket.IO, next-intl, Tailwind, Shadcn/UI
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Additional Project — AzarTime</h2>
+            <div class="project-box compact">
+                <div class="project-header">
+                    <span class="project-title"><a href="https://azartime.com">azartime.com</a> —
+                        Watch E-Commerce Platform</span>
+                    <span class="project-meta">Solo Developer | 2025–26 | Production</span>
+                </div>
+                <p class="project-desc">Full-stack Persian RTL luxury watch store with admin &amp; customer portals.</p>
+                <ul>
+                    <li>Catalog, cart/checkout, gift/bundle orders &amp; <strong>ZarinPal</strong> payments</li>
+                    <li>SMS.ir OTP auth + Google OAuth; Staff/Admin RBAC</li>
+                    <li>Admin: products, campaigns, coupons, orders, blog CMS</li>
+                    <li>S3 media uploads; <strong>Torob</strong> feed; Shamsi dates; abandoned-cart cron</li>
                 </ul>
                 <p class="tech-stack"><strong>Stack:</strong> Next.js 16, React 19, TypeScript, Prisma, PostgreSQL,
-                    NextAuth v5, AWS S3, OpenAI API, Tailwind CSS, Shadcn/UI, Jotai, Framer Motion, DnD Kit, Zod, React
-                    Hook Form</p>
+                    Tailwind CSS 4, Shadcn/UI, Zod, AWS S3/MinIO, ZarinPal, SMS.ir, Framer Motion, Docker</p>
             </div>
         </section>
     </main>
