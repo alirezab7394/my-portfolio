@@ -7,7 +7,7 @@ export default function ProfileSummarySection() {
   const t = useTranslations("ProfileSummarySection");
 
   const stats = [
-    { value: "7+", label: t("stats.experience") },
+    { value: "8+", label: t("stats.experience") },
     { value: "5", label: t("stats.countries") },
     { value: "40%", label: t("stats.improvement") },
     { value: "10+", label: t("stats.projects") },

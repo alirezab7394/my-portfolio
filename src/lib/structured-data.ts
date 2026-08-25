@@ -3,7 +3,7 @@ export const personStructuredData = {
     "@type": "Person",
     name: "Alireza Bagheri",
     jobTitle: "Senior Front-End Developer",
-    description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+    description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     image: "https://alireza-bagheri.top/avatar.jpg",
     url: "https://alireza-bagheri.top",
     email: "alireza7394@gmail.com",
@@ -83,7 +83,7 @@ export const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Alireza Bagheri - Senior Front-End Developer",
-    description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+    description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     url: "https://alireza-bagheri.top",
     author: {
         "@type": "Person",
@@ -102,7 +102,7 @@ export const portfolioStructuredData = {
     "@type": "CreativeWork",
     "@id": "https://alireza-bagheri.top#portfolio",
     name: "Alireza Bagheri - Senior Front-End Developer - Portfolio",
-    description: "Professional portfolio showcasing 7+ years of front-end development experience",
+    description: "Professional portfolio showcasing 8+ years of front-end development experience",
     url: "https://alireza-bagheri.top",
     author: {
         "@type": "Person",

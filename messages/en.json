@@ -7,9 +7,9 @@
         "name": "Alireza Bagheri",
         "title": "Senior Frontend Developer",
         "subtitle": "Specialized in React & Next.js Ecosystems",
-        "summary": "Senior Frontend Developer with 7+ years building scalable web applications using React, Next.js, and TypeScript. Led teams achieving 40% performance gains through code modernization.",
+        "summary": "Senior Frontend Developer with 8+ years building scalable web applications using React, Next.js, and TypeScript. Led teams achieving 40% performance gains through code modernization.",
         "metrics": {
-            "experience": "7+",
+            "experience": "8+",
             "experienceLabel": "Years Experience",
             "projects": "10+",
             "projectsLabel": "Projects Delivered",
@@ -30,7 +30,7 @@
     },
     "ProfileSummarySection": {
         "title": "Profile Summary",
-        "summary": "Senior Frontend Developer with 7+ years building scalable web applications using React, Next.js, and TypeScript. Led teams of 3-5 developers achieving 40% performance gains through code modernization.",
+        "summary": "Senior Frontend Developer with 8+ years building scalable web applications using React, Next.js, and TypeScript. Led teams of 3-5 developers achieving 40% performance gains through code modernization.",
         "details": "Built and shipped Javi English (AI EdTech SaaS) and AzarTime (full-stack e-commerce). Expertise in component architecture, performance optimization (Core Web Vitals), accessibility (WCAG), and Agile delivery.",
         "highlights": {
             "title": "Key Highlights",
@@ -50,7 +50,7 @@
     },
     "SkillsSection": {
         "title": "Technical Skills",
-        "subtitle": "Comprehensive technical skills refined through 7+ years of professional development",
+        "subtitle": "Comprehensive technical skills refined through 8+ years of professional development",
         "technical": {
             "title": "Technical Skills",
             "categories": {
@@ -154,6 +154,24 @@
                     "i18n + RTL (en/fa/ar/tr); Socket.IO chat",
                     "Vocabulary SRS, gamification & parent portal",
                     "FastAPI/Whisper voice assessment integration"
+                ]
+            },
+            "nexttarget": {
+                "title": "NextTarget",
+                "category": "Gym Coaching Platform",
+                "description": "Farsi-first RTL coaching platform for clients, coaches, supervisors, and admins — workout programming, health tracking, and AI progress analysis.",
+                "status": "Production",
+                "role": "Solo Developer",
+                "year": "2026",
+                "achievements": [
+                    "Four role-based dashboards with NestJS RBAC",
+                    "Interactive SVG muscle-anatomy body map",
+                    "Program builder and workout player with rest timer",
+                    "Health intake, diet plans, and progress charts",
+                    "Zarinpal subscriptions and SMS.ir OTP auth",
+                    "AI progress reports with Farsi LLM narratives",
+                    "Expo React Native app with offline cache",
+                    "Session booking with QR check-in"
                 ]
             },
             "azartime": {

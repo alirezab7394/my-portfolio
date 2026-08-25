@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { ExternalLink, TrendingUp, Users, Code, Brain, Watch, ArrowRight } from "lucide-react";
+import { ExternalLink, TrendingUp, Users, Code, Brain, Watch, Dumbbell, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection, AnimatedGrid } from "@/components/common";
 import { SECTION_IDS } from "@/lib/constants";
@@ -39,6 +39,13 @@ const projects: {
   description?: string;
   achievements?: string[];
 }[] = [
+  {
+    id: "nexttarget",
+    icon: Dumbbell,
+    website: "https://next-target.ir",
+    technologies: ["Next.js", "NestJS", "Expo", "Prisma", "PostgreSQL"],
+    fromTranslations: true,
+  },
   {
     id: "azartime",
     icon: Watch,
@@ -193,7 +200,7 @@ export default function ProjectsSection() {
             </div>
           </AnimatedSection>
 
-          <AnimatedGrid animationType="slide-up" className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <AnimatedGrid animationType="slide-up" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {projects.map((project) => {
               const title = project.fromTranslations
                 ? t(`featured.${project.id}.title`)

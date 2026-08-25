@@ -105,7 +105,7 @@ export default function ExperienceSection() {
   const t = useTranslations("ExperienceSection");
 
   const summaryStats = [
-    { value: "7+", label: t("stats.years") },
+    { value: "8+", label: t("stats.years") },
     { value: "6", label: t("stats.companies") },
     { value: "5", label: t("stats.countries") },
     { value: "40%", label: t("stats.improvement") },

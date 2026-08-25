@@ -149,7 +149,7 @@ export default function SkillsSection() {
                   <p className="text-white/80 font-medium mb-6">{t("summary.text")}</p>
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <p className="text-3xl font-bold text-white">7+</p>
+                      <p className="text-3xl font-bold text-white">8+</p>
                       <p className="text-xs text-white/70 font-medium">{t("summary.years")}</p>
                     </div>
                     <div>

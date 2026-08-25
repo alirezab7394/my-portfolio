@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Alireza Bagheri - Senior Front-End Developer",
-    description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+    description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     keywords: "Alireza Bagheri, Senior Front-End Developer, React Developer, Next.js Developer, TypeScript Developer, JavaScript Developer, Frontend Lead, Skedpal, Cowsel, Dopely, TechClass, Full Stack Developer, Web Developer, UI/UX Developer, SSR, SEO Optimization, Performance Optimization, Team Leadership, React Migration, Modern Web Development",
     authors: [{ name: "Alireza Bagheri", url: "https://alireza-bagheri.top" }],
     creator: "Alireza Bagheri",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         alternateLocale: "fa_IR",
         url: "https://alireza-bagheri.top",
         title: "Alireza Bagheri - Senior Front-End Developer",
-        description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+        description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
         siteName: "Alireza Bagheri - Senior Front-End Developer",
         images: [
             {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Alireza Bagheri - Senior Front-End Developer",
-        description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+        description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
         creator: "@alirezab7394",
         images: ["/opengraph-image.png"],
     },

@@ -114,7 +114,7 @@ export default function EducationSection() {
                   <p className="text-sm text-white/70">{t("achievements.specialization")}</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold text-white mb-2">7+</p>
+                  <p className="text-4xl font-bold text-white mb-2">8+</p>
                   <p className="text-sm text-white/70">{t("achievements.experience")}</p>
                 </div>
                 <div>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 // Base metadata configuration based on CV
 export const baseMetadata = {
     title: "Alireza Bagheri - Senior Front-End Developer",
-    description: "Senior Front-End Developer with 7+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
+    description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     keywords: [
         "Alireza Bagheri",
         "Senior Front-End Developer",
@@ -37,7 +37,7 @@ export const baseMetadata = {
     linkedin: "https://www.linkedin.com/in/alireza-bagheri-a6aaa681/",
     github: "https://github.com/alirezab7394",
     location: "Iran",
-    experience: "7+ years",
+    experience: "8+ years",
     specialization: "React and Next.js ecosystems",
     languages: ["English", "Persian"],
     skills: [
@@ -144,7 +144,7 @@ export function generateMetadata(
 export const pageMetadata = {
     home: {
         title: "Home",
-        description: "Welcome to Alireza Bagheri's portfolio. Senior Front-End Developer with 7+ years of experience in React and Next.js ecosystems.",
+        description: "Welcome to Alireza Bagheri's portfolio. Senior Front-End Developer with 8+ years of experience in React and Next.js ecosystems.",
         keywords: ["portfolio", "home", "developer", "frontend", "react", "nextjs"]
     },
     about: {
@@ -239,7 +239,7 @@ export const portfolioStructuredData = {
     "@type": "CreativeWork",
     "@id": `${baseMetadata.url}#portfolio`,
     name: `${baseMetadata.title} - Portfolio`,
-    description: "Professional portfolio showcasing 7+ years of front-end development experience",
+    description: "Professional portfolio showcasing 8+ years of front-end development experience",
     url: baseMetadata.url,
     author: {
         "@type": "Person",
