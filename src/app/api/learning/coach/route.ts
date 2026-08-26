@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { isAuthenticatedFromRequest, unauthorizedResponse } from "@/lib/learning/auth";
-import { askLearningCoach, isLlmConfigured, type CoachMode } from "@/lib/learning/llm";
+import { askLearningCoach, isLlmConfigured } from "@/lib/learning/llm";
+import type { CoachMode } from "@/lib/learning/coach-types";
 
 const bodySchema = z.object({
   mode: z.enum(["daily", "quiz", "interview", "resources", "explain"]),
@@ -31,6 +32,15 @@ const bodySchema = z.object({
     )
     .max(60)
     .optional(),
+  history: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().max(8000),
+      })
+    )
+    .max(16)
+    .optional(),
 });
 
 export async function GET(request: NextRequest) {
@@ -50,13 +60,14 @@ export async function POST(request: NextRequest) {
 
   try {
     const payload = bodySchema.parse(await request.json());
-    const content = await askLearningCoach({
+    const result = await askLearningCoach({
       mode: payload.mode as CoachMode,
       message: payload.message,
       progress: payload.progress ?? [],
       sessions: payload.sessions ?? [],
+      history: payload.history,
     });
-    return NextResponse.json({ success: true, content });
+    return NextResponse.json({ success: true, ...result });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ success: false, error: "Invalid request" }, { status: 400 });

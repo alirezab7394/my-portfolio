@@ -1,33 +1,25 @@
 import { LEARNING_CURRICULUM, getAllTasks } from "@/lib/learning/curriculum";
-import type { CoachMode, StudySessionRecord, TaskProgressRecord } from "@/types/learning";
+import { getLlmBaseUrl, getLlmModel, isLlmConfigured } from "@/lib/learning/llm-config";
+import { formatRagContext, retrieveForCoach } from "@/lib/learning/rag";
+import { defaultFollowUps } from "@/lib/learning/suggestions";
+import type { CoachChatMessage, CoachMode, CoachSuggestion, RagSource } from "@/lib/learning/coach-types";
+import type { StudySessionRecord, TaskProgressRecord } from "@/types/learning";
 
 export type { CoachMode };
+export { isLlmConfigured, getLlmBaseUrl, getLlmModel };
 
 const MODE_INSTRUCTIONS: Record<CoachMode, string> = {
   daily:
     "Create today's 5-hour study plan. Split time into concrete blocks. Prefer the current incomplete week. Include 1 interview-style recap at the end.",
   quiz:
-    "Give 6 short questions that test forgotten fundamentals (JS, TS, browser, HTTP, or the current week). Mix recall and 'explain why'. After the questions, wait — do not dump all answers first; put answers under an 'Answers' heading at the end so Alireza can try first.",
+    "Give 6 short questions that test forgotten fundamentals (JS, TS, browser, HTTP, backend, AI, or the current week). Mix recall and 'explain why'. Put answers under an 'Answers' heading at the end.",
   interview:
-    "Run a senior frontend / full-stack interview drill. Ask 1 hard question at a time if the user message is empty; if they answered, score it and ask the next. Cover system design, React internals, or behavioral STAR using his real projects (Skedpal, NextTarget, Javi English, AzarTime).",
+    "Run a senior software engineer interview drill (frontend + backend + AI). Ask 1 hard question at a time if the latest user message is empty; if they answered, score it and ask the next. Use his real projects (Skedpal, NextTarget, Javi English, AzarTime).",
   resources:
-    "Suggest 4–6 specific articles, docs, or videos with URLs. Match the current week and weak spots. Prefer high-signal sources (MDN, javascript.info, web.dev, NeetCode, GreatFrontEnd, React docs).",
+    "Suggest 4–6 specific articles, docs, or videos with URLs. Prefer retrieved RAG sources when they have URLs. High-signal only: MDN, javascript.info, web.dev, NeetCode, GreatFrontEnd, React/Nest/Postgres docs.",
   explain:
-    "Explain the requested concept from first principles, as if refreshing someone with 8 years of production experience who has gone rusty. Use short sections, one example, and one interview-style follow-up.",
+    "Explain the requested concept from first principles, as if refreshing someone with 8 years of production experience who has gone rusty. Short sections, one example, one interview follow-up.",
 };
-
-export function isLlmConfigured(): boolean {
-  return Boolean(process.env.OPENAI_API_KEY && getLlmBaseUrl() && getLlmModel());
-}
-
-export function getLlmBaseUrl(): string {
-  const raw = process.env.OPENAI_URL || process.env.OPENAI_BASE_URL || "https://api.openai.com/v1";
-  return raw.replace(/\/$/, "");
-}
-
-export function getLlmModel(): string {
-  return process.env.OPENAI_MODEL || "gpt-4o-mini";
-}
 
 export function buildCurriculumSnapshot(
   progress: TaskProgressRecord[],
@@ -54,7 +46,7 @@ export function buildCurriculumSnapshot(
 
   return {
     learner:
-      "Alireza Bagheri — 8+ years shipping production apps (React/Next/TS, NestJS, Prisma, Postgres), M.Sc. AI. Goal: senior SOFTWARE engineer (frontend + backend + AI engineering) on an intensive 12-week / 3-month plan, ~5h/day. Rusty on interview fundamentals: event loop, DSA, system design, React internals. DSA runs as a daily 1.5h thread. Persian native, interviews in English.",
+      "Alireza Bagheri — 8+ years shipping production apps (React/Next/TS, NestJS, Prisma, Postgres), M.Sc. AI. Goal: senior SOFTWARE engineer (frontend + backend + AI) on a 12-week / 3-month plan, ~5h/day. Rusty on interview fundamentals. DSA is 1.5h daily. Persian native, interviews in English.",
     currentWeek: weekSummary,
     completedTasks: done.size,
     totalTasks: allTasks.length,
@@ -62,6 +54,7 @@ export function buildCurriculumSnapshot(
       date: s.date,
       hours: Math.round((s.minutes / 60) * 10) / 10,
       topic: s.topic,
+      note: s.note,
     })),
   };
 }
@@ -71,16 +64,29 @@ export async function askLearningCoach(params: {
   message?: string;
   progress: TaskProgressRecord[];
   sessions: StudySessionRecord[];
-}): Promise<string> {
+  history?: CoachChatMessage[];
+}): Promise<{ content: string; sources: RagSource[]; followUps: CoachSuggestion[] }> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error("OPENAI_API_KEY is not set");
   }
 
   const snapshot = buildCurriculumSnapshot(params.progress, params.sessions);
-  const url = `${getLlmBaseUrl()}/chat/completions`;
+  const userText = params.message?.trim() || defaultUserPrompt(params.mode);
+  const retrievalQuery = [
+    userText,
+    snapshot.currentWeek ? `Week ${snapshot.currentWeek.weekNumber} ${snapshot.currentWeek.title} ${snapshot.currentWeek.focus} ${snapshot.currentWeek.topics.join(" ")}` : "",
+  ].join(" ");
 
-  const response = await fetch(url, {
+  const sources = await retrieveForCoach(retrievalQuery, 6);
+  const ragContext = formatRagContext(sources);
+
+  const history = (params.history ?? []).slice(-8).map((m) => ({
+    role: m.role,
+    content: m.content.slice(0, 4000),
+  }));
+
+  const response = await fetch(`${getLlmBaseUrl()}/chat/completions`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -96,15 +102,17 @@ export async function askLearningCoach(params: {
             "You are Alireza's private senior-engineer interview coach.",
             "Be direct, specific, and practical. No fluff. Use markdown.",
             "Default to English. If he writes in Persian, reply in Persian.",
+            "Ground answers in the retrieved RAG context and his 12-week path. Cite source titles in-line when you use them.",
+            "If RAG context is missing a fact, say so instead of inventing URLs.",
             MODE_INSTRUCTIONS[params.mode],
-            "Context JSON:",
+            "Learner snapshot JSON:",
             JSON.stringify(snapshot),
+            "Retrieved notes (RAG):",
+            ragContext || "(no chunks)",
           ].join("\n\n"),
         },
-        {
-          role: "user",
-          content: params.message?.trim() || defaultUserPrompt(params.mode),
-        },
+        ...history,
+        { role: "user", content: userText },
       ],
     }),
   });
@@ -119,7 +127,12 @@ export async function askLearningCoach(params: {
   };
   const content = data.choices?.[0]?.message?.content?.trim();
   if (!content) throw new Error("LLM returned an empty response");
-  return content;
+
+  return {
+    content,
+    sources,
+    followUps: defaultFollowUps(params.mode),
+  };
 }
 
 function defaultUserPrompt(mode: CoachMode): string {

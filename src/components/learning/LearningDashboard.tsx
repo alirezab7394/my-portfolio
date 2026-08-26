@@ -299,7 +299,7 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
               <CardHeader className="pb-3">
                 <CardTitle className="text-base">Study coach</CardTitle>
                 <CardDescription>
-                  Uses this week, remaining tasks, and recent sessions. English by default.
+                  RAG over your path, resources, and project stories. Chat stays on this device.
                 </CardDescription>
               </CardHeader>
               <CardContent>
