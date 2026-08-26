@@ -201,7 +201,7 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
           <div>
             <h1 className="text-lg font-semibold tracking-tight text-primary">Senior Path</h1>
-            <p className="text-xs text-muted-foreground">24 weeks · 5h/day · interview-ready</p>
+            <p className="text-xs text-muted-foreground">12 weeks · 5h/day · frontend + backend + AI</p>
           </div>
           <div className="flex items-center gap-2">
             {dbEnabled ? (

@@ -54,7 +54,7 @@ export function buildCurriculumSnapshot(
 
   return {
     learner:
-      "Alireza Bagheri — senior frontend (8+ years React/Next/TS, NestJS, Prisma). Strong at shipping product; rusty on interview fundamentals (event loop, DSA, system design, React internals). Studies ~5h/day. Persian native, interviews in English.",
+      "Alireza Bagheri — 8+ years shipping production apps (React/Next/TS, NestJS, Prisma, Postgres), M.Sc. AI. Goal: senior SOFTWARE engineer (frontend + backend + AI engineering) on an intensive 12-week / 3-month plan, ~5h/day. Rusty on interview fundamentals: event loop, DSA, system design, React internals. DSA runs as a daily 1.5h thread. Persian native, interviews in English.",
     currentWeek: weekSummary,
     completedTasks: done.size,
     totalTasks: allTasks.length,
