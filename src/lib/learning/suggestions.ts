@@ -1,4 +1,5 @@
-import { LEARNING_CURRICULUM, getFocusWeek } from "@/lib/learning/curriculum";
+import { getFocusWeek } from "@/lib/learning/curriculum";
+import { getDailyDrill, getStarForWeek } from "@/lib/learning/interview-bank";
 import type { CoachSuggestion } from "@/lib/learning/coach-types";
 import type { TaskProgressRecord } from "@/types/learning";
 
@@ -6,13 +7,16 @@ export function getCoachSuggestionChips(progress: TaskProgressRecord[]): CoachSu
   const done = new Set(progress.filter((p) => p.status === "DONE").map((p) => p.taskId));
   const focus = getFocusWeek(done);
   const week = focus?.week;
+  const weekNumber = week?.weekNumber ?? 1;
   const topic = week?.topics[0] ?? "JavaScript internals";
   const topic2 = week?.topics[1] ?? "TypeScript";
+  const drill = getDailyDrill(weekNumber);
+  const star = getStarForWeek(weekNumber);
 
   return [
     {
       label: "Today's 5h plan",
-      prompt: `Build today's 5-hour plan for Week ${week?.weekNumber ?? 1}: ${week?.title ?? "current week"}. Use the remaining tasks and the daily split.`,
+      prompt: `Build today's 5-hour plan for Week ${weekNumber}: ${week?.title ?? "current week"}. Use the remaining tasks and the daily split.`,
       mode: "daily",
     },
     {
@@ -21,14 +25,14 @@ export function getCoachSuggestionChips(progress: TaskProgressRecord[]): CoachSu
       mode: "quiz",
     },
     {
-      label: "Interview drill",
-      prompt: `Start a senior software engineer interview. First question should relate to: ${week?.focus ?? "fundamentals"}. One question at a time.`,
+      label: "Today's drill",
+      prompt: `Interview me with this exact question, then score my answer: "${drill.question}"`,
       mode: "interview",
     },
     {
-      label: "What to watch",
-      prompt: `What should I watch or read tonight for Week ${week?.weekNumber ?? 1}? Give 4–6 specific URLs.`,
-      mode: "resources",
+      label: "English 90s",
+      prompt: `I will answer in English. Question: "${drill.question}". After I answer, correct my English and give a tight 90-second model answer.`,
+      mode: "interview",
     },
     {
       label: `Explain ${topic2}`,
@@ -36,8 +40,13 @@ export function getCoachSuggestionChips(progress: TaskProgressRecord[]): CoachSu
       mode: "explain",
     },
     {
+      label: "What to watch",
+      prompt: `What should I watch or read tonight for Week ${weekNumber}? Give 4–6 specific URLs.`,
+      mode: "resources",
+    },
+    {
       label: "DSA today",
-      prompt: `Give me today's DSA set for Week ${week?.weekNumber ?? 1} with problem names, order, and a 90-minute timed plan.`,
+      prompt: `Give me today's DSA set for Week ${weekNumber} with problem names, order, and a 90-minute timed plan.`,
       mode: "daily",
     },
     {
@@ -53,9 +62,8 @@ export function getCoachSuggestionChips(progress: TaskProgressRecord[]): CoachSu
       mode: "interview",
     },
     {
-      label: "STAR: Skedpal",
-      prompt:
-        "Help me tighten a STAR story: leading 3 engineers at Skedpal, WordPress to Next.js (30% faster), jQuery to React (40% smaller bundle). Keep it under 2 minutes.",
+      label: `STAR: ${star.title}`,
+      prompt: `Help me tighten this STAR story to ≤2 minutes. ${star.situation} ${star.task} ${star.action} ${star.result} Cue: ${star.interviewCue}`,
       mode: "explain",
     },
   ];
@@ -73,7 +81,7 @@ export function defaultFollowUps(mode: CoachSuggestion["mode"]): CoachSuggestion
     ],
     interview: [
       { label: "I have an answer", prompt: "Score the answer I just gave. Then ask the next harder question.", mode: "interview" },
-      { label: "Switch to design", prompt: "Switch to a 20-minute system design question related to my products.", mode: "interview" },
+      { label: "Fix my English", prompt: "Rewrite my last answer as a fluent 90-second interview response.", mode: "explain" },
     ],
     resources: [
       { label: "Only videos", prompt: "Filter to videos only, 20–40 minutes each, in a sensible watch order.", mode: "resources" },
@@ -84,5 +92,5 @@ export function defaultFollowUps(mode: CoachSuggestion["mode"]): CoachSuggestion
       { label: "A code example", prompt: "Give a short TypeScript example that would impress a senior interviewer.", mode: "explain" },
     ],
   };
-  return map[mode  ];
+  return map[mode];
 }

@@ -1,4 +1,5 @@
 import { LEARNING_CURRICULUM, getAllTasks } from "@/lib/learning/curriculum";
+import { getDailyDrill, getDailyEnglishCue, getStarForWeek } from "@/lib/learning/interview-bank";
 import { getLlmBaseUrl, getLlmModel, isLlmConfigured } from "@/lib/learning/llm-config";
 import { formatRagContext, retrieveForCoach } from "@/lib/learning/rag";
 import { defaultFollowUps } from "@/lib/learning/suggestions";
@@ -56,6 +57,14 @@ export function buildCurriculumSnapshot(
       topic: s.topic,
       note: s.note,
     })),
+    dailyDrill: currentWeek
+      ? {
+          question: getDailyDrill(currentWeek.weekNumber).question,
+          talkingPoints: getDailyDrill(currentWeek.weekNumber).talkingPoints,
+          englishCue: getDailyEnglishCue(),
+          star: getStarForWeek(currentWeek.weekNumber),
+        }
+      : null,
   };
 }
 

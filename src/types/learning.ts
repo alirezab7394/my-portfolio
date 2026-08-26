@@ -59,5 +59,8 @@ export interface LearningStats {
   completedTasks: number;
   totalMinutes: number;
   streakDays: number;
+  minutesToday: number;
+  minutesThisWeek: number;
+  hoursLast7Days: { date: string; hours: number }[];
   phaseProgress: Record<string, { total: number; done: number }>;
 }

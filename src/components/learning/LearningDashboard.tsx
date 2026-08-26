@@ -224,24 +224,30 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
       </header>
 
       <main className="mx-auto max-w-5xl space-y-5 px-4 py-5">
-        <section className="grid grid-cols-3 gap-2 sm:gap-3">
+        <section className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
           <StatCard
             icon={<CheckCircle2 className="size-4 text-primary" />}
             label="Tasks"
             value={`${stats.completedTasks}/${stats.totalTasks}`}
-            hint={`${overallPct}%`}
+            hint={`${overallPct}% of path`}
           />
           <StatCard
             icon={<Clock className="size-4 text-primary" />}
-            label="Hours"
-            value={`${totalHours}h`}
-            hint={`${sessions.length} logs`}
+            label="Today"
+            value={`${Math.round((stats.minutesToday / 60) * 10) / 10}h`}
+            hint="of 5h target"
+          />
+          <StatCard
+            icon={<Clock className="size-4 text-primary" />}
+            label="Last 7 days"
+            value={`${Math.round((stats.minutesThisWeek / 60) * 10) / 10}h`}
+            hint={`of 30h · ${totalHours}h total`}
           />
           <StatCard
             icon={<Flame className="size-4 text-primary" />}
             label="Streak"
             value={`${stats.streakDays}d`}
-            hint="in a row"
+            hint="study days in a row"
           />
         </section>
 
@@ -277,6 +283,7 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
                 onOpenPath={() => changeTab("path")}
                 onOpenCoach={() => changeTab("coach")}
                 allComplete={allComplete}
+                stats={stats}
               />
             )}
           </TabsContent>

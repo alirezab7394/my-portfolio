@@ -1,4 +1,5 @@
 import { LEARNING_CURRICULUM } from "@/lib/learning/curriculum";
+import { INTERVIEW_DRILLS, STAR_STORIES } from "@/lib/learning/interview-bank";
 import type { RagSource } from "@/lib/learning/coach-types";
 
 export type RagChunk = RagSource & {
@@ -43,6 +44,23 @@ export function buildRagCorpus(): RagChunk[] {
   }
 
   chunks.push(...KNOWLEDGE_CHUNKS);
+  chunks.push(
+    ...INTERVIEW_DRILLS.map((d) => ({
+      id: `drill-${d.id}`,
+      kind: "knowledge" as const,
+      title: d.question,
+      url: d.resourceUrl,
+      text: `Interview drill (${d.area}, weeks ${d.weeks.join(",")}): ${d.question} Talking points: ${d.talkingPoints.join("; ")}. Resource: ${d.resourceTitle} ${d.resourceUrl}`,
+    }))
+  );
+  chunks.push(
+    ...STAR_STORIES.map((s) => ({
+      id: `star-${s.id}`,
+      kind: "project" as const,
+      title: `STAR: ${s.title}`,
+      text: `${s.title}. S: ${s.situation} T: ${s.task} A: ${s.action} R: ${s.result} Cue: ${s.interviewCue}`,
+    }))
+  );
   return chunks;
 }
 
@@ -95,6 +113,33 @@ const KNOWLEDGE_CHUNKS: RagChunk[] = [
     title: "LLM, RAG, and agents",
     url: "https://www.anthropic.com/research/building-effective-agents",
     text: "Prompting, structured outputs, function calling, embeddings, chunking, pgvector, RAG vs fine-tune, evals, prompt injection, cost caps, tracing.",
+  },
+  {
+    id: "k-testing-ci",
+    kind: "knowledge",
+    title: "Testing and CI for senior frontend/backend",
+    url: "https://testing-library.com/docs/react-testing-library/intro/",
+    text: "Testing pyramid, RTL, MSW, e2e smoke, GitHub Actions lint typecheck test build. Senior signal: you prevent regressions, not just write tests.",
+  },
+  {
+    id: "k-observability",
+    kind: "knowledge",
+    title: "Observability for NestJS SaaS",
+    url: "https://opentelemetry.io/docs/",
+    text: "Logs metrics traces. Correlation ids on webhooks. Alert on error rate and queue lag, not CPU. Token spend dashboards for AI features.",
+  },
+  {
+    id: "k-typescript-extra",
+    kind: "knowledge",
+    title: "TypeScript at the API boundary",
+    url: "https://zod.dev/",
+    text: "Zod at edges, inferred types, Result/unknown instead of any, branded IDs, satisfies for config objects. Interviewers love boundary validation.",
+  },
+  {
+    id: "k-english-interview",
+    kind: "knowledge",
+    title: "English phrases for technical interviews",
+    text: "Restate the problem. Trade-off X vs Y. I would pick X because. Failure mode I worry about. Similar constraint in Skedpal/Javi/NextTarget. I have not used that library but the idea is similar to.",
   },
   {
     id: "k-dsa",
