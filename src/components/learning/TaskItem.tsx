@@ -18,7 +18,7 @@ export function TaskItem({ task, progress, onToggle }: TaskItemProps) {
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 transition-colors",
+        "flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 transition-colors duration-200",
         done ? "border-primary/30 bg-primary/5" : "border-border hover:bg-muted/40"
       )}
     >
@@ -54,7 +54,7 @@ export function ResourceLink({ resource }: { resource: LearningResource }) {
       href={resource.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-sm text-primary transition-colors hover:bg-primary/5"
+      className="inline-flex cursor-pointer items-center gap-2 rounded-md border px-2.5 py-1.5 text-sm text-primary transition-colors duration-200 hover:bg-primary/5"
     >
       <Badge variant="secondary" className="text-[10px] uppercase">
         {typeLabel[resource.type]}

@@ -1,8 +1,19 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Flame, Clock, CheckCircle2, Database, HardDrive, LogOut } from "lucide-react";
-import { LEARNING_CURRICULUM } from "@/lib/learning/curriculum";
+import {
+  BookOpen,
+  CheckCircle2,
+  Clock,
+  Database,
+  Flame,
+  HardDrive,
+  LayoutDashboard,
+  LogOut,
+  NotebookPen,
+  Sparkles,
+} from "lucide-react";
+import { getFocusWeek } from "@/lib/learning/curriculum";
 import { computeStats } from "@/lib/learning/stats";
 import {
   loadLocalProgress,
@@ -13,24 +24,46 @@ import {
   saveLocalSessions,
   upsertLocalProgress,
 } from "@/lib/learning/local-store";
-import { PhaseAccordion } from "@/components/learning/PhaseAccordion";
+import { PathBrowser } from "@/components/learning/PathBrowser";
 import { DailyLogForm } from "@/components/learning/DailyLogForm";
 import { StudyCoach } from "@/components/learning/StudyCoach";
+import { TodayFocus } from "@/components/learning/TodayFocus";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { StudySessionRecord, TaskProgressRecord, TaskStatus } from "@/types/learning";
+
+const TAB_IDS = ["today", "path", "coach", "log"] as const;
+type TabId = (typeof TAB_IDS)[number];
+
+function isTabId(value: string): value is TabId {
+  return TAB_IDS.includes(value as TabId);
+}
 
 interface LearningDashboardProps {
   onLogout: () => void;
 }
 
 export function LearningDashboard({ onLogout }: LearningDashboardProps) {
+  const [tab, setTab] = useState<TabId>("today");
   const [progress, setProgress] = useState<TaskProgressRecord[]>([]);
   const [sessions, setSessions] = useState<StudySessionRecord[]>([]);
   const [dbEnabled, setDbEnabled] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (isTabId(hash)) setTab(hash);
+  }, []);
+
+  function changeTab(next: string) {
+    if (!isTabId(next)) return;
+    setTab(next);
+    window.history.replaceState(null, "", `#${next}`);
+  }
 
   const loadRemote = useCallback(async () => {
     setLoading(true);
@@ -67,7 +100,6 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
       saveLocalProgress(mergedProgress);
       saveLocalSessions(mergedSessions);
 
-      // Push local-only progress up if DB is live
       if (db) {
         for (const p of localProgress) {
           const server = serverProgress.find((s) => s.taskId === p.taskId);
@@ -113,6 +145,12 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
     ? Math.round((stats.completedTasks / stats.totalTasks) * 100)
     : 0;
   const totalHours = Math.round((stats.totalMinutes / 60) * 10) / 10;
+  const doneIds = useMemo(
+    () => new Set(progress.filter((p) => p.status === "DONE").map((p) => p.taskId)),
+    [progress]
+  );
+  const focus = getFocusWeek(doneIds);
+  const allComplete = stats.totalTasks > 0 && stats.completedTasks === stats.totalTasks;
 
   async function handleToggleTask(taskId: string, status: TaskStatus) {
     const local = upsertLocalProgress(taskId, status);
@@ -159,23 +197,25 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-20 border-b bg-background/90 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
           <div>
-            <h1 className="text-lg font-semibold tracking-tight text-primary">Senior Path Tracker</h1>
-            <p className="text-xs text-muted-foreground">24 weeks · ~5h/day · interview-ready</p>
+            <h1 className="text-lg font-semibold tracking-tight text-primary">Senior Path</h1>
+            <p className="text-xs text-muted-foreground">24 weeks · 5h/day · interview-ready</p>
           </div>
           <div className="flex items-center gap-2">
             {dbEnabled ? (
-              <Badge className="gap-1" variant="default">
-                <Database className="size-3" /> Synced
+              <Badge className="gap-1">
+                <Database className="size-3" />
+                Synced
               </Badge>
             ) : (
-              <Badge className="gap-1" variant="secondary">
-                <HardDrive className="size-3" /> Local only
+              <Badge variant="secondary" className="gap-1">
+                <HardDrive className="size-3" />
+                Local
               </Badge>
             )}
-            <Button variant="ghost" size="sm" onClick={handleLogout}>
+            <Button variant="ghost" size="sm" className="cursor-pointer" onClick={handleLogout}>
               <LogOut className="size-4" />
               Lock
             </Button>
@@ -183,95 +223,138 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl space-y-6 px-4 py-6">
-        <section className="grid gap-3 sm:grid-cols-3">
+      <main className="mx-auto max-w-5xl space-y-5 px-4 py-5">
+        <section className="grid grid-cols-3 gap-2 sm:gap-3">
           <StatCard
             icon={<CheckCircle2 className="size-4 text-primary" />}
-            label="Tasks done"
+            label="Tasks"
             value={`${stats.completedTasks}/${stats.totalTasks}`}
-            hint={`${overallPct}% complete`}
+            hint={`${overallPct}%`}
           />
           <StatCard
             icon={<Clock className="size-4 text-primary" />}
-            label="Hours logged"
+            label="Hours"
             value={`${totalHours}h`}
-            hint={`${sessions.length} sessions`}
+            hint={`${sessions.length} logs`}
           />
           <StatCard
             icon={<Flame className="size-4 text-primary" />}
             label="Streak"
-            value={`${stats.streakDays} day${stats.streakDays === 1 ? "" : "s"}`}
-            hint="Study days in a row"
+            value={`${stats.streakDays}d`}
+            hint="in a row"
           />
         </section>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Overall progress</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Progress value={overallPct} className="h-3" />
-            <div className="grid gap-2 sm:grid-cols-2">
-              {LEARNING_CURRICULUM.map((phase) => {
-                const p = stats.phaseProgress[phase.id];
-                const pct = p?.total ? Math.round((p.done / p.total) * 100) : 0;
-                return (
-                  <div key={phase.id} className="rounded-lg border p-3">
-                    <div className="mb-1 flex justify-between text-sm">
-                      <span className="font-medium">Phase {phase.number}</span>
-                      <span className="text-muted-foreground">{pct}%</span>
-                    </div>
-                    <Progress value={pct} className="h-1.5" />
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+        <Tabs value={tab} onValueChange={changeTab} className="gap-4">
+          <TabsList className="grid h-auto w-full grid-cols-4">
+            <TabsTrigger value="today" className="cursor-pointer gap-1.5 py-2">
+              <LayoutDashboard className="size-4" />
+              <span className="hidden sm:inline">Today</span>
+            </TabsTrigger>
+            <TabsTrigger value="path" className="cursor-pointer gap-1.5 py-2">
+              <BookOpen className="size-4" />
+              <span className="hidden sm:inline">Path</span>
+            </TabsTrigger>
+            <TabsTrigger value="coach" className="cursor-pointer gap-1.5 py-2">
+              <Sparkles className="size-4" />
+              <span className="hidden sm:inline">Coach</span>
+            </TabsTrigger>
+            <TabsTrigger value="log" className="cursor-pointer gap-1.5 py-2">
+              <NotebookPen className="size-4" />
+              <span className="hidden sm:inline">Log</span>
+            </TabsTrigger>
+          </TabsList>
 
-        <StudyCoach progress={progress} sessions={sessions} />
+          <TabsContent value="today">
+            {loading || !focus ? (
+              <DashboardSkeleton />
+            ) : (
+              <TodayFocus
+                phase={focus.phase}
+                week={focus.week}
+                progressMap={progressMap}
+                onToggleTask={handleToggleTask}
+                onOpenPath={() => changeTab("path")}
+                onOpenCoach={() => changeTab("coach")}
+                allComplete={allComplete}
+              />
+            )}
+          </TabsContent>
 
-        <DailyLogForm onLogged={handleSessionLogged} useLocalOnly={!dbEnabled} />
+          <TabsContent value="path">
+            {loading ? (
+              <DashboardSkeleton />
+            ) : (
+              <PathBrowser
+                progressMap={progressMap}
+                onToggleTask={handleToggleTask}
+                focusWeekId={focus?.week.id}
+                focusPhaseId={focus?.phase.id}
+              />
+            )}
+          </TabsContent>
 
-        {sessions.length > 0 ? (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">Recent sessions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="divide-y text-sm">
-                {sessions.slice(0, 8).map((s) => (
-                  <li key={s.id ?? `${s.date}-${s.createdAt}`} className="flex flex-wrap justify-between gap-2 py-2">
-                    <span>
-                      <span className="font-medium">{s.date}</span>
-                      {s.topic ? <span className="text-muted-foreground"> · {s.topic}</span> : null}
-                    </span>
-                    <span className="tabular-nums text-muted-foreground">
-                      {Math.round((s.minutes / 60) * 10) / 10}h
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        ) : null}
+          <TabsContent value="coach">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">Study coach</CardTitle>
+                <CardDescription>
+                  Uses this week, remaining tasks, and recent sessions. English by default.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <StudyCoach progress={progress} sessions={sessions} />
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <section>
-          <h2 className="mb-3 text-lg font-semibold">Curriculum</h2>
-          {loading ? (
-            <p className="text-sm text-muted-foreground">Loading progress…</p>
-          ) : (
-            <PhaseAccordion
-              phases={LEARNING_CURRICULUM}
-              progressMap={progressMap}
-              onToggleTask={handleToggleTask}
-            />
-          )}
-        </section>
+          <TabsContent value="log" className="space-y-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">Log a session</CardTitle>
+                <CardDescription>Track hours so the streak and coach stay accurate.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <DailyLogForm onLogged={handleSessionLogged} useLocalOnly={!dbEnabled} />
+              </CardContent>
+            </Card>
 
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">Recent sessions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {sessions.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    No sessions yet. Log your first 5-hour block after today&apos;s study.
+                  </p>
+                ) : (
+                  <ul className="divide-y text-sm">
+                    {sessions.slice(0, 12).map((s) => (
+                      <li
+                        key={s.id ?? `${s.date}-${s.createdAt}`}
+                        className="flex flex-wrap justify-between gap-2 py-2.5"
+                      >
+                        <span>
+                          <span className="font-medium">{s.date}</span>
+                          {s.topic ? <span className="text-muted-foreground"> · {s.topic}</span> : null}
+                        </span>
+                        <span className="tabular-nums text-muted-foreground">
+                          {Math.round((s.minutes / 60) * 10) / 10}h
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+        <Separator />
         <p className="pb-8 text-center text-xs text-muted-foreground">
-          Path is editable in <code className="rounded bg-muted px-1">src/lib/learning/curriculum.ts</code>.
-          Progress keys use stable task IDs — add or reorder weeks anytime.
+          Edit the path in <code className="rounded bg-muted px-1">src/lib/learning/curriculum.ts</code>.
+          Task IDs stay stable when you reorder weeks.
         </p>
       </main>
     </div>
@@ -290,15 +373,25 @@ function StatCard({
   hint: string;
 }) {
   return (
-    <Card>
-      <CardContent className="flex items-start gap-3 pt-6">
-        <div className="rounded-md bg-primary/10 p-2">{icon}</div>
-        <div>
-          <p className="text-xs text-muted-foreground">{label}</p>
-          <p className="text-xl font-semibold tabular-nums">{value}</p>
-          <p className="text-xs text-muted-foreground">{hint}</p>
+    <Card className="shadow-none">
+      <CardContent className="flex items-center gap-2.5 px-3 py-3 sm:gap-3 sm:px-6 sm:py-4">
+        <div className="hidden rounded-md bg-primary/10 p-2 sm:block">{icon}</div>
+        <div className="min-w-0">
+          <p className="text-[11px] text-muted-foreground sm:text-xs">{label}</p>
+          <p className="truncate text-base font-semibold tabular-nums sm:text-xl">{value}</p>
+          <p className="text-[11px] text-muted-foreground sm:text-xs">{hint}</p>
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function DashboardSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="h-40 w-full" />
+      <Skeleton className="h-24 w-full" />
+      <Skeleton className="h-48 w-full" />
+    </div>
   );
 }

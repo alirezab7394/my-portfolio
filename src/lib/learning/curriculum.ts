@@ -927,3 +927,13 @@ export function findWeekByNumber(weekNumber: number) {
   }
   return null;
 }
+
+/** First week that still has incomplete tasks, or the last week if everything is done. */
+export function getFocusWeek(completedTaskIds: Set<string>) {
+  const tasks = getAllTasks();
+  const next = tasks.find((task) => !completedTaskIds.has(task.id));
+  if (next) return findWeekByNumber(next.weekNumber);
+  const lastPhase = LEARNING_CURRICULUM[LEARNING_CURRICULUM.length - 1];
+  const lastWeek = lastPhase.weeks[lastPhase.weeks.length - 1];
+  return { phase: lastPhase, week: lastWeek };
+}

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { formatDateKey } from "@/lib/learning/stats";
 import type { StudySessionRecord } from "@/types/learning";
@@ -20,15 +20,13 @@ export function DailyLogForm({ onLogged, useLocalOnly }: DailyLogFormProps) {
   const [topic, setTopic] = useState("");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
     const minutes = Math.round(parseFloat(hours || "0") * 60);
     if (!minutes || minutes < 1) {
-      setMessage("Enter a valid number of hours.");
+      toast.error("Enter a valid number of hours.");
       setLoading(false);
       return;
     }
@@ -40,7 +38,7 @@ export function DailyLogForm({ onLogged, useLocalOnly }: DailyLogFormProps) {
         const { addLocalSession } = await import("@/lib/learning/local-store");
         const session = addLocalSession(payload);
         onLogged(session);
-        setMessage("Logged locally.");
+        toast.success("Logged on this device.");
         setNote("");
         return;
       }
@@ -55,7 +53,7 @@ export function DailyLogForm({ onLogged, useLocalOnly }: DailyLogFormProps) {
         const { addLocalSession } = await import("@/lib/learning/local-store");
         const session = addLocalSession(payload);
         onLogged(session);
-        setMessage("Server unavailable — saved locally.");
+        toast.message("Server unavailable — saved locally.");
         return;
       }
 
@@ -64,68 +62,60 @@ export function DailyLogForm({ onLogged, useLocalOnly }: DailyLogFormProps) {
         addLocalSession(payload);
       }
       onLogged(data.session);
-      setMessage(data.db ? "Session saved." : "Saved locally (DB not configured).");
+      toast.success(data.db ? "Session saved." : "Saved locally (DB not configured).");
       setNote("");
     } catch {
       const { addLocalSession } = await import("@/lib/learning/local-store");
       const session = addLocalSession({ date, minutes, topic: topic || null, note: note || null });
       onLogged(session);
-      setMessage("Offline — saved locally.");
+      toast.message("Offline — saved locally.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Log today&apos;s study</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="grid gap-3 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="study-date">Date</Label>
-            <Input id="study-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="study-hours">Hours</Label>
-            <Input
-              id="study-hours"
-              type="number"
-              min={0.25}
-              max={16}
-              step={0.25}
-              value={hours}
-              onChange={(e) => setHours(e.target.value)}
-            />
-          </div>
-          <div className="space-y-1.5 sm:col-span-2">
-            <Label htmlFor="study-topic">Topic</Label>
-            <Input
-              id="study-topic"
-              placeholder="e.g. Sliding window, NextTarget RBAC design"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-            />
-          </div>
-          <div className="space-y-1.5 sm:col-span-2">
-            <Label htmlFor="study-note">Notes</Label>
-            <Textarea
-              id="study-note"
-              placeholder="What clicked? What to revisit?"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              rows={3}
-            />
-          </div>
-          <div className="flex items-center gap-3 sm:col-span-2">
-            <Button type="submit" disabled={loading}>
-              {loading ? "Saving…" : "Log session"}
-            </Button>
-            {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+    <form onSubmit={handleSubmit} className="grid gap-3 sm:grid-cols-2">
+      <div className="space-y-1.5">
+        <Label htmlFor="study-date">Date</Label>
+        <Input id="study-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="study-hours">Hours</Label>
+        <Input
+          id="study-hours"
+          type="number"
+          min={0.25}
+          max={16}
+          step={0.25}
+          value={hours}
+          onChange={(e) => setHours(e.target.value)}
+        />
+      </div>
+      <div className="space-y-1.5 sm:col-span-2">
+        <Label htmlFor="study-topic">Topic</Label>
+        <Input
+          id="study-topic"
+          placeholder="e.g. Sliding window, NextTarget RBAC"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+      </div>
+      <div className="space-y-1.5 sm:col-span-2">
+        <Label htmlFor="study-note">Notes</Label>
+        <Textarea
+          id="study-note"
+          placeholder="What clicked? What to revisit?"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          rows={3}
+        />
+      </div>
+      <div className="sm:col-span-2">
+        <Button type="submit" className="cursor-pointer" disabled={loading}>
+          {loading ? "Saving…" : "Log session"}
+        </Button>
+      </div>
+    </form>
   );
 }
