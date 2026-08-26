@@ -1,5 +1,9 @@
 export type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE" | "SKIPPED";
 
+export type CoachMode = "daily" | "quiz" | "interview" | "resources" | "explain";
+
+export type CoachMode = "daily" | "quiz" | "interview" | "resources" | "explain";
+
 export type ResourceType = "article" | "video" | "course" | "docs" | "practice";
 
 export interface LearningResource {

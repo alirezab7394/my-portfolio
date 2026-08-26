@@ -15,6 +15,7 @@ import {
 } from "@/lib/learning/local-store";
 import { PhaseAccordion } from "@/components/learning/PhaseAccordion";
 import { DailyLogForm } from "@/components/learning/DailyLogForm";
+import { StudyCoach } from "@/components/learning/StudyCoach";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -227,6 +228,8 @@ export function LearningDashboard({ onLogout }: LearningDashboardProps) {
             </div>
           </CardContent>
         </Card>
+
+        <StudyCoach progress={progress} sessions={sessions} />
 
         <DailyLogForm onLogged={handleSessionLogged} useLocalOnly={!dbEnabled} />
 
