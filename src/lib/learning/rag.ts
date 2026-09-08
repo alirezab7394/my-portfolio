@@ -1,4 +1,4 @@
-import { getLlmBaseUrl } from "@/lib/learning/llm-config";
+import { getEmbeddingModel, getLlmApiKey, getLlmBaseUrl } from "@/lib/learning/llm-config";
 import { buildRagCorpus, type RagChunk } from "@/lib/learning/knowledge";
 import type { RagSource } from "@/types/learning";
 
@@ -99,9 +99,9 @@ async function embedOne(text: string): Promise<number[] | null> {
 }
 
 async function embedMany(inputs: string[]): Promise<number[][] | null> {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = getLlmApiKey();
   if (!apiKey) return null;
-  const model = process.env.OPENAI_EMBEDDING_MODEL || "text-embedding-3-small";
+  const model = getEmbeddingModel();
 
   try {
     const res = await fetch(`${getLlmBaseUrl()}/embeddings`, {

@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     if (!isLlmConfigured()) {
       return NextResponse.json(
-        { success: false, error: "LLM is not configured. Set OPENAI_API_KEY, OPENAI_URL, and OPENAI_MODEL." },
+        { success: false, error: "LLM is not configured. Set GEMINI_API_KEY (or OPENAI_API_KEY)." },
         { status: 503 }
       );
     }

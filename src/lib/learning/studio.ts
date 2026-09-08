@@ -9,7 +9,7 @@ import {
   parseTaggedBlock,
 } from "@/lib/learning/json";
 import { ingestRagChunks, type RagChunk } from "@/lib/learning/knowledge";
-import { getLlmBaseUrl, getLlmModel, isLlmConfigured } from "@/lib/learning/llm-config";
+import { getLlmApiKey, getLlmBaseUrl, getLlmModel, isLlmConfigured } from "@/lib/learning/llm-config";
 import { formatRagContext, invalidateRagCorpus, retrieveForQuery } from "@/lib/learning/rag";
 import type {
   ExplainResult,
@@ -276,8 +276,8 @@ async function completeOnce(
   params: { user: string; temperature: number },
   strictJson: boolean
 ): Promise<string> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new Error("OPENAI_API_KEY is not set");
+  const apiKey = getLlmApiKey();
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
 
   const response = await fetch(`${getLlmBaseUrl()}/chat/completions`, {
     method: "POST",

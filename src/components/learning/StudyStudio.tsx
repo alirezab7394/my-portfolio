@@ -146,7 +146,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
 
   async function refreshHeadlines(silent = false) {
     if (configured === false) {
-      if (!silent) toast.error("Set OPENAI_API_KEY to generate an outline. Seed headlines still work.");
+      if (!silent) toast.error("Set GEMINI_API_KEY to generate an outline. Seed headlines still work.");
       return;
     }
     setHeadlinesLoading(true);
@@ -191,7 +191,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
       return;
     }
     if (configured === false) {
-      setLessonError("LLM is not configured. Add OPENAI_API_KEY to generate lessons.");
+      setLessonError("LLM is not configured. Add GEMINI_API_KEY to generate lessons.");
       return;
     }
     setLessonLoading(true);
@@ -480,7 +480,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
                   <Alert>
                     <AlertDescription>
                       Headlines below are the syllabus you still have to cover. Lesson generation needs{" "}
-                      <code className="rounded bg-muted px-1">OPENAI_API_KEY</code>.
+                      <code className="rounded bg-muted px-1">GEMINI_API_KEY</code>.
                     </AlertDescription>
                   </Alert>
                 ) : null}
