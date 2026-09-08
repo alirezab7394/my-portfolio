@@ -1,6 +1,6 @@
 import { getLlmBaseUrl } from "@/lib/learning/llm-config";
 import { buildRagCorpus, type RagChunk } from "@/lib/learning/knowledge";
-import type { RagSource } from "@/lib/learning/coach-types";
+import type { RagSource } from "@/types/learning";
 
 type ScoredChunk = RagChunk & { score: number };
 
@@ -10,6 +10,10 @@ let corpus: RagChunk[] | null = null;
 function getCorpus(): RagChunk[] {
   if (!corpus) corpus = buildRagCorpus();
   return corpus;
+}
+
+export function invalidateRagCorpus() {
+  corpus = null;
 }
 
 export function lexicalRetrieve(query: string, k = 8): ScoredChunk[] {
@@ -35,7 +39,7 @@ export function lexicalRetrieve(query: string, k = 8): ScoredChunk[] {
     .slice(0, k);
 }
 
-export async function retrieveForCoach(query: string, k = 6): Promise<RagSource[]> {
+export async function retrieveForQuery(query: string, k = 6): Promise<RagSource[]> {
   const lexical = lexicalRetrieve(query, 12);
   const embedded = await embedRetrieve(query, 12).catch(() => [] as ScoredChunk[]);
 

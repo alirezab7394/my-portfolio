@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { PinGate } from "@/components/learning/PinGate";
-import { LearningDashboard } from "@/components/learning/LearningDashboard";
+import { StudyStudio } from "@/components/learning/StudyStudio";
 import { Toaster } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -46,7 +46,7 @@ export function LearningApp() {
 
   return (
     <>
-      <LearningDashboard onLogout={() => setAuthed(false)} />
+      <StudyStudio onLogout={() => setAuthed(false)} />
       <Toaster richColors position="top-center" />
     </>
   );

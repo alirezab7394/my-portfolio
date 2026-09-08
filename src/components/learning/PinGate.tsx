@@ -46,8 +46,8 @@ export function PinGate({ onSuccess }: PinGateProps) {
           <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
             <Lock className="size-5" />
           </div>
-          <CardTitle>Senior Path</CardTitle>
-          <CardDescription>Private tracker. Enter your PIN to continue.</CardDescription>
+          <CardTitle>Study Studio</CardTitle>
+          <CardDescription>Private study desk. Enter your PIN to continue.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

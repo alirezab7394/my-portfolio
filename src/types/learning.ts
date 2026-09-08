@@ -1,8 +1,21 @@
-export type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE" | "SKIPPED";
-
-export type CoachMode = "daily" | "quiz" | "interview" | "resources" | "explain";
-
 export type ResourceType = "article" | "video" | "course" | "docs" | "practice";
+
+export type RagKind =
+  | "destination"
+  | "resource"
+  | "knowledge"
+  | "project"
+  | "drill"
+  | "lesson"
+  | "bookmark";
+
+export type HeadlineDepth = "core" | "interview" | "lab";
+
+export type HeadlineStatus = "unread" | "ready" | "reviewed";
+
+export type StudioAction = "headlines" | "lesson" | "explain" | "ingest";
+
+export type QuestionKind = "choice" | "short";
 
 export interface LearningResource {
   title: string;
@@ -10,57 +23,91 @@ export interface LearningResource {
   type: ResourceType;
 }
 
-export interface LearningTask {
+export interface StudyHeadline {
   id: string;
   title: string;
-  description?: string;
-  estimatedMinutes?: number;
+  why: string;
+  depth: HeadlineDepth;
 }
 
-export interface LearningWeek {
+export interface StudyDestination {
   id: string;
-  weekNumber: number;
+  order: number;
   title: string;
-  focus: string;
-  dailySplit: string;
-  topics: string[];
+  subtitle: string;
+  goal: string;
+  interviewSignal: string;
+  seedHeadlines: StudyHeadline[];
   resources: LearningResource[];
-  tasks: LearningTask[];
+  ragKeywords: string[];
 }
 
-export interface LearningPhase {
+export interface LessonQuestion {
   id: string;
-  number: number;
+  kind: QuestionKind;
+  prompt: string;
+  options?: string[];
+  answer: string;
+  explanation: string;
+}
+
+export interface RagSource {
+  id: string;
   title: string;
-  description: string;
-  weekRange: [number, number];
-  weeks: LearningWeek[];
+  url?: string;
+  kind: RagKind;
 }
 
-export interface TaskProgressRecord {
-  taskId: string;
-  status: TaskStatus;
-  note?: string | null;
-  completedAt?: string | null;
-  updatedAt?: string;
+export interface GeneratedLesson {
+  destinationId: string;
+  headlineId: string;
+  title: string;
+  markdown: string;
+  questions: LessonQuestion[];
+  sources: RagSource[];
+  generatedAt: string;
 }
 
-export interface StudySessionRecord {
-  id?: string;
-  date: string;
-  minutes: number;
-  topic?: string | null;
-  note?: string | null;
-  createdAt?: string;
+export interface ExplainResult {
+  markdown: string;
+  sources: RagSource[];
 }
 
-export interface LearningStats {
-  totalTasks: number;
-  completedTasks: number;
-  totalMinutes: number;
-  streakDays: number;
-  minutesToday: number;
-  minutesThisWeek: number;
-  hoursLast7Days: { date: string; hours: number }[];
-  phaseProgress: Record<string, { total: number; done: number }>;
+export interface StudyBookmark {
+  id: string;
+  kind: "lesson" | "passage";
+  destinationId: string;
+  headlineId: string;
+  title: string;
+  excerpt: string;
+  explanation?: string;
+  createdAt: string;
+}
+
+export interface HeadlineProgress {
+  headlineId: string;
+  destinationId: string;
+  status: HeadlineStatus;
+  updatedAt: string;
+}
+
+export interface InkPoint {
+  x: number;
+  y: number;
+  p: number;
+}
+
+export interface InkStroke {
+  tool: "pen" | "highlighter" | "eraser";
+  color: string;
+  width: number;
+  points: InkPoint[];
+}
+
+export interface InkNote {
+  id: string;
+  destinationId: string;
+  headlineId: string;
+  strokes: InkStroke[];
+  updatedAt: string;
 }

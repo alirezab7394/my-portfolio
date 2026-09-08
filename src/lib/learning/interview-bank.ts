@@ -310,22 +310,3 @@ export const ENGLISH_CUES = [
   "The failure mode I worry about is… Here is how I would observe it.",
   "In my Skedpal / Javi / NextTarget work, a similar constraint was…",
 ];
-
-export function getDailyDrill(weekNumber: number, date = new Date()): InterviewDrill {
-  const pool = INTERVIEW_DRILLS.filter((d) => d.weeks.includes(weekNumber));
-  const list = pool.length > 0 ? pool : INTERVIEW_DRILLS;
-  const idx = (date.getFullYear() + date.getMonth() + date.getDate() + weekNumber) % list.length;
-  return list[idx];
-}
-
-export function getDailyEnglishCue(date = new Date()): string {
-  return ENGLISH_CUES[date.getDate() % ENGLISH_CUES.length];
-}
-
-export function getStarForWeek(weekNumber: number): StarStory {
-  if (weekNumber >= 11) return STAR_STORIES[0];
-  if (weekNumber >= 9) return STAR_STORIES[3];
-  if (weekNumber >= 6) return STAR_STORIES[2];
-  if (weekNumber >= 4) return STAR_STORIES[4];
-  return STAR_STORIES[1];
-}

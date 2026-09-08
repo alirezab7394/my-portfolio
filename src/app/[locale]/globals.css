@@ -336,4 +336,14 @@
   .animate-drift-reverse {
     animation: driftReverse 15s ease-in-out infinite;
   }
+
+  .study-md {
+    user-select: text;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin {
+      animation-duration: 0.01ms !important;
+    }
+  }
 }

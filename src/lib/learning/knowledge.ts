@@ -1,45 +1,57 @@
-import { LEARNING_CURRICULUM } from "@/lib/learning/curriculum";
-import { INTERVIEW_DRILLS, STAR_STORIES } from "@/lib/learning/interview-bank";
-import type { RagSource } from "@/lib/learning/coach-types";
+import { STUDY_DESTINATIONS } from "@/lib/learning/destinations";
+import { INTERVIEW_DRILLS, STAR_STORIES, ENGLISH_CUES } from "@/lib/learning/interview-bank";
+import type { RagSource } from "@/types/learning";
 
 export type RagChunk = RagSource & {
   text: string;
 };
 
+const extraChunks = new Map<string, RagChunk>();
+
+export function ingestRagChunks(chunks: RagChunk[]) {
+  for (const chunk of chunks) {
+    extraChunks.set(chunk.id, {
+      ...chunk,
+      text: chunk.text.slice(0, 8000),
+    });
+  }
+}
+
 export function buildRagCorpus(): RagChunk[] {
   const chunks: RagChunk[] = [];
 
-  for (const phase of LEARNING_CURRICULUM) {
+  for (const dest of STUDY_DESTINATIONS) {
     chunks.push({
-      id: `phase-${phase.id}`,
-      kind: "week",
-      title: `Phase ${phase.number}: ${phase.title}`,
-      text: `${phase.title}. Weeks ${phase.weekRange[0]}–${phase.weekRange[1]}. ${phase.description}`,
+      id: `dest-${dest.id}`,
+      kind: "destination",
+      title: dest.title,
+      text: [
+        dest.title,
+        dest.subtitle,
+        dest.goal,
+        dest.interviewSignal,
+        dest.ragKeywords.join(", "),
+        dest.seedHeadlines.map((h) => `${h.title}: ${h.why}`).join(" | "),
+      ].join(". "),
     });
 
-    for (const week of phase.weeks) {
+    for (const headline of dest.seedHeadlines) {
       chunks.push({
-        id: `week-${week.id}`,
-        kind: "week",
-        title: `Week ${week.weekNumber}: ${week.title}`,
-        text: [
-          `Week ${week.weekNumber} ${week.title}.`,
-          `Focus: ${week.focus}.`,
-          `Daily split: ${week.dailySplit}.`,
-          `Topics: ${week.topics.join(", ")}.`,
-          `Tasks: ${week.tasks.map((t) => t.title).join("; ")}.`,
-        ].join(" "),
+        id: `hl-${headline.id}`,
+        kind: "destination",
+        title: `${dest.title}: ${headline.title}`,
+        text: `${headline.title}. ${headline.why}. Depth: ${headline.depth}. Destination: ${dest.title}. ${dest.goal}`,
       });
+    }
 
-      for (const resource of week.resources) {
-        chunks.push({
-          id: `res-${week.id}-${resource.url}`,
-          kind: "resource",
-          title: resource.title,
-          url: resource.url,
-          text: `Week ${week.weekNumber} ${week.title}. ${resource.type}: ${resource.title}. Topics: ${week.topics.join(", ")}. ${week.focus}`,
-        });
-      }
+    for (const resource of dest.resources) {
+      chunks.push({
+        id: `res-${dest.id}-${resource.url}`,
+        kind: "resource",
+        title: resource.title,
+        url: resource.url,
+        text: `${dest.title}. ${resource.type}: ${resource.title}. Topics: ${dest.ragKeywords.join(", ")}. ${dest.goal}`,
+      });
     }
   }
 
@@ -47,10 +59,10 @@ export function buildRagCorpus(): RagChunk[] {
   chunks.push(
     ...INTERVIEW_DRILLS.map((d) => ({
       id: `drill-${d.id}`,
-      kind: "knowledge" as const,
+      kind: "drill" as const,
       title: d.question,
       url: d.resourceUrl,
-      text: `Interview drill (${d.area}, weeks ${d.weeks.join(",")}): ${d.question} Talking points: ${d.talkingPoints.join("; ")}. Resource: ${d.resourceTitle} ${d.resourceUrl}`,
+      text: `Interview drill (${d.area}): ${d.question} Talking points: ${d.talkingPoints.join("; ")}. Resource: ${d.resourceTitle} ${d.resourceUrl}`,
     }))
   );
   chunks.push(
@@ -61,6 +73,7 @@ export function buildRagCorpus(): RagChunk[] {
       text: `${s.title}. S: ${s.situation} T: ${s.task} A: ${s.action} R: ${s.result} Cue: ${s.interviewCue}`,
     }))
   );
+  chunks.push(...extraChunks.values());
   return chunks;
 }
 
@@ -139,7 +152,7 @@ const KNOWLEDGE_CHUNKS: RagChunk[] = [
     id: "k-english-interview",
     kind: "knowledge",
     title: "English phrases for technical interviews",
-    text: "Restate the problem. Trade-off X vs Y. I would pick X because. Failure mode I worry about. Similar constraint in Skedpal/Javi/NextTarget. I have not used that library but the idea is similar to.",
+    text: `English phrases for technical interviews: ${ENGLISH_CUES.join(" ")}`,
   },
   {
     id: "k-dsa",
