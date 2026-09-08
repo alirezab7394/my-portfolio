@@ -1,9 +1,30 @@
 "use client";
 
+import { Children, isValidElement, type ReactNode } from "react";
+import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import type { Components } from "react-markdown";
+import { CodeBlock } from "@/components/learning/CodeBlock";
 import { cn } from "@/lib/utils";
+
+function codeText(children: ReactNode): string {
+  return String(children ?? "").replace(/\n$/, "");
+}
+
+function extractPreCode(children: ReactNode): { language: string; code: string } {
+  let language = "";
+  let code = "";
+  Children.forEach(children, (child) => {
+    if (!isValidElement<{ className?: string; children?: ReactNode }>(child)) {
+      code += String(child ?? "");
+      return;
+    }
+    const className = child.props.className ?? "";
+    language = /language-([\w-]+)/.exec(className)?.[1] ?? language;
+    code += codeText(child.props.children);
+  });
+  return { language, code };
+}
 
 const components: Components = {
   h1: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold tracking-tight text-foreground first:mt-0">{children}</h2>,
@@ -28,26 +49,20 @@ const components: Components = {
       {children}
     </a>
   ),
-  code: ({ className, children, ...props }) => {
-    const isBlock = Boolean(className);
-    if (!isBlock) {
-      return (
-        <code className="break-all rounded bg-muted px-1 py-0.5 font-mono text-[13px]" {...props}>
-          {children}
-        </code>
-      );
+  code: ({ className, children }) => {
+    if (className?.includes("language-") || codeText(children).includes("\n")) {
+      return <code className={className}>{children}</code>;
     }
     return (
-      <code className={cn("font-mono text-[13px] leading-6", className)} {...props}>
+      <code className="rounded-md border border-primary-100 bg-primary-50 px-1.5 py-0.5 font-mono text-[12.5px] text-primary-800">
         {children}
       </code>
     );
   },
-  pre: ({ children }) => (
-    <pre className="mb-4 max-w-full overflow-x-auto rounded-md border bg-secondary-900 p-3 text-secondary-50">
-      {children}
-    </pre>
-  ),
+  pre: ({ children }) => {
+    const { language, code } = extractPreCode(children);
+    return <CodeBlock language={language} code={code} />;
+  },
   table: ({ children }) => (
     <div className="mb-4 overflow-x-auto">
       <table className="w-full border-collapse text-sm">{children}</table>

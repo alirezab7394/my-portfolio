@@ -22,7 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { STUDY_DESTINATIONS, getDestination } from "@/lib/learning/destinations";
+import { STUDY_DESTINATIONS, destinationProgressCounts, getDestination, headlinesForDestination } from "@/lib/learning/destinations";
 import {
   lessonKey,
   loadBookmarks,
@@ -32,6 +32,9 @@ import {
   loadProgress,
   loadRailExpanded,
   makeId,
+  mergeLessonMaps,
+  persistHeadlineMap,
+  persistLessonMap,
   removeBookmark,
   saveHeadlines,
   saveLastDestination,
@@ -44,6 +47,7 @@ import { cn } from "@/lib/utils";
 import type {
   ExplainResult,
   GeneratedLesson,
+  HeadlineDepth,
   HeadlineProgress,
   RagSource,
   StudyBookmark,
@@ -79,10 +83,11 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   const [isXl, setIsXl] = useState(false);
   const [topicsOpen, setTopicsOpen] = useState(true);
   const [railExpanded, setRailExpanded] = useState(true);
+  const [hydrated, setHydrated] = useState(false);
   const outlineAttempted = useRef(new Set<string>());
 
   const destination = getDestination(destinationId) ?? STUDY_DESTINATIONS[0];
-  const headlines = headlineMap[destinationId] ?? destination.seedHeadlines;
+  const headlines = headlinesForDestination(destination, headlineMap);
   const lesson = activeHeadline ? lessonMap[lessonKey(destinationId, activeHeadline.id)] ?? null : null;
 
   useEffect(() => {
@@ -95,14 +100,37 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
     setRailExpanded(loadRailExpanded());
     void fetch("/api/learning/studio")
       .then((res) => res.json())
-      .then((data) => setConfigured(Boolean(data.configured)))
-      .catch(() => setConfigured(false));
+      .then((data: {
+        configured?: boolean;
+        lessons?: GeneratedLesson[];
+        headlines?: Record<string, StudyHeadline[]>;
+      }) => {
+        setConfigured(Boolean(data.configured));
+        if (Array.isArray(data.lessons) && data.lessons.length) {
+          const merged = mergeLessonMaps(loadLessonMap(), data.lessons);
+          persistLessonMap(merged);
+          setLessonMap(merged);
+        }
+        if (data.headlines) {
+          const local = loadHeadlineMap();
+          const merged = { ...local };
+          for (const [id, list] of Object.entries(data.headlines)) {
+            if (list?.length) merged[id] = list;
+          }
+          persistHeadlineMap(merged);
+          setHeadlineMap(merged);
+        }
+      })
+      .catch(() => setConfigured(false))
+      .finally(() => setHydrated(true));
   }, []);
 
   useEffect(() => {
     function onPointerDown(event: PointerEvent) {
       const target = event.target as HTMLElement | null;
       if (target?.closest('[role="toolbar"]')) return;
+      if (target?.closest("[data-lesson-body]")) return;
+      if (event.pointerType !== "mouse") return;
       setSelection(null);
     }
     document.addEventListener("pointerdown", onPointerDown);
@@ -130,10 +158,17 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
     return ids;
   }, [lessonMap]);
 
-  const reviewedCount = STUDY_DESTINATIONS.reduce((sum, dest) => {
-    return sum + dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
-  }, 0);
-  const seedTotal = STUDY_DESTINATIONS.reduce((sum, dest) => sum + dest.seedHeadlines.length, 0);
+  const { reviewedCount, totalCount } = useMemo(() => {
+    return STUDY_DESTINATIONS.reduce(
+      (acc, dest) => {
+        const { total, reviewed } = destinationProgressCounts(dest, headlineMap, progress);
+        acc.reviewedCount += reviewed;
+        acc.totalCount += total;
+        return acc;
+      },
+      { reviewedCount: 0, totalCount: 0 }
+    );
+  }, [headlineMap, progress]);
 
   const selectDestination = useCallback((id: string) => {
     setDestinationId(id);
@@ -169,12 +204,12 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   }
 
   useEffect(() => {
-    if (configured !== true) return;
+    if (!hydrated || configured !== true) return;
     if (headlineMap[destinationId]?.length) return;
     if (outlineAttempted.current.has(destinationId)) return;
     outlineAttempted.current.add(destinationId);
     void refreshHeadlines(true);
-  }, [configured, destinationId, headlineMap]);
+  }, [configured, destinationId, headlineMap, hydrated]);
 
   async function openHeadline(headline: StudyHeadline, force = false, destId = destinationId) {
     if (destId !== destinationId) {
@@ -239,6 +274,31 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
     };
     setHeadlineStatus(record);
     setProgress((prev) => ({ ...prev, [headlineId]: record }));
+  }
+
+  async function addHeadline(
+    destId: string,
+    draft: { title: string; why: string; depth: HeadlineDepth }
+  ) {
+    const current = headlineMap[destId] ?? getDestination(destId)?.seedHeadlines ?? [];
+    try {
+      const data = await studioPost<{ headline: StudyHeadline; headlines: StudyHeadline[] }>({
+        action: "addHeadline",
+        destinationId: destId,
+        headline: draft,
+        headlines: current,
+        existingIds: current.map((item) => item.id),
+      });
+      const nextList = data.headlines?.length ? data.headlines : [...current, data.headline];
+      setHeadlineMap((prev) => {
+        const next = { ...prev, [destId]: nextList };
+        persistHeadlineMap(next);
+        return next;
+      });
+      toast.success("Headline added.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not add headline");
+    }
   }
 
   function lessonBookmarked() {
@@ -368,7 +428,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               {configured ? "RAG + LLM" : configured === false ? "Offline outline" : "Checking"}
             </Badge>
             <span className="hidden text-xs tabular-nums text-muted-foreground xl:inline">
-              {reviewedCount}/{seedTotal} reviewed
+              {reviewedCount}/{totalCount} reviewed
             </span>
             <Tabs value={view} onValueChange={(v) => setView(v as View)}>
               <TabsList>
@@ -437,6 +497,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               onSelect={selectDestination}
               onSelectHeadline={(destId, headline) => void openHeadline(headline, false, destId)}
               onRefresh={() => void refreshHeadlines()}
+              onAddHeadline={(destId, draft) => void addHeadline(destId, draft)}
             />
           </aside>
           <div className="shrink-0 border-b px-2 py-1 xl:hidden">
@@ -453,6 +514,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               onOpenChange={setTopicsOpen}
               onSelect={(h) => void openHeadline(h)}
               onRefresh={() => void refreshHeadlines()}
+              onAddHeadline={(draft) => void addHeadline(destinationId, draft)}
             />
           </div>
           {!railExpanded ? (
@@ -467,6 +529,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
                 generatingId={generatingId}
                 onSelect={(h) => void openHeadline(h)}
                 onRefresh={() => void refreshHeadlines()}
+                onAddHeadline={(draft) => void addHeadline(destinationId, draft)}
               />
             </aside>
           ) : null}

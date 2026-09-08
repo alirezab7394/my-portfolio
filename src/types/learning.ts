@@ -13,7 +13,7 @@ export type HeadlineDepth = "core" | "interview" | "lab";
 
 export type HeadlineStatus = "unread" | "ready" | "reviewed";
 
-export type StudioAction = "headlines" | "lesson" | "explain" | "ingest";
+export type StudioAction = "headlines" | "lesson" | "explain" | "ingest" | "addHeadline";
 
 export type QuestionKind = "choice" | "short";
 

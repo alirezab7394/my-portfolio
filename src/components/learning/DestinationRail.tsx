@@ -21,6 +21,7 @@ import { HeadlineList } from "@/components/learning/HeadlineList";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { destinationProgressCounts, headlinesForDestination } from "@/lib/learning/destinations";
 import { cn } from "@/lib/utils";
 import type { HeadlineProgress, StudyDestination, StudyHeadline } from "@/types/learning";
 
@@ -52,6 +53,7 @@ interface DestinationRailProps {
   onSelect: (id: string) => void;
   onSelectHeadline: (destinationId: string, headline: StudyHeadline) => void;
   onRefresh: () => void;
+  onAddHeadline: (destinationId: string, headline: { title: string; why: string; depth: StudyHeadline["depth"] }) => void;
 }
 
 export function DestinationRail({
@@ -68,6 +70,7 @@ export function DestinationRail({
   onSelect,
   onSelectHeadline,
   onRefresh,
+  onAddHeadline,
 }: DestinationRailProps) {
   return (
     <TooltipProvider delayDuration={250}>
@@ -78,6 +81,7 @@ export function DestinationRail({
               <DestinationChip
                 dest={dest}
                 progress={progress}
+                headlineMap={headlineMap}
                 active={dest.id === activeId}
                 onSelect={onSelect}
               />
@@ -114,12 +118,11 @@ export function DestinationRail({
             className="hidden min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden xl:block"
           >
             {destinations.map((dest) => {
-              const total = dest.seedHeadlines.length;
-              const reviewed = dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
+              const { total, reviewed } = destinationProgressCounts(dest, headlineMap, progress);
               const pct = total ? Math.round((reviewed / total) * 100) : 0;
               const active = dest.id === activeId;
               const Icon = ICONS[dest.id] ?? Braces;
-              const headlines = headlineMap[dest.id] ?? dest.seedHeadlines;
+              const headlines = headlinesForDestination(dest, headlineMap);
               return (
                 <AccordionItem key={dest.id} value={dest.id} className="border-b border-border/80 last:border-b-0">
                   <AccordionTrigger
@@ -167,6 +170,7 @@ export function DestinationRail({
                       embedded
                       onSelect={(headline) => onSelectHeadline(dest.id, headline)}
                       onRefresh={onRefresh}
+                      onAddHeadline={(draft) => onAddHeadline(dest.id, draft)}
                     />
                   </AccordionContent>
                 </AccordionItem>
@@ -176,8 +180,7 @@ export function DestinationRail({
         ) : (
           <ul className="hidden min-h-0 min-w-0 gap-1 overflow-x-auto xl:flex xl:flex-1 xl:flex-col xl:items-center xl:overflow-x-hidden xl:overflow-y-auto">
             {destinations.map((dest) => {
-              const total = dest.seedHeadlines.length;
-              const reviewed = dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
+              const { total, reviewed } = destinationProgressCounts(dest, headlineMap, progress);
               const active = dest.id === activeId;
               const Icon = ICONS[dest.id] ?? Braces;
               return (
@@ -224,16 +227,17 @@ export function DestinationRail({
 function DestinationChip({
   dest,
   progress,
+  headlineMap,
   active,
   onSelect,
 }: {
   dest: StudyDestination;
   progress: Record<string, HeadlineProgress>;
+  headlineMap: Record<string, StudyHeadline[]>;
   active: boolean;
   onSelect: (id: string) => void;
 }) {
-  const total = dest.seedHeadlines.length;
-  const reviewed = dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
+  const { total, reviewed } = destinationProgressCounts(dest, headlineMap, progress);
   const Icon = ICONS[dest.id] ?? Braces;
   return (
     <button

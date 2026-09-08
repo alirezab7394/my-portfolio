@@ -44,6 +44,31 @@ export function saveLesson(lesson: GeneratedLesson) {
   localStorage.setItem(LESSONS_KEY, JSON.stringify(map));
 }
 
+export function mergeLessonMaps(
+  local: Record<string, GeneratedLesson>,
+  remote: GeneratedLesson[]
+): Record<string, GeneratedLesson> {
+  const merged = { ...local };
+  for (const lesson of remote) {
+    const key = lessonKey(lesson.destinationId, lesson.headlineId);
+    const existing = merged[key];
+    if (!existing || existing.generatedAt <= lesson.generatedAt) {
+      merged[key] = lesson;
+    }
+  }
+  return merged;
+}
+
+export function persistLessonMap(map: Record<string, GeneratedLesson>) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(LESSONS_KEY, JSON.stringify(map));
+}
+
+export function persistHeadlineMap(map: Record<string, StudyHeadline[]>) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(HEADLINES_KEY, JSON.stringify(map));
+}
+
 export function loadBookmarks(): StudyBookmark[] {
   if (typeof window === "undefined") return [];
   return safeParse(localStorage.getItem(BOOKMARKS_KEY), []);

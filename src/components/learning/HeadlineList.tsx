@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, Loader2, RefreshCw } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { ChevronDown, Loader2, Plus, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import type { HeadlineProgress, StudyDestination, StudyHeadline } from "@/types/learning";
+import type { HeadlineDepth, HeadlineProgress, StudyDestination, StudyHeadline } from "@/types/learning";
+
+interface HeadlineDraft {
+  title: string;
+  why: string;
+  depth: HeadlineDepth;
+}
 
 interface HeadlineListProps {
   destination: StudyDestination;
@@ -17,6 +25,7 @@ interface HeadlineListProps {
   generatingId: string | null;
   onSelect: (headline: StudyHeadline) => void;
   onRefresh: () => void;
+  onAddHeadline: (draft: HeadlineDraft) => void;
   embedded?: boolean;
   compact?: boolean;
   open?: boolean;
@@ -34,6 +43,7 @@ export function HeadlineList({
   generatingId,
   onSelect,
   onRefresh,
+  onAddHeadline,
   embedded = false,
   compact = false,
   open: openProp,
@@ -41,9 +51,28 @@ export function HeadlineList({
   defaultOpen = true,
 }: HeadlineListProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const [adding, setAdding] = useState(false);
+  const [title, setTitle] = useState("");
+  const [why, setWhy] = useState("");
+  const [depth, setDepth] = useState<HeadlineDepth>("interview");
   const open = openProp ?? uncontrolledOpen;
   const setOpen = onOpenChange ?? setUncontrolledOpen;
   const active = headlines.find((headline) => headline.id === activeId) ?? null;
+
+  function submitHeadline(event: FormEvent) {
+    event.preventDefault();
+    const nextTitle = title.trim();
+    if (!nextTitle) return;
+    onAddHeadline({
+      title: nextTitle,
+      why: why.trim() || "Custom topic added to this destination.",
+      depth,
+    });
+    setTitle("");
+    setWhy("");
+    setDepth("interview");
+    setAdding(false);
+  }
 
   return (
     <Collapsible
@@ -88,6 +117,20 @@ export function HeadlineList({
           size="icon"
           variant="ghost"
           className="size-8 shrink-0 cursor-pointer"
+          onClick={() => {
+            setAdding((current) => !current);
+            setOpen(true);
+          }}
+          aria-expanded={adding}
+          aria-label="Add headline"
+        >
+          <Plus className="size-4" />
+        </Button>
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="size-8 shrink-0 cursor-pointer"
           onClick={onRefresh}
           disabled={loading}
           aria-label="Regenerate headlines"
@@ -109,6 +152,52 @@ export function HeadlineList({
         >
           {embedded ? (
             <p className="mb-2 px-2 text-xs leading-5 text-muted-foreground">{destination.subtitle}</p>
+          ) : null}
+          {adding ? (
+            <form onSubmit={submitHeadline} className="mb-3 space-y-2 rounded-md border bg-background px-2 py-2">
+              <div className="space-y-1">
+                <Label htmlFor={`headline-title-${destination.id}`} className="text-xs">
+                  New headline
+                </Label>
+                <Input
+                  id={`headline-title-${destination.id}`}
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                  placeholder="Topic title"
+                  maxLength={240}
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor={`headline-why-${destination.id}`} className="text-xs">
+                  Why it matters
+                </Label>
+                <Input
+                  id={`headline-why-${destination.id}`}
+                  value={why}
+                  onChange={(event) => setWhy(event.target.value)}
+                  placeholder="One sentence"
+                  maxLength={500}
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-1">
+                {(["core", "interview", "lab"] as const).map((value) => (
+                  <Button
+                    key={value}
+                    type="button"
+                    size="sm"
+                    variant={depth === value ? "default" : "outline"}
+                    className="h-7 cursor-pointer capitalize"
+                    onClick={() => setDepth(value)}
+                  >
+                    {value}
+                  </Button>
+                ))}
+                <Button type="submit" size="sm" className="ms-auto h-7 cursor-pointer" disabled={!title.trim()}>
+                  Add
+                </Button>
+              </div>
+            </form>
           ) : null}
           <ol className="min-w-0 space-y-0.5 pe-1">
             {headlines.map((headline, index) => {

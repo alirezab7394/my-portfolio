@@ -349,6 +349,23 @@
     max-width: 100%;
   }
 
+  .study-code {
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  .study-code pre,
+  .study-code code {
+    background: transparent !important;
+    color: inherit;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-spin {
       animation-duration: 0.01ms !important;

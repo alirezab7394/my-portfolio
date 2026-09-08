@@ -37,3 +37,34 @@ model StudySession {
 
   @@index([date])
 }
+
+model StudyLesson {
+  id            String   @id @default(cuid())
+  destinationId String
+  headlineId    String
+  title         String
+  markdown      String   @db.Text
+  questions     Json
+  sources       Json
+  generatedAt   DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([destinationId, headlineId])
+  @@index([destinationId])
+}
+
+model StudyHeadlineRecord {
+  id            String   @id @default(cuid())
+  destinationId String
+  headlineId    String
+  title         String
+  why           String
+  depth         String
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([destinationId, headlineId])
+  @@index([destinationId])
+}

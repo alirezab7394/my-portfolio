@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Bookmark, BookmarkCheck, Highlighter, PenLine, RefreshCw } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,13 @@ import { QuestionCard } from "@/components/learning/QuestionCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { GeneratedLesson, RagSource } from "@/types/learning";
 
+export interface LessonSelection {
+  text: string;
+  x: number;
+  y: number;
+  surrounding: string;
+}
+
 interface LessonReaderProps {
   lesson: GeneratedLesson | null;
   loading: boolean;
@@ -16,7 +24,7 @@ interface LessonReaderProps {
   bookmarked: boolean;
   onBookmarkLesson: () => void;
   onRegenerate: () => void;
-  onSelection: (payload: { text: string; x: number; y: number; surrounding: string } | null) => void;
+  onSelection: (payload: LessonSelection | null) => void;
 }
 
 export function LessonReader({
@@ -28,17 +36,24 @@ export function LessonReader({
   onRegenerate,
   onSelection,
 }: LessonReaderProps) {
-  function handlePointerUp(event: React.PointerEvent<HTMLElement>) {
-    const root = event.currentTarget;
-    window.setTimeout(() => {
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = bodyRef.current;
+    if (!root || !lesson) return;
+
+    let timer: number | null = null;
+    const article = root;
+
+    function report() {
       const selection = window.getSelection();
       const text = selection?.toString().trim() ?? "";
-      if (!selection || text.length < 8 || selection.rangeCount === 0) {
+      if (!selection || text.length < 4 || selection.rangeCount === 0) {
         onSelection(null);
         return;
       }
       const range = selection.getRangeAt(0);
-      if (!root.contains(range.commonAncestorContainer)) {
+      if (!article.contains(range.commonAncestorContainer)) {
         onSelection(null);
         return;
       }
@@ -47,10 +62,25 @@ export function LessonReader({
         text,
         x: rect.left + rect.width / 2,
         y: rect.top,
-        surrounding: root.innerText.slice(0, 1500),
+        surrounding: article.innerText.slice(0, 1500),
       });
-    }, 30);
-  }
+    }
+
+    function schedule() {
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(report, 280);
+    }
+
+    document.addEventListener("selectionchange", schedule);
+    root.addEventListener("pointerup", schedule);
+    root.addEventListener("touchend", schedule);
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      document.removeEventListener("selectionchange", schedule);
+      root.removeEventListener("pointerup", schedule);
+      root.removeEventListener("touchend", schedule);
+    };
+  }, [lesson, onSelection]);
 
   if (loading) {
     return (
@@ -82,7 +112,7 @@ export function LessonReader({
         <Highlighter className="mb-3 size-8 text-primary" aria-hidden />
         <h2 className="text-base font-semibold">Pick a headline</h2>
         <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-          Content is generated for that topic only — grounded in your RAG notes, then cached on this device.
+          Content is generated for that topic only — grounded in your RAG notes, then saved to the database.
         </p>
       </div>
     );
@@ -109,7 +139,7 @@ export function LessonReader({
         </div>
       </header>
 
-      <div onPointerUp={handlePointerUp}>
+      <div ref={bodyRef} data-lesson-body className="select-text">
         <MarkdownContent markdown={lesson.markdown} />
       </div>
 

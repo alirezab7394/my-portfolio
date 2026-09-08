@@ -1,4 +1,4 @@
-import type { StudyDestination, StudyHeadline } from "@/types/learning";
+import type { HeadlineProgress, StudyDestination, StudyHeadline } from "@/types/learning";
 
 export const LEARNER_PROFILE = [
   "Alireza Bagheri — 8+ years shipping production apps (React, Next.js, TypeScript, NestJS, Prisma, Postgres).",
@@ -274,4 +274,24 @@ export function mergeHeadlines(seed: StudyHeadline[], generated: StudyHeadline[]
     out.push({ ...h, id });
   }
   return out;
+}
+
+export function headlinesForDestination(
+  dest: StudyDestination,
+  headlineMap: Record<string, StudyHeadline[]>
+): StudyHeadline[] {
+  const stored = headlineMap[dest.id];
+  return stored?.length ? stored : dest.seedHeadlines;
+}
+
+export function destinationProgressCounts(
+  dest: StudyDestination,
+  headlineMap: Record<string, StudyHeadline[]>,
+  progress: Record<string, HeadlineProgress>
+): { total: number; reviewed: number } {
+  const list = headlinesForDestination(dest, headlineMap);
+  return {
+    total: list.length,
+    reviewed: list.filter((headline) => progress[headline.id]?.status === "reviewed").length,
+  };
 }
