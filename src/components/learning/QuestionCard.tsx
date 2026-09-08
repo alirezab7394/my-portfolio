@@ -54,7 +54,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
                   }}
                   disabled={revealed}
                   className={cn(
-                    "flex w-full cursor-pointer items-start rounded-md border px-3 py-2 text-start text-sm transition-colors duration-200",
+                    "flex w-full cursor-pointer items-start rounded-md border px-3 py-2 text-start text-sm break-words transition-colors duration-200",
                     active && !revealed && "border-primary bg-primary/5",
                     revealed && normalize(option) === normalize(question.answer) && "border-primary bg-primary/10",
                     revealed && active && normalize(option) !== normalize(question.answer) && "border-destructive/50 bg-destructive/5",

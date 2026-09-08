@@ -89,10 +89,10 @@ export function LessonReader({
   }
 
   return (
-    <article className="space-y-6">
-      <header className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-semibold tracking-tight">{lesson.title}</h2>
+    <article className="min-w-0 max-w-full space-y-6 overflow-x-hidden">
+      <header className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <h2 className="break-words text-xl font-semibold tracking-tight">{lesson.title}</h2>
           <p className="mt-1 text-xs text-muted-foreground">
             Highlight any sentence to explain more or bookmark it. Sources are listed at the bottom.
           </p>
@@ -134,17 +134,17 @@ export function SourceList({ sources }: { sources: RagSource[] }) {
   return (
     <section>
       <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">RAG sources</h3>
-      <ul className="flex flex-wrap gap-1.5">
+      <ul className="flex min-w-0 flex-wrap gap-1.5">
         {sources.map((s) => (
-          <li key={s.id}>
+          <li key={s.id} className="min-w-0 max-w-full">
             {s.url ? (
               <a href={s.url} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
-                <Badge variant="secondary" className="font-normal">
+                <Badge variant="secondary" className="max-w-full truncate font-normal">
                   {s.title}
                 </Badge>
               </a>
             ) : (
-              <Badge variant="outline" className="font-normal">
+              <Badge variant="outline" className="max-w-full truncate font-normal">
                 {s.title}
               </Badge>
             )}

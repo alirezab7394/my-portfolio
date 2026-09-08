@@ -339,6 +339,14 @@
 
   .study-md {
     user-select: text;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .study-md pre,
+  .study-md table {
+    max-width: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {

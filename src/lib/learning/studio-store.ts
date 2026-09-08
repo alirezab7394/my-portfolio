@@ -5,6 +5,7 @@ const LESSONS_KEY = "study-lessons-v1";
 const BOOKMARKS_KEY = "study-bookmarks-v1";
 const PROGRESS_KEY = "study-headline-progress-v1";
 const LAST_DEST_KEY = "study-last-destination-v1";
+const RAIL_EXPANDED_KEY = "study-rail-expanded-v1";
 
 function safeParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback;
@@ -85,6 +86,16 @@ export function loadLastDestination(): string | null {
 export function saveLastDestination(id: string) {
   if (typeof window === "undefined") return;
   localStorage.setItem(LAST_DEST_KEY, id);
+}
+
+export function loadRailExpanded(): boolean {
+  if (typeof window === "undefined") return true;
+  return localStorage.getItem(RAIL_EXPANDED_KEY) !== "0";
+}
+
+export function saveRailExpanded(expanded: boolean) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(RAIL_EXPANDED_KEY, expanded ? "1" : "0");
 }
 
 export function makeId(prefix: string) {

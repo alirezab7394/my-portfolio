@@ -1,4 +1,4 @@
-import type { InkNote, InkStroke } from "@/types/learning";
+import type { InkNote, InkStroke, InkTextBox } from "@/types/learning";
 
 const DB_NAME = "study-ink-v1";
 const STORE = "notes";
@@ -38,14 +38,20 @@ export async function loadInkNote(destinationId: string, headlineId: string): Pr
 export async function saveInkNote(
   destinationId: string,
   headlineId: string,
-  strokes: InkStroke[]
+  payload: {
+    strokes: InkStroke[];
+    textBoxes: InkTextBox[];
+    typedText: string;
+  }
 ): Promise<void> {
   const db = await openDb();
   const note: InkNote = {
     id: inkNoteId(destinationId, headlineId),
     destinationId,
     headlineId,
-    strokes,
+    strokes: payload.strokes,
+    textBoxes: payload.textBoxes,
+    typedText: payload.typedText,
     updatedAt: new Date().toISOString(),
   };
   await new Promise<void>((resolve, reject) => {

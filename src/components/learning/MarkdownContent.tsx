@@ -32,7 +32,7 @@ const components: Components = {
     const isBlock = Boolean(className);
     if (!isBlock) {
       return (
-        <code className="rounded bg-muted px-1 py-0.5 font-mono text-[13px]" {...props}>
+        <code className="break-all rounded bg-muted px-1 py-0.5 font-mono text-[13px]" {...props}>
           {children}
         </code>
       );
@@ -44,7 +44,9 @@ const components: Components = {
     );
   },
   pre: ({ children }) => (
-    <pre className="mb-4 overflow-x-auto rounded-md border bg-secondary-900 p-3 text-secondary-50">{children}</pre>
+    <pre className="mb-4 max-w-full overflow-x-auto rounded-md border bg-secondary-900 p-3 text-secondary-50">
+      {children}
+    </pre>
   ),
   table: ({ children }) => (
     <div className="mb-4 overflow-x-auto">
@@ -64,7 +66,7 @@ export function MarkdownContent({
   className?: string;
 }) {
   return (
-    <div className={cn("study-md max-w-none", className)}>
+    <div className={cn("study-md min-w-0 max-w-full overflow-x-hidden", className)}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {markdown}
       </ReactMarkdown>

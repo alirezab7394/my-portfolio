@@ -104,10 +104,22 @@ export interface InkStroke {
   points: InkPoint[];
 }
 
+export interface InkTextBox {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  text: string;
+  color: string;
+}
+
 export interface InkNote {
   id: string;
   destinationId: string;
   headlineId: string;
   strokes: InkStroke[];
+  textBoxes?: InkTextBox[];
+  typedText?: string;
   updatedAt: string;
 }
