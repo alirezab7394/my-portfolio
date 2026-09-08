@@ -1,5 +1,13 @@
 import { LEARNER_PROFILE, getDestination, mergeHeadlines, slugifyHeadline } from "@/lib/learning/destinations";
-import { asString, asStringArray, extractJsonObject } from "@/lib/learning/json";
+import {
+  asString,
+  asStringArray,
+  extractJsonArray,
+  extractJsonObject,
+  getChatMessageText,
+  hasTaggedLesson,
+  parseTaggedBlock,
+} from "@/lib/learning/json";
 import { ingestRagChunks, type RagChunk } from "@/lib/learning/knowledge";
 import { getLlmBaseUrl, getLlmModel, isLlmConfigured } from "@/lib/learning/llm-config";
 import { formatRagContext, invalidateRagCorpus, retrieveForQuery } from "@/lib/learning/rag";
@@ -19,7 +27,6 @@ const SYSTEM_BASE = [
   "Be precise. No filler. Default to English. If he writes in Persian, reply in Persian.",
   "Ground every claim in the retrieved RAG context. Cite source titles in-line when used.",
   "Never invent URLs. If a fact is missing from RAG, say so.",
-  "Return JSON only — no markdown fence unless you must.",
   `Learner: ${LEARNER_PROFILE}`,
 ].join("\n");
 
@@ -34,8 +41,9 @@ export async function generateHeadlines(destinationId: string): Promise<{
   const sources = await retrieveForQuery(query, 8);
   const ragContext = formatRagContext(sources);
 
-  const content = await chatJson({
+  const raw = await completeModel({
     temperature: 0.4,
+    preferJson: true,
     user: [
       `Destination: ${dest.title}`,
       dest.subtitle,
@@ -45,14 +53,14 @@ export async function generateHeadlines(destinationId: string): Promise<{
       JSON.stringify(dest.seedHeadlines),
       "RAG:",
       ragContext || "(none)",
-      'Return {"headlines":[{"id":"stable-slug","title":"...","why":"one sentence","depth":"core|interview|lab"}]}',
-      "12 headlines max. Order foundations → interview → lab. ids must be unique kebab-case prefixed with destination if new.",
+      'Return ONLY JSON: {"headlines":[{"id":"stable-slug","title":"...","why":"one sentence","depth":"core|interview|lab"}]}',
+      "12 headlines max. Double-quote every key and string. No trailing commas. No markdown.",
     ].join("\n\n"),
   });
 
-  const raw = content.headlines;
-  const generated = Array.isArray(raw)
-    ? raw
+  const content = extractJsonObject(raw);
+  const generated = Array.isArray(content.headlines)
+    ? content.headlines
         .map((item, index): StudyHeadline | null => {
           if (!item || typeof item !== "object") return null;
           const row = item as Record<string, unknown>;
@@ -94,8 +102,9 @@ export async function generateLesson(params: {
   const sources = await retrieveForQuery(query, 8);
   const ragContext = formatRagContext(sources);
 
-  const content = await chatJson({
+  const raw = await completeModel({
     temperature: 0.5,
+    preferJson: false,
     user: [
       `Write a study lesson for headline: ${title}`,
       `Why it matters: ${why}`,
@@ -105,28 +114,33 @@ export async function generateLesson(params: {
       "RAG:",
       ragContext || "(none)",
       "Requirements:",
-      "- markdown field: 700–1200 words, GitHub-flavored markdown",
+      "- markdown: 700–1200 words, GitHub-flavored markdown",
       "- Start with a 2-sentence interview framing",
       "- Use ## headings, one TypeScript fenced example, one failure-mode section",
       "- Tie to Skedpal / NextTarget / Javi / AzarTime when it is honest",
       "- End markdown with a short 'Say this in the interview' script (90 seconds)",
       "- questions: exactly 3. Mix 2 choice + 1 short. For choice, answer must equal one option string exactly.",
-      'Return {"title":"...","markdown":"...","questions":[{"id":"q1","kind":"choice|short","prompt":"...","options":["..."],"answer":"...","explanation":"..."}]}',
+      "CRITICAL output format — do not wrap the lesson in JSON. Markdown stays raw:",
+      "<<<TITLE>>>",
+      "short title",
+      "<<<MARKDOWN>>>",
+      "raw markdown here, including code fences",
+      "<<<QUESTIONS>>>",
+      '[{"id":"q1","kind":"choice","prompt":"...","options":["..."],"answer":"...","explanation":"..."}]',
     ]
       .filter(Boolean)
       .join("\n\n"),
   });
 
-  const questions = parseQuestions(content.questions);
-  const markdown = asString(content.markdown).trim();
-  if (!markdown) throw new Error("Lesson had no markdown");
+  const parsed = parseLessonPayload(raw, title);
+  if (!parsed.markdown) throw new Error("Lesson had no markdown");
 
   const lesson: GeneratedLesson = {
     destinationId: dest.id,
     headlineId: params.headlineId,
-    title: asString(content.title).trim() || title,
-    markdown,
-    questions,
+    title: parsed.title || title,
+    markdown: parsed.markdown,
+    questions: parsed.questions,
     sources,
     generatedAt: new Date().toISOString(),
   };
@@ -136,7 +150,7 @@ export async function generateLesson(params: {
       id: `lesson-${dest.id}-${params.headlineId}`,
       kind: "lesson",
       title: `${dest.title}: ${lesson.title}`,
-      text: `${lesson.title}. ${stripMarkdown(markdown).slice(0, 2500)}`,
+      text: `${lesson.title}. ${stripMarkdown(lesson.markdown).slice(0, 2500)}`,
     },
   ]);
   invalidateRagCorpus();
@@ -161,8 +175,9 @@ export async function explainSelection(params: {
   const sources = await retrieveForQuery(query, 6);
   const ragContext = formatRagContext(sources);
 
-  const content = await chatJson({
+  const raw = await completeModel({
     temperature: 0.4,
+    preferJson: false,
     user: [
       `Headline: ${params.headlineTitle ?? params.headlineId} (${dest.title})`,
       `Highlighted passage:\n"""${selection.slice(0, 2000)}"""`,
@@ -171,13 +186,15 @@ export async function explainSelection(params: {
       ragContext || "(none)",
       "Explain this passage more deeply for a rusty senior engineer.",
       "Go one level down: mechanism, a tiny example, the interview trap, and one follow-up question.",
-      'Return {"markdown":"..."}  (400–700 words, GFM markdown)',
+      "Output format — do not wrap in JSON:",
+      "<<<MARKDOWN>>>",
+      "400–700 words of GFM markdown",
     ]
       .filter(Boolean)
       .join("\n\n"),
   });
 
-  const markdown = asString(content.markdown).trim();
+  const markdown = parseExplainPayload(raw);
   if (!markdown) throw new Error("Empty explanation");
   return { markdown, sources };
 }
@@ -187,18 +204,78 @@ export function ingestStudioChunks(chunks: RagChunk[]) {
   invalidateRagCorpus();
 }
 
-async function chatJson(params: { user: string; temperature: number }): Promise<Record<string, unknown>> {
+function parseLessonPayload(
+  raw: string,
+  fallbackTitle: string
+): { title: string; markdown: string; questions: LessonQuestion[] } {
+  if (hasTaggedLesson(raw)) {
+    return {
+      title: parseTaggedBlock(raw, "TITLE") || fallbackTitle,
+      markdown: parseTaggedBlock(raw, "MARKDOWN"),
+      questions: parseQuestions(parseQuestionsField(parseTaggedBlock(raw, "QUESTIONS"))),
+    };
+  }
+
   try {
-    return await completeJson(params, true);
+    const json = extractJsonObject(raw);
+    return {
+      title: asString(json.title).trim() || fallbackTitle,
+      markdown: asString(json.markdown).trim(),
+      questions: parseQuestions(json.questions),
+    };
   } catch {
-    return completeJson(params, false);
+    const stripped = raw.replace(/^```(?:markdown|md)?\s*/i, "").replace(/```$/, "").trim();
+    if (stripped.length > 40) {
+      return { title: fallbackTitle, markdown: stripped, questions: [] };
+    }
+    throw new Error("Could not parse the generated lesson. Try regenerate.");
   }
 }
 
-async function completeJson(
+function parseExplainPayload(raw: string): string {
+  const tagged = parseTaggedBlock(raw, "MARKDOWN");
+  if (tagged) return tagged;
+  try {
+    return asString(extractJsonObject(raw).markdown).trim();
+  } catch {
+    return raw.replace(/^```(?:markdown|md)?\s*/i, "").replace(/```$/, "").trim();
+  }
+}
+
+function parseQuestionsField(raw: string): unknown {
+  const trimmed = raw.trim();
+  if (!trimmed) return [];
+  try {
+    return extractJsonArray(trimmed);
+  } catch {
+    try {
+      const obj = extractJsonObject(trimmed);
+      return obj.questions ?? [];
+    } catch {
+      return [];
+    }
+  }
+}
+
+async function completeModel(params: {
+  user: string;
+  temperature: number;
+  preferJson: boolean;
+}): Promise<string> {
+  if (params.preferJson) {
+    try {
+      return await completeOnce(params, true);
+    } catch {
+      return completeOnce(params, false);
+    }
+  }
+  return completeOnce(params, false);
+}
+
+async function completeOnce(
   params: { user: string; temperature: number },
   strictJson: boolean
-): Promise<Record<string, unknown>> {
+): Promise<string> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not set");
 
@@ -219,17 +296,21 @@ async function completeJson(
     }),
   });
 
+  const httpText = await response.text();
   if (!response.ok) {
-    const text = await response.text().catch(() => "");
-    throw new Error(`LLM request failed (${response.status}): ${text.slice(0, 300)}`);
+    throw new Error(`LLM request failed (${response.status}): ${httpText.slice(0, 300)}`);
   }
 
-  const data = (await response.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
-  };
-  const raw = data.choices?.[0]?.message?.content?.trim();
+  let data: unknown;
+  try {
+    data = JSON.parse(httpText);
+  } catch {
+    throw new Error(`LLM HTTP body was not JSON: ${httpText.slice(0, 180)}`);
+  }
+
+  const raw = getChatMessageText(data);
   if (!raw) throw new Error("LLM returned an empty response");
-  return extractJsonObject(raw);
+  return raw;
 }
 
 function normalizeDepth(value: string): HeadlineDepth {
@@ -247,7 +328,9 @@ function parseQuestions(value: unknown): LessonQuestion[] {
     const answer = asString(row.answer).trim();
     if (!prompt || !answer) continue;
     const kind = asString(row.kind) === "short" ? "short" : "choice";
-    const options = asStringArray(row.options).map((o) => o.trim()).filter(Boolean);
+    const options = asStringArray(row.options)
+      .map((o) => o.trim())
+      .filter(Boolean);
     questions.push({
       id: asString(row.id).trim() || `q${index + 1}`,
       kind: kind === "choice" && options.length < 2 ? "short" : kind,
