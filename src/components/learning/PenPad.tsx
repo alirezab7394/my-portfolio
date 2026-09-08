@@ -300,8 +300,8 @@ export function PenPad({ destinationId, headlineId, headlineTitle, className }: 
   const drawing = isDrawMode(mode);
 
   return (
-    <div className={cn("flex h-full min-h-[280px] flex-col bg-background", className)}>
-      <div className="flex flex-wrap items-center gap-1.5 border-b px-2 py-1.5">
+    <div className={cn("flex h-full min-h-0 flex-col bg-background", className)}>
+      <div className="flex shrink-0 flex-wrap items-center gap-1.5 border-b px-2 py-1.5">
         <p className="me-auto truncate text-xs text-muted-foreground">
           Notes · {headlineTitle}
           {!ready ? " · loading" : ""}
@@ -421,7 +421,7 @@ export function PenPad({ destinationId, headlineId, headlineTitle, className }: 
         ))}
       </div>
 
-      <p className="border-t px-3 py-1 text-[11px] text-muted-foreground">
+      <p className="shrink-0 border-t px-3 py-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] text-[11px] text-muted-foreground">
         {mode === "type"
           ? "Type freely above. Open a text box or the pen on the page below when you need them."
           : mode === "textbox"

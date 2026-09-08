@@ -11,12 +11,15 @@ interface SelectionToolbarProps {
 }
 
 export function SelectionToolbar({ x, y, onExplain, onBookmark }: SelectionToolbarProps) {
+  const left = typeof window === "undefined" ? x : Math.min(Math.max(x, 132), window.innerWidth - 132);
+  const top = Math.max(12, y - 8);
+
   return (
     <div
       role="toolbar"
       aria-label="Selected text"
       className="fixed z-40 flex -translate-x-1/2 -translate-y-full gap-1 rounded-md border bg-popover p-1 shadow-md"
-      style={{ left: x, top: Math.max(12, y - 8) }}
+      style={{ left, top }}
       onMouseDown={(e) => e.preventDefault()}
     >
       <Button type="button" size="sm" variant="ghost" className="cursor-pointer" onClick={onExplain}>

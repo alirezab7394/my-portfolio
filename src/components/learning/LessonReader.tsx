@@ -89,7 +89,7 @@ export function LessonReader({
   }
 
   return (
-    <article className="min-w-0 max-w-full space-y-6 overflow-x-hidden">
+    <article className="min-w-0 max-w-full space-y-6">
       <header className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <h2 className="break-words text-xl font-semibold tracking-tight">{lesson.title}</h2>

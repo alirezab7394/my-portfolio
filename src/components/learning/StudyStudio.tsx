@@ -20,7 +20,6 @@ import { SelectionToolbar } from "@/components/learning/SelectionToolbar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { STUDY_DESTINATIONS, getDestination } from "@/lib/learning/destinations";
@@ -77,7 +76,8 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   const [explain, setExplain] = useState<ExplainResult | null>(null);
   const [explainSelection, setExplainSelection] = useState("");
   const [inkOpen, setInkOpen] = useState(false);
-  const [isLg, setIsLg] = useState(false);
+  const [isXl, setIsXl] = useState(false);
+  const [topicsOpen, setTopicsOpen] = useState(true);
   const [railExpanded, setRailExpanded] = useState(true);
   const outlineAttempted = useRef(new Set<string>());
 
@@ -109,6 +109,18 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, []);
 
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1280px)");
+    const sync = () => setIsXl(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (activeHeadline && !isXl) setTopicsOpen(false);
+  }, [activeHeadline, isXl]);
+
   const readyIds = useMemo(() => {
     const ids = new Set<string>();
     for (const key of Object.keys(lessonMap)) {
@@ -129,6 +141,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
     setActiveHeadline(null);
     setLessonError(null);
     setSelection(null);
+    setTopicsOpen(true);
   }, []);
 
   async function refreshHeadlines(silent = false) {
@@ -337,27 +350,24 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   }
 
   return (
-    <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden bg-background">
+    <div className="flex h-dvh max-h-dvh min-h-0 min-w-0 flex-col overflow-hidden overscroll-none bg-background">
       <a
         href="#study-main"
         className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:px-3 focus:py-2"
       >
         Skip to lesson
       </a>
-      <header className="sticky top-0 z-20 min-w-0 border-b bg-background/95 backdrop-blur">
-        <div className="mx-auto flex w-full min-w-0 max-w-[1600px] flex-wrap items-center justify-between gap-2 px-3 py-2.5 sm:px-4">
-          <div className="min-w-0 flex-1 basis-40">
-            <h1 className="truncate text-lg font-semibold tracking-tight text-primary">Study Studio</h1>
-            <p className="hidden truncate text-xs text-muted-foreground sm:block">
-              Destinations · headline · lesson · highlight · ink
-            </p>
+      <header className="z-20 min-w-0 shrink-0 border-b bg-background/95 backdrop-blur">
+        <div className="mx-auto flex h-12 w-full min-w-0 max-w-[1600px] items-center justify-between gap-2 px-3 sm:px-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="truncate text-base font-semibold tracking-tight text-primary sm:text-lg">Study Studio</h1>
           </div>
-          <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5 sm:gap-2">
-            <Badge variant={configured ? "default" : "secondary"} className="hidden gap-1 sm:inline-flex">
+          <div className="flex min-w-0 shrink-0 items-center justify-end gap-1 sm:gap-2">
+            <Badge variant={configured ? "default" : "secondary"} className="hidden gap-1 lg:inline-flex">
               {configured ? <Sparkles className="size-3" /> : <Database className="size-3" />}
               {configured ? "RAG + LLM" : configured === false ? "Offline outline" : "Checking"}
             </Badge>
-            <span className="hidden text-xs tabular-nums text-muted-foreground md:inline">
+            <span className="hidden text-xs tabular-nums text-muted-foreground xl:inline">
               {reviewedCount}/{seedTotal} reviewed
             </span>
             <Tabs value={view} onValueChange={(v) => setView(v as View)}>
@@ -384,14 +394,14 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
             </Button>
             <Button type="button" size="sm" variant="ghost" className="cursor-pointer" onClick={handleLogout}>
               <LogOut className="size-4" />
-              Lock
+              <span className="hidden sm:inline">Lock</span>
             </Button>
           </div>
         </div>
       </header>
 
       {view === "saved" ? (
-        <main className="mx-auto w-full min-w-0 max-w-5xl flex-1 overflow-x-hidden px-4 py-5">
+        <main className="mx-auto min-h-0 w-full min-w-0 max-w-5xl flex-1 overflow-y-auto overflow-x-hidden px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
           <BookmarkLibrary
             bookmarks={bookmarks}
             destinations={STUDY_DESTINATIONS}
@@ -400,11 +410,11 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
           />
         </main>
       ) : (
-        <div className="mx-auto flex w-full min-w-0 max-w-[1600px] flex-1 flex-col overflow-x-hidden lg:h-[calc(100vh-3.5rem)] lg:flex-row lg:overflow-hidden">
+        <div className="mx-auto flex min-h-0 w-full min-w-0 max-w-[1600px] flex-1 flex-col overflow-hidden xl:flex-row">
           <aside
             className={cn(
-              "min-w-0 border-b p-2 lg:h-full lg:shrink-0 lg:overflow-hidden lg:border-b-0 lg:border-e lg:transition-[width] lg:duration-200",
-              railExpanded ? "p-3 lg:w-80" : "lg:w-16 lg:p-2"
+              "min-w-0 shrink-0 border-b p-2 xl:h-full xl:overflow-hidden xl:border-b-0 xl:border-e xl:transition-[width] xl:duration-200",
+              railExpanded ? "xl:w-80 xl:p-3" : "xl:w-16 xl:p-2"
             )}
           >
             <DestinationRail
@@ -429,8 +439,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               onRefresh={() => void refreshHeadlines()}
             />
           </aside>
-          {!railExpanded ? (
-          <aside className="min-w-0 border-b p-3 lg:h-full lg:w-72 lg:shrink-0 lg:overflow-hidden lg:border-b-0 lg:border-e">
+          <div className="shrink-0 border-b px-2 py-1 xl:hidden">
             <HeadlineList
               destination={destination}
               headlines={headlines}
@@ -439,57 +448,79 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               readyIds={readyIds}
               loading={headlinesLoading}
               generatingId={generatingId}
+              compact
+              open={topicsOpen}
+              onOpenChange={setTopicsOpen}
               onSelect={(h) => void openHeadline(h)}
               onRefresh={() => void refreshHeadlines()}
             />
-          </aside>
+          </div>
+          {!railExpanded ? (
+            <aside className="hidden min-w-0 border-b p-3 xl:flex xl:h-full xl:w-72 xl:shrink-0 xl:overflow-hidden xl:border-b-0 xl:border-e">
+              <HeadlineList
+                destination={destination}
+                headlines={headlines}
+                activeId={activeHeadline?.id ?? null}
+                progress={progress}
+                readyIds={readyIds}
+                loading={headlinesLoading}
+                generatingId={generatingId}
+                onSelect={(h) => void openHeadline(h)}
+                onRefresh={() => void refreshHeadlines()}
+              />
+            </aside>
           ) : null}
-          <div className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
-            <main id="study-main" className={cn("min-h-0 min-w-0 flex-1", inkOpen && isLg ? "lg:max-h-[58vh]" : "")}>
-              <ScrollArea className="h-full min-w-0">
-                <div className="min-w-0 max-w-full space-y-4 overflow-x-hidden p-4 lg:p-6">
-                  {configured === false ? (
-                    <Alert>
-                      <AlertDescription>
-                        Headlines below are the syllabus you still have to cover. Lesson generation needs{" "}
-                        <code className="rounded bg-muted px-1">OPENAI_API_KEY</code>.
-                      </AlertDescription>
-                    </Alert>
-                  ) : null}
-                  <LessonReader
-                    lesson={lesson}
-                    loading={lessonLoading}
-                    error={lessonError}
-                    bookmarked={lessonBookmarked()}
-                    onBookmarkLesson={saveWholeLesson}
-                    onRegenerate={() => activeHeadline && void openHeadline(activeHeadline, true)}
-                    onSelection={setSelection}
-                  />
-                  {lesson && activeHeadline ? (
-                    <div className="flex flex-wrap gap-2 border-t pt-3">
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant="outline"
-                        className="cursor-pointer"
-                        onClick={() => markStatus(activeHeadline.id, "reviewed")}
-                      >
-                        <CheckCircle2 className="size-4" />
-                        Mark reviewed
-                      </Button>
-                      {!isLg ? (
-                        <Button type="button" size="sm" variant="outline" className="cursor-pointer" onClick={() => setInkOpen(true)}>
-                          <PenLine className="size-4" />
-                          Take notes
-                        </Button>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-              </ScrollArea>
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+            <main
+              id="study-main"
+              className="min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch]"
+            >
+              <div className="min-w-0 max-w-full space-y-4 p-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] xl:p-6">
+                {configured === false ? (
+                  <Alert>
+                    <AlertDescription>
+                      Headlines below are the syllabus you still have to cover. Lesson generation needs{" "}
+                      <code className="rounded bg-muted px-1">OPENAI_API_KEY</code>.
+                    </AlertDescription>
+                  </Alert>
+                ) : null}
+                <LessonReader
+                  lesson={lesson}
+                  loading={lessonLoading}
+                  error={lessonError}
+                  bookmarked={lessonBookmarked()}
+                  onBookmarkLesson={saveWholeLesson}
+                  onRegenerate={() => activeHeadline && void openHeadline(activeHeadline, true)}
+                  onSelection={setSelection}
+                />
+                {lesson && activeHeadline ? (
+                  <div className="flex flex-wrap gap-2 border-t pt-3">
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="cursor-pointer"
+                      onClick={() => markStatus(activeHeadline.id, "reviewed")}
+                    >
+                      <CheckCircle2 className="size-4" />
+                      Mark reviewed
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="cursor-pointer xl:hidden"
+                      onClick={() => setInkOpen(true)}
+                    >
+                      <PenLine className="size-4" />
+                      Take notes
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
             </main>
-            {inkOpen && isLg && activeHeadline ? (
-              <div className="h-[38vh] min-h-[240px] border-t">
+            {inkOpen && isXl && activeHeadline ? (
+              <div className="h-[min(38dvh,20rem)] min-h-[200px] shrink-0 border-t">
                 <PenPad
                   destinationId={destinationId}
                   headlineId={activeHeadline.id}
@@ -528,8 +559,11 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
         }}
       />
 
-      <Sheet open={inkOpen && !isLg} onOpenChange={setInkOpen}>
-        <SheetContent side="bottom" className="h-[85vh] p-0">
+      <Sheet open={inkOpen && !isXl} onOpenChange={setInkOpen}>
+        <SheetContent
+          side="bottom"
+          className="flex h-[min(90dvh,100%)] max-h-dvh flex-col gap-0 overflow-hidden p-0 pb-[env(safe-area-inset-bottom)]"
+        >
           <SheetHeader className="sr-only">
             <SheetTitle>Notes</SheetTitle>
           </SheetHeader>
@@ -538,7 +572,7 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
               destinationId={destinationId}
               headlineId={activeHeadline.id}
               headlineTitle={activeHeadline.title}
-              className="h-full pt-8"
+              className="h-full min-h-0 pt-10"
             />
           ) : (
             <p className="p-6 text-sm text-muted-foreground">Open a headline first.</p>

@@ -2,7 +2,6 @@
 
 import { Bookmark, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { MarkdownContent } from "@/components/learning/MarkdownContent";
 import type { StudyBookmark, StudyDestination } from "@/types/learning";
 
@@ -29,8 +28,7 @@ export function BookmarkLibrary({ bookmarks, destinations, onOpen, onRemove }: B
   const titleFor = (id: string) => destinations.find((d) => d.id === id)?.title ?? id;
 
   return (
-    <ScrollArea className="h-[calc(100vh-8rem)]">
-      <ul className="mx-auto max-w-3xl space-y-3 pb-10">
+    <ul className="mx-auto max-w-3xl space-y-3 pb-10">
         {bookmarks.map((b) => (
           <li key={b.id} className="rounded-lg border bg-card p-4">
             <div className="flex flex-wrap items-start justify-between gap-2">
@@ -61,6 +59,5 @@ export function BookmarkLibrary({ bookmarks, destinations, onOpen, onRemove }: B
           </li>
         ))}
       </ul>
-    </ScrollArea>
   );
 }

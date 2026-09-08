@@ -72,7 +72,20 @@ export function DestinationRail({
   return (
     <TooltipProvider delayDuration={250}>
       <nav aria-label="Destinations" className="flex h-full min-h-0 min-w-0 flex-col">
-        <div className={cn("mb-2 flex items-center", expanded ? "justify-between gap-2 px-1" : "justify-center")}>
+        <ul className="flex min-w-0 gap-1 overflow-x-auto overscroll-x-contain pb-0.5 [-webkit-overflow-scrolling:touch] xl:hidden">
+          {destinations.map((dest) => (
+            <li key={dest.id} className="shrink-0">
+              <DestinationChip
+                dest={dest}
+                progress={progress}
+                active={dest.id === activeId}
+                onSelect={onSelect}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className={cn("mb-2 hidden items-center xl:flex", expanded ? "justify-between gap-2 px-1" : "justify-center")}>
           {expanded ? (
             <p className="truncate text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Destinations
@@ -98,7 +111,7 @@ export function DestinationRail({
             onValueChange={(value) => {
               if (value) onSelect(value);
             }}
-            className="min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden"
+            className="hidden min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden xl:block"
           >
             {destinations.map((dest) => {
               const total = dest.seedHeadlines.length;
@@ -143,7 +156,6 @@ export function DestinationRail({
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="pb-3">
-                    <p className="mb-2 text-xs leading-5 text-muted-foreground">{dest.subtitle}</p>
                     <HeadlineList
                       destination={dest}
                       headlines={headlines}
@@ -162,7 +174,7 @@ export function DestinationRail({
             })}
           </Accordion>
         ) : (
-          <ul className="flex min-h-0 min-w-0 gap-1 overflow-x-auto lg:flex-1 lg:flex-col lg:items-center lg:overflow-y-auto lg:overflow-x-hidden">
+          <ul className="hidden min-h-0 min-w-0 gap-1 overflow-x-auto xl:flex xl:flex-1 xl:flex-col xl:items-center xl:overflow-x-hidden xl:overflow-y-auto">
             {destinations.map((dest) => {
               const total = dest.seedHeadlines.length;
               const reviewed = dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
@@ -206,5 +218,47 @@ export function DestinationRail({
         )}
       </nav>
     </TooltipProvider>
+  );
+}
+
+function DestinationChip({
+  dest,
+  progress,
+  active,
+  onSelect,
+}: {
+  dest: StudyDestination;
+  progress: Record<string, HeadlineProgress>;
+  active: boolean;
+  onSelect: (id: string) => void;
+}) {
+  const total = dest.seedHeadlines.length;
+  const reviewed = dest.seedHeadlines.filter((h) => progress[h.id]?.status === "reviewed").length;
+  const Icon = ICONS[dest.id] ?? Braces;
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(dest.id)}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "flex max-w-[11rem] cursor-pointer items-center gap-1.5 rounded-md px-2 py-1.5 transition-colors duration-200",
+        active ? "bg-primary/10 text-foreground" : "text-foreground/80 hover:bg-muted/70"
+      )}
+    >
+      <span
+        className={cn(
+          "flex size-7 shrink-0 items-center justify-center rounded-md",
+          active ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
+        )}
+      >
+        <Icon className="size-3.5" aria-hidden />
+      </span>
+      <span className="min-w-0 text-start">
+        <span className="block truncate text-xs font-medium">{dest.title}</span>
+        <span className="block text-[10px] tabular-nums text-muted-foreground">
+          {reviewed}/{total}
+        </span>
+      </span>
+    </button>
   );
 }

@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/sheet";
 import { MarkdownContent } from "@/components/learning/MarkdownContent";
 import { SourceList } from "@/components/learning/LessonReader";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { RagSource } from "@/types/learning";
 
@@ -39,12 +38,12 @@ export function ExplainPanel({
 }: ExplainPanelProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="flex w-full flex-col sm:max-w-lg">
-        <SheetHeader>
+      <SheetContent className="flex w-full flex-col gap-0 overflow-hidden sm:max-w-lg">
+        <SheetHeader className="shrink-0">
           <SheetTitle>Explain more</SheetTitle>
           <SheetDescription>RAG-grounded expansion of the highlighted passage.</SheetDescription>
         </SheetHeader>
-        <ScrollArea className="min-h-0 flex-1 px-4">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 [-webkit-overflow-scrolling:touch]">
           <blockquote className="mb-4 border-s-2 border-primary/40 bg-primary/5 px-3 py-2 text-sm">{selection}</blockquote>
           {loading ? (
             <div className="space-y-2">
@@ -62,8 +61,8 @@ export function ExplainPanel({
               {sources.length > 0 ? <div className="mt-4"><SourceList sources={sources} /></div> : null}
             </>
           ) : null}
-        </ScrollArea>
-        <SheetFooter>
+        </div>
+        <SheetFooter className="shrink-0">
           <Button type="button" className="cursor-pointer" disabled={!markdown} onClick={onBookmark}>
             <Bookmark className="size-4" />
             Save passage + explanation

@@ -66,7 +66,7 @@ export function MarkdownContent({
   className?: string;
 }) {
   return (
-    <div className={cn("study-md min-w-0 max-w-full overflow-x-hidden", className)}>
+    <div className={cn("study-md min-w-0 max-w-full overflow-x-auto", className)}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {markdown}
       </ReactMarkdown>
