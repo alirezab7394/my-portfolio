@@ -2,8 +2,9 @@ import type { HeadlineProgress, StudyDestination, StudyHeadline } from "@/types/
 
 export const LEARNER_PROFILE = [
   "Alireza Bagheri — 8+ years shipping production apps (React, Next.js, TypeScript, NestJS, Prisma, Postgres).",
-  "M.Sc. AI. Goal: senior software engineer interviews (frontend + backend + AI).",
-  "Rusty on interview fundamentals; strong on shipping. Persian native, interviews in English.",
+  "M.Sc. AI. Goal: software engineer and AI engineer interviews, senior level.",
+  "Strong at shipping, rusty on saying fundamentals out loud. Persian native, interviews in English.",
+  "Forgets long answers under pressure. Needs a short cue, one first sentence, then three lines he can rebuild from.",
   "Real systems: Skedpal (frontend lead), NextTarget, Javi English, AzarTime.",
 ].join(" ");
 
@@ -118,8 +119,28 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
     ],
   },
   {
-    id: "systems",
+    id: "prod-eng",
     order: 6,
+    title: "Testing, debugging & production",
+    subtitle: "Find the bug, prove the fix, and know it stayed fixed",
+    goal: "Walk an interviewer through a production bug and the tests and signals that would have caught it.",
+    interviewSignal: "Reproduce, bisect, fix, prevent. Logs, metrics, traces. What you would not test.",
+    ragKeywords: ["testing pyramid", "debugging", "OpenTelemetry", "logs", "metrics", "traces", "code review", "regressions"],
+    seedHeadlines: [
+      { id: "prod-test", title: "What to test, and what a test is actually for", why: "A test locks a behavior you are afraid to break. It is not a coverage number.", depth: "core" },
+      { id: "prod-bug", title: "Debug a production bug out loud", why: "Reproduce it, cut the search in half, fix the cause, then add the check that would have caught it.", depth: "interview" },
+      { id: "prod-obs", title: "Logs, metrics, and traces — which one answers which question", why: "Logs tell you what happened to one request. Metrics tell you it is happening a lot. Traces tell you where time went.", depth: "core" },
+      { id: "prod-review", title: "What you look for in a code review", why: "Correctness, failure modes, and whether the next person can change it. Style is last.", depth: "interview" },
+      { id: "prod-ship", title: "Ship a fix without making a second outage", why: "Small change, a way to turn it off, and a signal you watch after deploy.", depth: "lab" },
+    ],
+    resources: [
+      { title: "Testing Library", url: "https://testing-library.com/docs/react-testing-library/intro/", type: "docs" },
+      { title: "OpenTelemetry", url: "https://opentelemetry.io/docs/", type: "docs" },
+    ],
+  },
+  {
+    id: "systems",
+    order: 7,
     title: "System Design",
     subtitle: "Building blocks, then your own products",
     goal: "Run a 45-minute design: clarify, estimate, sketch, deep-dive, trade-offs.",
@@ -140,14 +161,15 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
   },
   {
     id: "llm",
-    order: 7,
+    order: 8,
     title: "LLM Foundations",
     subtitle: "How the API actually behaves in production",
     goal: "Talk tokens, structured output, cost, and injection like an engineer, not a demo.",
     interviewSignal: "How would you add AI to an existing SaaS — with numbers.",
     ragKeywords: ["tokens", "prompting", "function calling", "structured outputs", "prompt injection", "streaming"],
     seedHeadlines: [
-      { id: "llm-how", title: "How LLMs work at a practical level", why: "Enough transformer intuition to not freeze.", depth: "core" },
+      { id: "llm-how", title: "How LLMs work at a practical level", why: "A model predicts the next token from the context you sent. That is the whole trick.", depth: "core" },
+      { id: "llm-tokens", title: "Tokens, context windows, and why the model forgets", why: "If it is not in the window, the model cannot see it. Longer context costs more and still drops the middle.", depth: "interview" },
       { id: "llm-prompt", title: "System prompts, few-shot, and structured outputs", why: "This is how Javi scoring should be explained.", depth: "core" },
       { id: "llm-tools", title: "Function calling vs JSON mode", why: "Interviewers mix these; separate them cleanly.", depth: "interview" },
       { id: "llm-cost", title: "Streaming, retries, caches, and token budgets", why: "Production AI is cost and latency.", depth: "lab" },
@@ -160,8 +182,29 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
     ],
   },
   {
+    id: "ml-core",
+    order: 9,
+    title: "ML fundamentals for AI engineers",
+    subtitle: "The questions LLM jobs still ask before they ask about agents",
+    goal: "Choose a metric, spot leakage, and say when a model is the wrong tool.",
+    interviewSignal: "Train versus test, precision versus recall, overfitting, and a baseline you can beat.",
+    ragKeywords: ["overfitting", "data leakage", "precision", "recall", "F1", "baseline", "train serve skew", "evaluation"],
+    seedHeadlines: [
+      { id: "ml-split", title: "Train, validation, and test — and how leakage cheats", why: "The test set is the only honest score. If the answer leaked into training, the score is fake.", depth: "core" },
+      { id: "ml-metrics", title: "Accuracy, precision, recall, and which one Javi needs", why: "Accuracy hides a rare failure. Precision is 'when I flag it, am I right?' Recall is 'did I catch the ones that matter?'", depth: "interview" },
+      { id: "ml-fit", title: "Overfitting, underfitting, and the one knob you turn", why: "If training looks great and new data looks bad, the model memorized. Simplify or add data before you add tricks.", depth: "core" },
+      { id: "ml-baseline", title: "Beat a boring baseline before you call it AI", why: "A rules baseline or a constant guess is the number your model has to beat.", depth: "interview" },
+      { id: "ml-when-not", title: "When not to use an LLM", why: "If the task is deterministic, cheap, or must be exact, code or a small model is the senior answer.", depth: "interview" },
+      { id: "ml-serve", title: "Offline score versus what users actually do", why: "A high eval can still fail in production if the live inputs do not look like the test set.", depth: "lab" },
+    ],
+    resources: [
+      { title: "Google — Machine Learning Crash Course", url: "https://developers.google.com/machine-learning/crash-course", type: "course" },
+      { title: "Chip Huyen — AI Engineering", url: "https://huyenchip.com/blog/", type: "article" },
+    ],
+  },
+  {
     id: "rag-dest",
-    order: 8,
+    order: 10,
     title: "Embeddings & RAG",
     subtitle: "Retrieval you can evaluate, not a vector-DB slogan",
     goal: "Design hybrid search, chunking, and a doc-Q&A bot with failure modes.",
@@ -182,7 +225,7 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
   },
   {
     id: "agents",
-    order: 9,
+    order: 11,
     title: "Agents, Evals & Shipping",
     subtitle: "Tool loops you would actually put in production",
     goal: "Describe an agent, an eval set, and one shipped AI change with a metric.",
@@ -202,7 +245,7 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
   },
   {
     id: "dsa",
-    order: 10,
+    order: 12,
     title: "DSA Patterns",
     subtitle: "Pattern fluency, not a 12-week calendar",
     goal: "Recognize the pattern in 2 minutes and implement under a 75-minute clock.",
@@ -224,7 +267,7 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
   },
   {
     id: "interview",
-    order: 11,
+    order: 13,
     title: "Interview English & STAR",
     subtitle: "Say it out loud, then tighten it",
     goal: "Eight STAR stories under two minutes and a 90-second technical recap in English.",
@@ -236,6 +279,7 @@ export const STUDY_DESTINATIONS: StudyDestination[] = [
       { id: "int-star-nexttarget", title: "STAR: shipping NextTarget solo", why: "Ownership and scoping risk.", depth: "interview" },
       { id: "int-star-javi", title: "STAR: Javi AI scoring in production", why: "AI engineering that is not a toy.", depth: "interview" },
       { id: "int-star-azar", title: "STAR: AzarTime commerce ops", why: "Jobs, payments, feeds.", depth: "interview" },
+      { id: "int-blank", title: "What to say when the answer disappears", why: "Say the cue, then the first sentence, then stop and rebuild. Silence feels longer than it is.", depth: "interview" },
       { id: "int-english", title: "90-second English recaps of hard topics", why: "Fluency under pressure is a separate skill.", depth: "lab" },
       { id: "int-resume", title: "Resume bullets with numbers", why: "Every line must earn a follow-up question you want.", depth: "lab" },
     ],
@@ -281,7 +325,8 @@ export function headlinesForDestination(
   headlineMap: Record<string, StudyHeadline[]>
 ): StudyHeadline[] {
   const stored = headlineMap[dest.id];
-  return stored?.length ? stored : dest.seedHeadlines;
+  if (!stored?.length) return dest.seedHeadlines;
+  return mergeHeadlines(dest.seedHeadlines, stored);
 }
 
 export function destinationProgressCounts(

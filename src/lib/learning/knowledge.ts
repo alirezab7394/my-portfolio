@@ -121,6 +121,19 @@ const KNOWLEDGE_CHUNKS: RagChunk[] = [
     text: "Load balancing, sharding, CAP, queues, capacity estimation. Classic designs: URL shortener, rate limiter, notification system, news feed, chat.",
   },
   {
+    id: "k-ml-core",
+    kind: "knowledge",
+    title: "ML fundamentals for AI engineering interviews",
+    url: "https://developers.google.com/machine-learning/crash-course",
+    text: "Train, validation, and test splits. Data leakage makes the test score a lie. Accuracy hides rare failures. Precision: when the model flags something, how often is it right. Recall: of the cases that matter, how many did it catch. Overfitting: great on training data, bad on new data — simplify or add data. Always beat a boring baseline. Do not use an LLM when the task is exact, cheap, or deterministic. Offline eval can disagree with live traffic when inputs shift.",
+  },
+  {
+    id: "k-memory-cues",
+    kind: "knowledge",
+    title: "How to answer when you blank in an interview",
+    text: "Do not try to recite a paragraph. Keep a 2–5 word cue, one first sentence, and three short lines. If the answer disappears: say the cue in your head, speak the first sentence, then rebuild. Silence is fine for a few seconds. 'Give me a second — the core idea is…' is a valid English opener. Practice by hiding the line and saying it out loud before you look.",
+  },
+  {
     id: "k-llm-rag",
     kind: "knowledge",
     title: "LLM, RAG, and agents",

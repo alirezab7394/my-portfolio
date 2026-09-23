@@ -33,7 +33,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
         <span>
           Check {index + 1}
           <span className="ms-2 font-normal text-muted-foreground">
-            {isChoice ? "Choose one" : "Write, then reveal"}
+            {isChoice ? "Choose one" : "Say it out loud, then write"}
           </span>
         </span>
       </p>
@@ -76,7 +76,7 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
           onChange={(e) => setDraft(e.target.value)}
           disabled={revealed}
           rows={3}
-          placeholder="Your answer in interview English…"
+          placeholder="Say the cue, then the first sentence, then type it…"
           aria-label="Short answer"
         />
       )}

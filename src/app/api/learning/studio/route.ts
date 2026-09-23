@@ -47,6 +47,8 @@ const bodySchema = z.discriminatedUnion("action", [
     headlineTitle: z.string().max(240).optional(),
     selection: z.string().min(4).max(2000),
     surrounding: z.string().max(1500).optional(),
+    ease: z.number().int().min(1).max(3).optional(),
+    previous: z.string().max(8000).optional(),
   }),
   z.object({
     action: z.literal("ingest"),
@@ -166,6 +168,8 @@ export async function POST(request: NextRequest) {
       headlineTitle: payload.headlineTitle,
       selection: payload.selection,
       surrounding: payload.surrounding,
+      ease: payload.ease,
+      previous: payload.previous,
     });
     return NextResponse.json({ success: true, ...result });
   } catch (error) {

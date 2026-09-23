@@ -2,9 +2,11 @@
 
 import type { LucideIcon } from "lucide-react";
 import {
+  Activity,
   Binary,
   Bot,
   Braces,
+  Brain,
   Check,
   Component,
   Database,
@@ -31,8 +33,10 @@ const ICONS: Record<string, LucideIcon> = {
   react: Component,
   "node-api": Server,
   data: Database,
+  "prod-eng": Activity,
   systems: Share2,
   llm: Sparkles,
+  "ml-core": Brain,
   "rag-dest": Search,
   agents: Bot,
   dsa: Binary,

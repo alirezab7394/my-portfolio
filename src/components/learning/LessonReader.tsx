@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bookmark, BookmarkCheck, Highlighter, PenLine, RefreshCw } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MarkdownContent } from "@/components/learning/MarkdownContent";
 import { QuestionCard } from "@/components/learning/QuestionCard";
+import { RecallDeck } from "@/components/learning/RecallDeck";
 import { Skeleton } from "@/components/ui/skeleton";
+import { extractRecall, markdownWithoutRecall } from "@/lib/learning/recall";
 import type { GeneratedLesson, RagSource } from "@/types/learning";
 
 export interface LessonSelection {
@@ -37,6 +39,8 @@ export function LessonReader({
   onSelection,
 }: LessonReaderProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
+  const [mode, setMode] = useState<"read" | "recall">("read");
+  const recall = lesson ? extractRecall(lesson.markdown) : null;
 
   useEffect(() => {
     const root = bodyRef.current;
@@ -82,6 +86,10 @@ export function LessonReader({
     };
   }, [lesson, onSelection]);
 
+  useEffect(() => {
+    setMode("read");
+  }, [lesson?.headlineId, lesson?.generatedAt]);
+
   if (loading) {
     return (
       <div className="space-y-3 p-1">
@@ -112,7 +120,7 @@ export function LessonReader({
         <Highlighter className="mb-3 size-8 text-primary" aria-hidden />
         <h2 className="text-base font-semibold">Pick a headline</h2>
         <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-          Content is generated for that topic only — grounded in your RAG notes, then saved to the database.
+          Each lesson is a clear explanation, the production detail, and a few lines you can rebuild if you blank in an interview.
         </p>
       </div>
     );
@@ -124,10 +132,32 @@ export function LessonReader({
         <div className="min-w-0 flex-1">
           <h2 className="break-words text-xl font-semibold tracking-tight">{lesson.title}</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Highlight any sentence to explain more or bookmark it. Sources are listed at the bottom.
+            Highlight a hard sentence and ask to explain more — it gets simpler, with the missing detail. Then practice the cues out loud.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <div className="flex rounded-md border p-0.5" role="group" aria-label="Lesson mode">
+            <Button
+              type="button"
+              size="sm"
+              variant={mode === "read" ? "secondary" : "ghost"}
+              className="cursor-pointer"
+              aria-pressed={mode === "read"}
+              onClick={() => setMode("read")}
+            >
+              Read
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant={mode === "recall" ? "secondary" : "ghost"}
+              className="cursor-pointer"
+              aria-pressed={mode === "recall"}
+              onClick={() => setMode("recall")}
+            >
+              Recall
+            </Button>
+          </div>
           <Button type="button" size="sm" variant="outline" className="cursor-pointer" onClick={onRegenerate}>
             <RefreshCw className="size-3.5" />
             Regenerate
@@ -139,9 +169,21 @@ export function LessonReader({
         </div>
       </header>
 
-      <div ref={bodyRef} data-lesson-body className="select-text">
-        <MarkdownContent markdown={lesson.markdown} />
+      <div ref={bodyRef} data-lesson-body className={mode === "recall" ? "hidden" : "select-text"}>
+        <MarkdownContent markdown={markdownWithoutRecall(lesson.markdown)} />
       </div>
+
+      {mode === "recall" ? (
+        recall ? (
+          <RecallDeck pack={recall} prominent />
+        ) : (
+          <p className="rounded-lg border border-dashed px-4 py-6 text-sm text-muted-foreground">
+            This lesson was generated before the memory cues. Regenerate it to get a first sentence and three lines you can practice.
+          </p>
+        )
+      ) : recall ? (
+        <RecallDeck pack={recall} />
+      ) : null}
 
       {lesson.questions.length > 0 ? (
         <section className="space-y-3">

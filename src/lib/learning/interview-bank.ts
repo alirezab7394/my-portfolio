@@ -252,6 +252,34 @@ export const INTERVIEW_DRILLS: InterviewDrill[] = [
     resourceUrl: "https://nextjs.org/docs/app/building-your-application/rendering",
     resourceTitle: "Next.js rendering",
   },
+  {
+    id: "d-precision-recall",
+    area: "ai",
+    weeks: [8],
+    question: "Javi flags weak IELTS answers for a teacher to review. Why is accuracy a bad metric, and which of precision or recall do you protect?",
+    talkingPoints: [
+      "Most answers are fine, so accuracy stays high even if you miss the weak ones",
+      "Recall: of the weak answers, how many did you catch",
+      "Precision: of the ones you flagged, how many were actually weak",
+      "For a teacher queue, missing a weak answer (recall) and flooding the teacher (precision) are different costs — say which one you chose",
+    ],
+    resourceUrl: "https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall",
+    resourceTitle: "Google — Precision and recall",
+  },
+  {
+    id: "d-blank",
+    area: "english",
+    weeks: [11],
+    question: "You know this topic and the sentence will not come. What do you say in the next five seconds?",
+    talkingPoints: [
+      "Do not apologize for a long time",
+      "Say: Give me a second — the core idea is…",
+      "Speak the cue's first sentence, then the three lines",
+      "If a detail is gone, say which part you are sure about and which part you would check",
+    ],
+    resourceUrl: "https://www.themuse.com/advice/star-interview-method",
+    resourceTitle: "STAR method",
+  },
 ];
 
 export const STAR_STORIES: StarStory[] = [
@@ -303,6 +331,8 @@ export const STAR_STORIES: StarStory[] = [
 ];
 
 export const ENGLISH_CUES = [
+  "Give me a second — the core idea is…",
+  "The three things I would say are…",
   "The trade-off here is X versus Y. I would pick X because…",
   "Let me restate the problem to make sure I understood.",
   "A simpler approach would be… The production approach is… because of scale.",

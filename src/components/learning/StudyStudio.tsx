@@ -79,6 +79,8 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   const [explainError, setExplainError] = useState<string | null>(null);
   const [explain, setExplain] = useState<ExplainResult | null>(null);
   const [explainSelection, setExplainSelection] = useState("");
+  const [explainEase, setExplainEase] = useState(1);
+  const [explainContext, setExplainContext] = useState<{ text: string; surrounding: string } | null>(null);
   const [inkOpen, setInkOpen] = useState(false);
   const [isXl, setIsXl] = useState(false);
   const [topicsOpen, setTopicsOpen] = useState(true);
@@ -370,6 +372,9 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
   async function runExplain() {
     if (!selection || !activeHeadline) return;
     const text = selection.text;
+    const surrounding = selection.surrounding;
+    setExplainContext({ text, surrounding });
+    setExplainEase(1);
     setExplainSelection(text);
     setExplain(null);
     setExplainError(null);
@@ -384,11 +389,38 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
         headlineId: activeHeadline.id,
         headlineTitle: activeHeadline.title,
         selection: text,
-        surrounding: selection.surrounding,
+        surrounding,
+        ease: 1,
       });
       setExplain({ markdown: data.markdown, sources: data.sources as RagSource[] });
     } catch (error) {
       setExplainError(error instanceof Error ? error.message : "Explain failed");
+    } finally {
+      setExplainLoading(false);
+    }
+  }
+
+  async function simplifyExplain() {
+    if (!explainContext || !activeHeadline || explainEase >= 3) return;
+    const nextEase = explainEase + 1;
+    setExplainEase(nextEase);
+    setExplainError(null);
+    setExplainLoading(true);
+    try {
+      const data = await studioPost<ExplainResult>({
+        action: "explain",
+        destinationId,
+        headlineId: activeHeadline.id,
+        headlineTitle: activeHeadline.title,
+        selection: explainContext.text,
+        surrounding: explainContext.surrounding,
+        ease: nextEase,
+        previous: explain?.markdown,
+      });
+      setExplain({ markdown: data.markdown, sources: data.sources as RagSource[] });
+    } catch (error) {
+      setExplainEase((current) => Math.max(1, current - 1));
+      setExplainError(error instanceof Error ? error.message : "Could not simplify");
     } finally {
       setExplainLoading(false);
     }
@@ -616,6 +648,8 @@ export function StudyStudio({ onLogout }: StudyStudioProps) {
         sources={explain?.sources ?? []}
         loading={explainLoading}
         error={explainError}
+        ease={explainEase}
+        onSimplify={() => void simplifyExplain()}
         onBookmark={() => {
           savePassage(explainSelection, explain?.markdown);
           setExplainOpen(false);
