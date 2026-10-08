@@ -4,10 +4,10 @@ export const metadata: Metadata = {
     title: "Alireza Bagheri - Senior Front-End Developer",
     description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
     keywords: "Alireza Bagheri, Senior Front-End Developer, React Developer, Next.js Developer, TypeScript Developer, JavaScript Developer, Frontend Lead, Skedpal, Cowsel, Dopely, TechClass, Full Stack Developer, Web Developer, UI/UX Developer, SSR, SEO Optimization, Performance Optimization, Team Leadership, React Migration, Modern Web Development",
-    authors: [{ name: "Alireza Bagheri", url: "https://alireza-bagheri.top" }],
+    authors: [{ name: "Alireza Bagheri", url: "https://www.alireza-bagheri.top" }],
     creator: "Alireza Bagheri",
     publisher: "Alireza Bagheri",
-    metadataBase: new URL("https://alireza-bagheri.top"),
+    metadataBase: new URL("https://www.alireza-bagheri.top"),
     alternates: {
         canonical: "/",
         languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         type: "website",
         locale: "en_US",
         alternateLocale: "fa_IR",
-        url: "https://alireza-bagheri.top",
+        url: "https://www.alireza-bagheri.top",
         title: "Alireza Bagheri - Senior Front-End Developer",
         description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
         siteName: "Alireza Bagheri - Senior Front-End Developer",

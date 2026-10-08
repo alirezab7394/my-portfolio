@@ -4,8 +4,8 @@ export const personStructuredData = {
     name: "Alireza Bagheri",
     jobTitle: "Senior Front-End Developer",
     description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
-    image: "https://alireza-bagheri.top/avatar.jpg",
-    url: "https://alireza-bagheri.top",
+    image: "https://www.alireza-bagheri.top/avatar.jpg",
+    url: "https://www.alireza-bagheri.top",
     email: "alireza7394@gmail.com",
     telephone: "+98 936 655 4441",
     address: {
@@ -84,7 +84,7 @@ export const websiteStructuredData = {
     "@type": "WebSite",
     name: "Alireza Bagheri - Senior Front-End Developer",
     description: "Senior Front-End Developer with 8+ years of experience specializing in React and Next.js ecosystems. Expert in building scalable applications, implementing SSR solutions, and optimizing SEO performance.",
-    url: "https://alireza-bagheri.top",
+    url: "https://www.alireza-bagheri.top",
     author: {
         "@type": "Person",
         name: "Alireza Bagheri"
@@ -92,7 +92,7 @@ export const websiteStructuredData = {
     inLanguage: ["en", "fa"],
     potentialAction: {
         "@type": "SearchAction",
-        target: "https://alireza-bagheri.top/search?q={search_term_string}",
+        target: "https://www.alireza-bagheri.top/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
     }
 };
@@ -100,10 +100,10 @@ export const websiteStructuredData = {
 export const portfolioStructuredData = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "@id": "https://alireza-bagheri.top#portfolio",
+    "@id": "https://www.alireza-bagheri.top#portfolio",
     name: "Alireza Bagheri - Senior Front-End Developer - Portfolio",
     description: "Professional portfolio showcasing 8+ years of front-end development experience",
-    url: "https://alireza-bagheri.top",
+    url: "https://www.alireza-bagheri.top",
     author: {
         "@type": "Person",
         name: "Alireza Bagheri",

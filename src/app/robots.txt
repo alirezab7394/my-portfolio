@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://alireza-bagheri.top/sitemap.xml
+Sitemap: https://www.alireza-bagheri.top/sitemap.xml
 
 # Disallow certain paths if needed
 # Disallow: /admin/

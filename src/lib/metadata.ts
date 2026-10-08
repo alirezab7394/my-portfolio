@@ -31,7 +31,7 @@ export const baseMetadata = {
     publisher: "Alireza Bagheri",
     category: "Technology",
     classification: "Portfolio",
-    url: "https://alireza-bagheri.top",
+    url: "https://www.alireza-bagheri.top",
     email: "alireza7394@gmail.com",
     phone: "+98 936 655 4441",
     linkedin: "https://www.linkedin.com/in/alireza-bagheri-a6aaa681/",
