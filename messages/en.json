@@ -1,4 +1,373 @@
 {
+    "TimeEngineered": {
+        "Loader": {
+            "label": "Winding the movement",
+            "flip": "Turning the dial"
+        },
+        "Hud": {
+            "skip": "Skip to content",
+            "home": "Alireza Bagheri — back to the dial",
+            "name": "Alireza Bagheri",
+            "role": "Senior Frontend Developer",
+            "nav": "Chapters",
+            "chapters": {
+                "hero": "The Dial",
+                "about": "The Movement",
+                "experience": "Chronograph",
+                "projects": "The Strap",
+                "skills": "Tourbillon",
+                "contact": "Case Back"
+            },
+            "soundOn": "Sound on",
+            "soundOff": "Sound off",
+            "soundToggle": "Toggle tick sound",
+            "language": "Switch to Persian",
+            "exploded": "Skeleton view",
+            "explodedOn": "Skeleton view engaged",
+            "explodedOff": "Movement reassembled"
+        },
+        "Dial": {
+            "brand": "ALIREZA BAGHERI",
+            "motto": "TIME, ENGINEERED",
+            "city": "TABRIZ",
+            "since": "SINCE 2018",
+            "engraving": [
+                "Let's build",
+                "something",
+                "that lasts."
+            ],
+            "caseback": [
+                "Time,",
+                "Engineered."
+            ]
+        },
+        "Hero": {
+            "srTitle": "Alireza Bagheri — Senior Frontend Developer",
+            "firstName": "Alireza",
+            "lastName": "Bagheri",
+            "eyebrow": "Senior Frontend Developer",
+            "intro": "Eight years engineering fast, precise interfaces in React, Next.js and TypeScript — from AI calendars to luxury commerce.",
+            "cta": "Wind the crown",
+            "ctaHint": "Scroll to begin",
+            "localTime": "Your local time",
+            "basedIn": "Based in",
+            "location": "Tabriz · Open to remote"
+        },
+        "About": {
+            "eyebrow": "II — The Movement",
+            "titleA": "Eight years of",
+            "titleB": "precision engineering.",
+            "body": "I build interfaces the way a watchmaker builds a movement: every part sized, finished and tuned to work with the rest. I lead frontend teams, move legacy stacks to React and Next.js, and ship products people use every day — across five countries, mostly remote.",
+            "points": [
+                "Frontend lead at SkedPal since 2021",
+                "Solo-built Javi English, AzarTime and NextTarget end to end",
+                "Bilingual product thinking — English and Persian, LTR and RTL"
+            ],
+            "statsLabel": "At a glance",
+            "stats": {
+                "years": "Years in production",
+                "projects": "Projects shipped",
+                "performance": "Performance gain from rewrites",
+                "countries": "Countries worked with"
+            }
+        },
+        "Experience": {
+            "eyebrow": "III — Chronograph",
+            "title": "Every role, a complication.",
+            "subtitle": "Six companies, timed to the year. Each one added a mechanism I still use.",
+            "present": "Present",
+            "current": "Current",
+            "items": {
+                "skedpal": {
+                    "role": "Frontend Lead",
+                    "location": "UAE · Remote",
+                    "summary": "AI calendar app with 10k+ users",
+                    "points": [
+                        "Lead a team of 3 on an AI scheduling app used by 10,000+ people",
+                        "Migrated WordPress to Next.js — 30% faster loads and better Core Web Vitals",
+                        "Led the jQuery → React rewrite with a 40% smaller bundle",
+                        "WCAG-compliant dark mode and a custom NLP date parser"
+                    ]
+                },
+                "techclass": {
+                    "role": "Frontend Developer",
+                    "location": "Finland · Remote",
+                    "summary": "Learning platform performance",
+                    "points": [
+                        "Moved CSR to SSR with Next.js — 50% better FCP/LCP",
+                        "SEO work that lifted search rankings"
+                    ]
+                },
+                "dopely": {
+                    "role": "React Developer",
+                    "location": "Canada · Remote",
+                    "summary": "Canvas color tools, 50K+ monthly users",
+                    "points": [
+                        "Built canvas-based color tools for 50K+ monthly users",
+                        "SSR and code splitting — 30% faster pages"
+                    ]
+                },
+                "cowsel": {
+                    "role": "Frontend Lead",
+                    "location": "Azerbaijan",
+                    "summary": "ERP + e-commerce, team of 5",
+                    "points": [
+                        "Led 5 developers building an ERP and e-commerce platform",
+                        "Designed a reusable form builder and calendar components",
+                        "Launched an international Next.js store with i18n",
+                        "35% gain in client operational efficiency"
+                    ]
+                },
+                "opeqe": {
+                    "role": "React Developer",
+                    "location": "USA · Remote",
+                    "summary": "Component systems",
+                    "points": [
+                        "20+ reusable components following atomic design",
+                        "Responsive email templates tested across clients"
+                    ]
+                },
+                "setorg": {
+                    "role": "Full-Stack Developer",
+                    "location": "Iran",
+                    "summary": "Government project",
+                    "points": [
+                        "Delivered a government project: React frontend, Java Spring backend"
+                    ]
+                }
+            }
+        },
+        "Projects": {
+            "eyebrow": "IV — The Strap",
+            "title": "Selected work",
+            "subtitle": "Six products, each a link in the strap. Hover to inspect the movement, open one for the full case study.",
+            "hint": "Keep scrolling to move along the strap",
+            "open": "Open case study: {title}",
+            "openShort": "Case study",
+            "visit": "Visit live site",
+            "stack": "Stack",
+            "metrics": "Metrics",
+            "endTitle": "Built to last.",
+            "endBody": "Have a product that needs this level of finish?",
+            "endCta": "Start a conversation",
+            "items": {
+                "javi": {
+                    "title": "Javi English",
+                    "category": "AI IELTS platform",
+                    "year": "2025",
+                    "role": "Solo developer",
+                    "description": "Multi-sided IELTS and English learning SaaS for students, teachers, parents and language schools — built from scratch and serving real users.",
+                    "metrics": [
+                        {
+                            "value": "25+",
+                            "label": "IELTS question types"
+                        },
+                        {
+                            "value": "4",
+                            "label": "Languages, RTL-ready"
+                        },
+                        {
+                            "value": "AI",
+                            "label": "Scoring & tutoring"
+                        }
+                    ],
+                    "features": [
+                        "25+ IELTS question types across all four skills",
+                        "Multi-role RBAC with school multi-tenancy",
+                        "OpenAI scoring, tutoring and learning paths",
+                        "Domain API migrated to a NestJS monorepo",
+                        "ZarinPal billing, subscriptions and referrals",
+                        "i18n + RTL (en/fa/ar/tr) and Socket.IO chat",
+                        "Whisper-based speaking assessment"
+                    ]
+                },
+                "azartime": {
+                    "title": "AzarTime",
+                    "category": "Persian luxury watch store",
+                    "year": "2025–26",
+                    "role": "Solo developer",
+                    "description": "Full-stack, Persian-first luxury watch store with separate admin and customer portals, local payments and marketplace integrations.",
+                    "metrics": [
+                        {
+                            "value": "RTL",
+                            "label": "Persian-first storefront"
+                        },
+                        {
+                            "value": "2",
+                            "label": "Portals: admin & customer"
+                        },
+                        {
+                            "value": "OTP",
+                            "label": "SMS + Google sign-in"
+                        }
+                    ],
+                    "features": [
+                        "Catalog, cart, checkout and gift/bundle orders",
+                        "ZarinPal payments with a verified flow",
+                        "Admin for products, campaigns, coupons, orders and blog",
+                        "Bulk pricing with audit log and rollback",
+                        "S3 media uploads and a Torob product feed",
+                        "Shamsi dates and abandoned-cart automation"
+                    ]
+                },
+                "skedpal": {
+                    "title": "SkedPal",
+                    "category": "AI calendar app",
+                    "year": "2021–now",
+                    "role": "Frontend lead",
+                    "description": "AI-driven scheduling that turns tasks into a realistic calendar for 10,000+ users worldwide.",
+                    "metrics": [
+                        {
+                            "value": "10k+",
+                            "label": "Users"
+                        },
+                        {
+                            "value": "30%",
+                            "label": "Faster loads"
+                        },
+                        {
+                            "value": "40%",
+                            "label": "Smaller bundle"
+                        }
+                    ],
+                    "features": [
+                        "Led the jQuery → React migration",
+                        "WordPress → Next.js marketing site",
+                        "Custom natural-language date parser",
+                        "WCAG-compliant dark mode",
+                        "Code reviews, mentoring and Agile sprints"
+                    ]
+                },
+                "nexttarget": {
+                    "title": "NextTarget",
+                    "category": "Gym coaching platform",
+                    "year": "2026",
+                    "role": "Solo developer",
+                    "description": "Farsi-first RTL coaching platform for clients, coaches, supervisors and admins — workout programming, health tracking and AI progress analysis.",
+                    "metrics": [
+                        {
+                            "value": "4",
+                            "label": "Role dashboards"
+                        },
+                        {
+                            "value": "RTL",
+                            "label": "Farsi-first"
+                        },
+                        {
+                            "value": "Expo",
+                            "label": "Native app"
+                        }
+                    ],
+                    "features": [
+                        "Four role-based dashboards with NestJS RBAC",
+                        "Interactive SVG muscle-anatomy map",
+                        "Program builder and workout player with rest timer",
+                        "AI progress reports with Farsi narratives",
+                        "Expo React Native app with offline cache",
+                        "Session booking with QR check-in"
+                    ]
+                },
+                "cowsel": {
+                    "title": "Cowsel ERP",
+                    "category": "ERP & e-commerce",
+                    "year": "2019–20",
+                    "role": "Frontend lead, team of 5",
+                    "description": "An ERP system and an international online store, built with a team of five developers.",
+                    "metrics": [
+                        {
+                            "value": "5",
+                            "label": "Developers led"
+                        },
+                        {
+                            "value": "35%",
+                            "label": "Efficiency gain"
+                        },
+                        {
+                            "value": "i18n",
+                            "label": "International store"
+                        }
+                    ],
+                    "features": [
+                        "Dynamic form builder",
+                        "Scheduling and calendar components",
+                        "Next.js SSR storefront with i18n",
+                        "Shared component library"
+                    ]
+                },
+                "dopely": {
+                    "title": "Dopely",
+                    "category": "Canvas color tools",
+                    "year": "2020–21",
+                    "role": "React developer",
+                    "description": "Canvas-powered color tools and palette algorithms for a design platform with 50K+ monthly users.",
+                    "metrics": [
+                        {
+                            "value": "50K+",
+                            "label": "Monthly users"
+                        },
+                        {
+                            "value": "30%",
+                            "label": "Faster pages"
+                        },
+                        {
+                            "value": "Canvas",
+                            "label": "Rendering"
+                        }
+                    ],
+                    "features": [
+                        "Canvas-based palette and gradient tools",
+                        "Color algorithm integration",
+                        "SSR with code splitting"
+                    ]
+                }
+            }
+        },
+        "CaseStudy": {
+            "close": "Close case study",
+            "role": "Role",
+            "year": "Year",
+            "features": "What I built",
+            "stack": "Stack",
+            "metrics": "Outcomes",
+            "visit": "Visit live site"
+        },
+        "Skills": {
+            "eyebrow": "V — Tourbillon",
+            "title": "Tools in perpetual orbit.",
+            "hint": "Hover or focus a skill to see what I built with it.",
+            "builtWith": "Built with it",
+            "thisSite": "This portfolio",
+            "items": {
+                "react": "Eight years of components, hooks and rewrites — including a full jQuery → React migration.",
+                "nextjs": "App Router, SSR and SEO. My default for anything that ships.",
+                "typescript": "Strict types end to end, from API contracts to component props.",
+                "tailwind": "Design systems as utilities: fast, consistent and RTL-aware.",
+                "framer": "Micro-interactions and shared-element transitions — like the ones on this page.",
+                "nestjs": "Modular APIs with RBAC and a monorepo domain layer.",
+                "prisma": "Type-safe data models and migrations across three production apps.",
+                "postgresql": "The relational backbone for subscriptions, orders and learning data.",
+                "redis": "Caching, rate limits and real-time presence.",
+                "testing": "Jest, Vitest and Cypress — unit to end-to-end, so refactors stay safe."
+            }
+        },
+        "Contact": {
+            "eyebrow": "VI — Case Back",
+            "title": "Let's build something that lasts.",
+            "body": "Open to senior frontend roles, team leadership and ambitious freelance work. Based in Tabriz, working remotely across time zones.",
+            "copy": "Copy email",
+            "copied": "Email copied to clipboard",
+            "copyFailed": "Couldn't copy — opening your mail app",
+            "links": "Elsewhere",
+            "github": "GitHub",
+            "linkedin": "LinkedIn",
+            "resume": "Résumé",
+            "form": "Contact form",
+            "footer": "Time, Engineered.",
+            "rights": "© {year} Alireza Bagheri",
+            "made": "Designed and engineered in Tabriz",
+            "hint": "Press T for the skeleton view"
+        }
+    },
     "Index": {
         "title": "Hello, world!"
     },

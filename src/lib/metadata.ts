@@ -41,9 +41,9 @@ export const baseMetadata = {
     specialization: "React and Next.js ecosystems",
     languages: ["English", "Persian"],
     skills: [
-        "React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "SCSS",
-        "Context", "Recoil", "Redux", "Material UI", "Tailwind", "Shadcn",
-        "Prisma", "Firebase", "Firestore", "MongoDB", "Git", "Jest", "Enzyme", "Vitest", "Storybook"
+        "React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion",
+        "NestJS", "Prisma", "PostgreSQL", "Redis", "Jest", "Vitest", "Cypress",
+        "Redux", "Shadcn", "MongoDB", "Git", "Storybook"
     ],
     companies: [
         "Skedpal", "TechClass", "Dopely", "Cowsel", "Azar Amin Azerbaijan", "Opeqe", "Setorg Andishe Iranian"
@@ -174,8 +174,10 @@ export const personStructuredData = {
     url: baseMetadata.url,
     email: baseMetadata.email,
     telephone: baseMetadata.phone,
+    image: `${baseMetadata.url}/avatar.jpg`,
     address: {
         "@type": "PostalAddress",
+        addressLocality: "Tabriz",
         addressCountry: "Iran"
     },
     sameAs: [

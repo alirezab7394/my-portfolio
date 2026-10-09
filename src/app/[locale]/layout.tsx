@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Noto_Sans_Arabic } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Serif, Inter_Tight, JetBrains_Mono, Noto_Naskh_Arabic, Vazirmatn } from "next/font/google";
 import {
   generateMetadata as generatePageMetadata,
   personStructuredData,
@@ -10,24 +10,40 @@ import {
 } from "@/lib/metadata";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Noto Sans Arabic - Beautiful and minimalist Persian/Arabic font from Google Fonts
-const notoSansArabic = Noto_Sans_Arabic({
-  variable: "--font-noto-sans-arabic",
-  subsets: ["arabic"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
-  preload: true,
-  fallback: ["system-ui", "arial"],
+});
+
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Persian faces are only needed on /fa, so they are not preloaded on every page.
+const vazirmatn = Vazirmatn({
+  variable: "--font-vazirmatn",
+  subsets: ["arabic"],
+  display: "swap",
+  preload: false,
+});
+
+const notoNaskh = Noto_Naskh_Arabic({
+  variable: "--font-naskh",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -39,6 +55,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return generatePageMetadata(undefined, undefined, undefined, locale);
 }
 
+export const viewport: Viewport = {
+  themeColor: "#07080A",
+  colorScheme: "dark",
+};
+
 export default async function RootLayout({
   children,
   params,
@@ -48,9 +69,12 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
   const messages = await getMessages();
+  const fontVariables = [instrumentSerif, interTight, jetbrainsMono, vazirmatn, notoNaskh]
+    .map((font) => font.variable)
+    .join(" ");
 
   return (
-    <html lang={locale} dir={locale === "fa" ? "rtl" : "ltr"}>
+    <html lang={locale} dir={locale === "fa" ? "rtl" : "ltr"} className={fontVariables}>
       <head>
         <script
           type="application/ld+json"
@@ -71,8 +95,11 @@ export default async function RootLayout({
           }}
         />
         <meta name="google-site-verification" content="wKB8jP0vdQLw8os7GBLy88_JpHldmC-9zrAD9s91rVI" />
+        <noscript>
+          <style>{`.te-loader{display:none!important}[data-reveal]{transform:none!important;opacity:1!important}.te-static-only{display:block!important}`}</style>
+        </noscript>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${notoSansArabic.variable} antialiased`}>
+      <body className="antialiased">
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
